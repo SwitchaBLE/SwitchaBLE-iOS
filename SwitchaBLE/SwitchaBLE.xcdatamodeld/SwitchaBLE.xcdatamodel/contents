@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3394" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Alarm" representedClassName="Alarm" syncable="YES">
+        <attribute name="isSet" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="alarms" inverseEntity="Device" syncable="YES"/>
+    </entity>
+    <entity name="Device" representedClassName="Device" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="alarms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Alarm" inverseName="device" inverseEntity="Alarm" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Alarm" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Device" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
 </model>

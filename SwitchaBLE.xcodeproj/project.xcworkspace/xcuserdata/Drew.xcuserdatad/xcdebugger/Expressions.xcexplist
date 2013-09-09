@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[KSSRootViewController viewDidLoad]:KSSRootViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self viewControllers]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[KSSAppDelegate application:didFinishLaunchingWithOptions:]:KSSAppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.window.rootViewController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[KSSAlarmsViewController insertAlarm:]:KSSAlarmsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self tableView:self.tableView numberOfRowsInSection:0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[KSSAlarmsViewController viewDidLoad]:KSSAlarmsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "mutableFetchResults[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[KSSAddAlarmViewController saveAlarm:]:KSSAddAlarmViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[NSDate date]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

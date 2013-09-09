@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A3DC45D17DD423B00EECC90 /* KSSAlarmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC45C17DD423A00EECC90 /* KSSAlarmsViewController.m */; };
+		3A3DC46017DD427100EECC90 /* KSSDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC45F17DD427100EECC90 /* KSSDevicesViewController.m */; };
+		3A3DC46317DD46CE00EECC90 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46217DD46CE00EECC90 /* Device.m */; };
+		3A3DC46617DD46CE00EECC90 /* Alarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46517DD46CE00EECC90 /* Alarm.m */; };
+		3A3DC46917DD4E9C00EECC90 /* KSSAddAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */; };
+		3A3DC46C17DD797400EECC90 /* KSSAddAlarmNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46B17DD797400EECC90 /* KSSAddAlarmNavigationController.m */; };
+		3A3DC46F17DD7F9E00EECC90 /* KSSRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46E17DD7F9E00EECC90 /* KSSRootViewController.m */; };
 		3A9498BA17DD31C700F8872F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9498B917DD31C700F8872F /* Foundation.framework */; };
 		3A9498BC17DD31C700F8872F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9498BB17DD31C700F8872F /* CoreGraphics.framework */; };
 		3A9498BE17DD31C700F8872F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9498BD17DD31C700F8872F /* UIKit.framework */; };
@@ -22,6 +29,8 @@
 		3A9498DB17DD31C700F8872F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9498BF17DD31C700F8872F /* CoreData.framework */; };
 		3A9498E317DD31C700F8872F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A9498E117DD31C700F8872F /* InfoPlist.strings */; };
 		3A9498E517DD31C700F8872F /* SwitchaBLETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A9498E417DD31C700F8872F /* SwitchaBLETests.m */; };
+		3A94993417DD385C00F8872F /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A94993217DD385C00F8872F /* Main_iPhone.storyboard */; };
+		3A94993717DD388700F8872F /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A94993517DD388700F8872F /* Main_iPad.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +44,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A3DC45B17DD423A00EECC90 /* KSSAlarmsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSAlarmsViewController.h; sourceTree = "<group>"; };
+		3A3DC45C17DD423A00EECC90 /* KSSAlarmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSAlarmsViewController.m; sourceTree = "<group>"; };
+		3A3DC45E17DD427100EECC90 /* KSSDevicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSDevicesViewController.h; sourceTree = "<group>"; };
+		3A3DC45F17DD427100EECC90 /* KSSDevicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSDevicesViewController.m; sourceTree = "<group>"; };
+		3A3DC46117DD46CE00EECC90 /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		3A3DC46217DD46CE00EECC90 /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
+		3A3DC46417DD46CE00EECC90 /* Alarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alarm.h; sourceTree = "<group>"; };
+		3A3DC46517DD46CE00EECC90 /* Alarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alarm.m; sourceTree = "<group>"; };
+		3A3DC46717DD4E9C00EECC90 /* KSSAddAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSAddAlarmViewController.h; sourceTree = "<group>"; };
+		3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSAddAlarmViewController.m; sourceTree = "<group>"; };
+		3A3DC46A17DD797400EECC90 /* KSSAddAlarmNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSAddAlarmNavigationController.h; sourceTree = "<group>"; };
+		3A3DC46B17DD797400EECC90 /* KSSAddAlarmNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSAddAlarmNavigationController.m; sourceTree = "<group>"; };
+		3A3DC46D17DD7F9E00EECC90 /* KSSRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSRootViewController.h; sourceTree = "<group>"; };
+		3A3DC46E17DD7F9E00EECC90 /* KSSRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSRootViewController.m; sourceTree = "<group>"; };
 		3A9498B617DD31C700F8872F /* SwitchaBLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwitchaBLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A9498B917DD31C700F8872F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A9498BB17DD31C700F8872F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,6 +76,8 @@
 		3A9498E017DD31C700F8872F /* SwitchaBLETests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SwitchaBLETests-Info.plist"; sourceTree = "<group>"; };
 		3A9498E217DD31C700F8872F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3A9498E417DD31C700F8872F /* SwitchaBLETests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchaBLETests.m; sourceTree = "<group>"; };
+		3A94993317DD385C00F8872F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		3A94993617DD388700F8872F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,10 +140,26 @@
 		3A9498C117DD31C700F8872F /* SwitchaBLE */ = {
 			isa = PBXGroup;
 			children = (
-				3A9498CA17DD31C700F8872F /* KSSAppDelegate.h */,
-				3A9498CB17DD31C700F8872F /* KSSAppDelegate.m */,
 				3A9498D017DD31C700F8872F /* Images.xcassets */,
 				3A9498CD17DD31C700F8872F /* SwitchaBLE.xcdatamodeld */,
+				3A3DC46417DD46CE00EECC90 /* Alarm.h */,
+				3A3DC46517DD46CE00EECC90 /* Alarm.m */,
+				3A3DC46117DD46CE00EECC90 /* Device.h */,
+				3A3DC46217DD46CE00EECC90 /* Device.m */,
+				3A9498CA17DD31C700F8872F /* KSSAppDelegate.h */,
+				3A9498CB17DD31C700F8872F /* KSSAppDelegate.m */,
+				3A3DC46D17DD7F9E00EECC90 /* KSSRootViewController.h */,
+				3A3DC46E17DD7F9E00EECC90 /* KSSRootViewController.m */,
+				3A3DC45B17DD423A00EECC90 /* KSSAlarmsViewController.h */,
+				3A3DC45C17DD423A00EECC90 /* KSSAlarmsViewController.m */,
+				3A3DC45E17DD427100EECC90 /* KSSDevicesViewController.h */,
+				3A3DC45F17DD427100EECC90 /* KSSDevicesViewController.m */,
+				3A3DC46717DD4E9C00EECC90 /* KSSAddAlarmViewController.h */,
+				3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */,
+				3A3DC46A17DD797400EECC90 /* KSSAddAlarmNavigationController.h */,
+				3A3DC46B17DD797400EECC90 /* KSSAddAlarmNavigationController.m */,
+				3A94993217DD385C00F8872F /* Main_iPhone.storyboard */,
+				3A94993517DD388700F8872F /* Main_iPad.storyboard */,
 				3A9498C217DD31C700F8872F /* Supporting Files */,
 			);
 			path = SwitchaBLE;
@@ -212,6 +253,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 3A9498AD17DD31C700F8872F;
 			productRefGroup = 3A9498B717DD31C700F8872F /* Products */;
@@ -230,7 +272,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A9498C617DD31C700F8872F /* InfoPlist.strings in Resources */,
+				3A94993717DD388700F8872F /* Main_iPad.storyboard in Resources */,
 				3A9498D117DD31C700F8872F /* Images.xcassets in Resources */,
+				3A94993417DD385C00F8872F /* Main_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +293,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A3DC45D17DD423B00EECC90 /* KSSAlarmsViewController.m in Sources */,
+				3A3DC46617DD46CE00EECC90 /* Alarm.m in Sources */,
+				3A3DC46C17DD797400EECC90 /* KSSAddAlarmNavigationController.m in Sources */,
+				3A3DC46017DD427100EECC90 /* KSSDevicesViewController.m in Sources */,
 				3A9498CC17DD31C700F8872F /* KSSAppDelegate.m in Sources */,
+				3A3DC46917DD4E9C00EECC90 /* KSSAddAlarmViewController.m in Sources */,
+				3A3DC46F17DD7F9E00EECC90 /* KSSRootViewController.m in Sources */,
+				3A3DC46317DD46CE00EECC90 /* Device.m in Sources */,
 				3A9498C817DD31C700F8872F /* main.m in Sources */,
 				3A9498CF17DD31C700F8872F /* SwitchaBLE.xcdatamodeld in Sources */,
 			);
@@ -288,6 +339,22 @@
 				3A9498E217DD31C700F8872F /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3A94993217DD385C00F8872F /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A94993317DD385C00F8872F /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		3A94993517DD388700F8872F /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A94993617DD388700F8872F /* Base */,
+			);
+			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -448,6 +515,7 @@
 				3A9498EA17DD31C700F8872F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3A9498EB17DD31C700F8872F /* Build configuration list for PBXNativeTarget "SwitchaBLETests" */ = {
 			isa = XCConfigurationList;
@@ -456,6 +524,7 @@
 				3A9498ED17DD31C700F8872F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

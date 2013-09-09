@@ -16,10 +16,41 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    
+    //Reschedule past alarms
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Alarm" inManagedObjectContext:self.managedObjectContext];
+    [request setEntity:entity];
+    
+    NSError *error = nil;
+    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    if (mutableFetchResults == nil) {
+        //TODO handle the error.
+    }
+    
+    for (id alarm in mutableFetchResults) {
+        
+        if ([alarm time] < [NSDate date]) {
+            
+            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            
+            NSDateComponents *alarmComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:[alarm time]];
+            NSDateComponents *nowComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:[NSDate date]];
+            
+            [alarmComponents setYear:[nowComponents year]];
+            [alarmComponents setMonth:[nowComponents month]];
+            [alarmComponents setDay:[nowComponents day]];
+            
+            NSDate *newAlarmTime = [calendar dateFromComponents:alarmComponents];
+            if (newAlarmTime < [NSDate date]) {
+                newAlarmTime = [newAlarmTime dateByAddingTimeInterval:60 * 60 * 24 * 1];
+            }
+            
+            [alarm setTime:newAlarmTime];
+        }
+    }
+    
     return YES;
 }
 

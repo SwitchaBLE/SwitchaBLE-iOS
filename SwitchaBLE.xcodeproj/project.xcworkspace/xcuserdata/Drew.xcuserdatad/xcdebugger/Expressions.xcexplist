@@ -3,10 +3,24 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[KSSRootViewController viewDidLoad]:KSSRootViewController.m">
+         contextName = "-[KSSAlarmsViewController viewDidLoad]:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "[self viewControllers]">
+               value = "mutableFetchResults[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__38-[KSSAlarmsViewController viewDidLoad]_block_invoke:KSSAlarmsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[a time]">
+            </PersistentString>
+            <PersistentString
+               value = "[b time]">
+            </PersistentString>
+            <PersistentString
+               value = "[aComponents date]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -19,6 +33,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[KSSEditAlarmViewController viewDidLoad]:KSSEditAlarmViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.alarm">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[KSSAlarmsViewController insertAlarm:]:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -27,10 +49,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[KSSAlarmsViewController viewDidLoad]:KSSAlarmsViewController.m">
+         contextName = "-[KSSRootViewController viewDidLoad]:KSSRootViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "mutableFetchResults[0]">
+               value = "[self viewControllers]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[KSSAlarmsViewController toggleAlarmSet:]:KSSAlarmsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[sender superview]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

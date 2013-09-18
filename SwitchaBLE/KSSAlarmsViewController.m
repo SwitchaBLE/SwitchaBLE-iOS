@@ -9,15 +9,21 @@
 #import "KSSAppDelegate.h"
 #import "KSSAlarmsViewController.h"
 #import "KSSAddAlarmNavigationController.h"
+#import "KSSEditAlarmViewController.h"
+#import "KSSAlarmTableViewCell.h"
+#import "KSSAlarmIsSetSwitch.h"
 #import "Alarm.h"
 
 @interface KSSAlarmsViewController ()
+
+@property (nonatomic, retain) NSDateFormatter *dateFormatter;
 
 @end
 
 @implementation KSSAlarmsViewController
 
 @synthesize alarmsArray;
+@synthesize dateFormatter;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -42,11 +48,17 @@
         [aComponents setYear:[bComponents year]];
         [aComponents setMonth:[bComponents month]];
         [aComponents setDay:[bComponents day]];
+        [aComponents setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]];
+        [bComponents setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]];
         NSDate *aDate = [aComponents date];
         NSDate *bDate = [bComponents date];
         
         return [aDate compare:bDate]; //TODO account for date
     };
+    
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatter setDateStyle:NSDateFormatterNoStyle];
     
     KSSAppDelegate *appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
@@ -90,6 +102,12 @@
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[alarmsArray indexOfObject:alarm] inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
+- (void)editAlarmViewController:(KSSEditAlarmViewController *)controller didFinishEditingAlarm:(Alarm *)alarm {
+    KSSAlarmTableViewCell *cell = (KSSAlarmTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:[alarmsArray indexOfObject:alarm] inSection:0]];
+    [cell timeLabel].text = [dateFormatter stringFromDate:alarm.time];
+    [cell isSetSwitch].on = TRUE;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -107,40 +125,49 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"alarmCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    KSSAlarmTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[KSSAlarmTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
     
-    static NSDateFormatter *dateFormatter = nil;
-    
-    if (dateFormatter == nil) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        [dateFormatter setDateStyle:NSDateFormatterNoStyle];
-    }
+//    static NSDateFormatter *dateFormatter = nil;
+//    
+//    if (dateFormatter == nil) {
+//        dateFormatter = [[NSDateFormatter alloc] init];
+//        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+//        [dateFormatter setDateStyle:NSDateFormatterNoStyle];
+//    }
     
     Alarm *alarm = (Alarm *)[alarmsArray objectAtIndex:indexPath.row];
     
-    UILabel *timeLabel = (UILabel *)[cell.contentView viewWithTag:100];
-    UISwitch *isSetSwitch = (UISwitch *)[cell.contentView viewWithTag:200];
+    [cell timeLabel].text = [dateFormatter stringFromDate:alarm.time];
+    [cell setAlarm:alarm];
     
-    timeLabel.text = [dateFormatter stringFromDate:alarm.time];
-    [isSetSwitch setOn:[alarm.isSet boolValue]];
-    
-    //cell.textLabel.text = [dateFormatter stringFromDate:alarm.time];
-    //[cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:32]];
-    //[isSetSwitch setOn:[alarm.isSet boolValue]];
+    [[cell isSetSwitch] setOn:[alarm.isSet boolValue]];
+    [[cell isSetSwitch] setCell:cell];
+    [[cell isSetSwitch] addTarget:self action:@selector(toggleAlarmSet:) forControlEvents:UIControlEventValueChanged];
     
     return cell;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showAddAlarm"]) {
-        [(KSSAddAlarmNavigationController *)segue.destinationViewController setAlarmsViewController:self];
+    if ([segue.identifier isEqualToString:@"showEditAlarm"]) {
+        KSSEditAlarmViewController *controller = segue.destinationViewController;
+        controller.delegate = self;
+        controller.alarm = [alarmsArray objectAtIndex:[self.tableView indexPathForSelectedRow].row];
     }
+}
+
+- (void)toggleAlarmSet:(KSSAlarmIsSetSwitch *)sender {
+    
+    KSSAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    Alarm *alarm = [[sender cell] alarm];
+    [alarm setIsSet:[NSNumber numberWithBool:[sender isOn]]];
+    
+    [delegate saveContext];
+    
 }
 
 /*
@@ -152,19 +179,23 @@
 }
 */
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        KSSAppDelegate *appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+        NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
+        [managedObjectContext deleteObject:[alarmsArray objectAtIndex:[indexPath row]]];
+        [alarmsArray removeObjectAtIndex:[indexPath row]];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [appDelegate saveContext];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
 /*
 // Override to support rearranging the table view.

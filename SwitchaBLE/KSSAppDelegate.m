@@ -51,6 +51,8 @@
         }
     }
     
+    [self saveContext];
+    
     return YES;
 }
 

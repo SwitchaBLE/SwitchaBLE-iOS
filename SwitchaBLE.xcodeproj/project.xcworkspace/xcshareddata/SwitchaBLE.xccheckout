@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>44F7BC34-409D-45E8-BE6D-CF0206D70191</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SwitchaBLE</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0A989414-4181-4435-97C6-953FB3380857</key>
+		<string>https://github.com/andrewbranch/SwitchaBLE-iOS.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SwitchaBLE.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0A989414-4181-4435-97C6-953FB3380857</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/andrewbranch/SwitchaBLE-iOS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0A989414-4181-4435-97C6-953FB3380857</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0A989414-4181-4435-97C6-953FB3380857</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SwitchaBLE</string>
+		</dict>
+	</array>
+</dict>
+</plist>

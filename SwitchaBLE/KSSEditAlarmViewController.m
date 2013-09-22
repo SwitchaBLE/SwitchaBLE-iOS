@@ -67,4 +67,15 @@
     
 }
 
+- (void)deleteAlarm:(id)sender {
+    
+    KSSAppDelegate *appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.managedObjectContext deleteObject:self.alarm];
+    [appDelegate saveContext];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate editAlarmViewController:self didFinishDeletingAlarm:self.alarm];
+    
+}
+
 @end

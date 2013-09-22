@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSAlarmsViewController.m"
-            timestampString = "401170188.186775"
+            timestampString = "401560818.112254"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "-toggleAlarmSet:"
             landmarkType = "5">
          </BreakpointContent>

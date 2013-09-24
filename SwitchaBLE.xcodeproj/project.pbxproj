@@ -34,6 +34,7 @@
 		3AD636A817E6BCB80009E792 /* KSSAlarmTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD636A717E6BCB80009E792 /* KSSAlarmTableViewCell.m */; };
 		3AD636AB17E73E090009E792 /* KSSAlarmIsSetSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD636AA17E73E090009E792 /* KSSAlarmIsSetSwitch.m */; };
 		3AEFC8DA17E9375100092855 /* KSSEditAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFC8D917E9375100092855 /* KSSEditAlarmViewController.m */; };
+		3AFC527A17F0F97D0017BCBC /* KSSAlarmDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFC527917F0F97D0017BCBC /* KSSAlarmDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,8 @@
 		3AD636AA17E73E090009E792 /* KSSAlarmIsSetSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSAlarmIsSetSwitch.m; sourceTree = "<group>"; };
 		3AEFC8D817E9375100092855 /* KSSEditAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSEditAlarmViewController.h; sourceTree = "<group>"; };
 		3AEFC8D917E9375100092855 /* KSSEditAlarmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSEditAlarmViewController.m; sourceTree = "<group>"; };
+		3AFC527817F0F97D0017BCBC /* KSSAlarmDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSAlarmDetailViewController.h; sourceTree = "<group>"; };
+		3AFC527917F0F97D0017BCBC /* KSSAlarmDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSAlarmDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +172,8 @@
 				3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */,
 				3AEFC8D817E9375100092855 /* KSSEditAlarmViewController.h */,
 				3AEFC8D917E9375100092855 /* KSSEditAlarmViewController.m */,
+				3AFC527817F0F97D0017BCBC /* KSSAlarmDetailViewController.h */,
+				3AFC527917F0F97D0017BCBC /* KSSAlarmDetailViewController.m */,
 				3AD636A617E6BCB80009E792 /* KSSAlarmTableViewCell.h */,
 				3AD636A717E6BCB80009E792 /* KSSAlarmTableViewCell.m */,
 				3A3DC46A17DD797400EECC90 /* KSSAddAlarmNavigationController.h */,
@@ -316,6 +321,7 @@
 				3A3DC46C17DD797400EECC90 /* KSSAddAlarmNavigationController.m in Sources */,
 				3AEFC8DA17E9375100092855 /* KSSEditAlarmViewController.m in Sources */,
 				3A3DC46017DD427100EECC90 /* KSSDevicesViewController.m in Sources */,
+				3AFC527A17F0F97D0017BCBC /* KSSAlarmDetailViewController.m in Sources */,
 				3A9498CC17DD31C700F8872F /* KSSAppDelegate.m in Sources */,
 				3A3DC46917DD4E9C00EECC90 /* KSSAddAlarmViewController.m in Sources */,
 				3A3DC46F17DD7F9E00EECC90 /* KSSRootViewController.m in Sources */,

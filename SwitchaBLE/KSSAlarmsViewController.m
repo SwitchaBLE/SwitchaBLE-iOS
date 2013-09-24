@@ -53,7 +53,7 @@
         NSDate *aDate = [aComponents date];
         NSDate *bDate = [bComponents date];
         
-        return [aDate compare:bDate]; //TODO account for date
+        return [aDate compare:bDate];
     };
     
     dateFormatter = [[NSDateFormatter alloc] init];

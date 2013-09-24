@@ -3,14 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[KSSAlarmsViewController viewDidLoad]:KSSAlarmsViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "mutableFetchResults[0]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "__38-[KSSAlarmsViewController viewDidLoad]_block_invoke:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -21,6 +13,14 @@
             </PersistentString>
             <PersistentString
                value = "[aComponents date]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[KSSAlarmsViewController viewDidLoad]:KSSAlarmsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "mutableFetchResults[0]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

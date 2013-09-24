@@ -78,4 +78,14 @@
     
 }
 
+- (void)alarmDetailViewController:(KSSAlarmDetailViewController *)controller didFinishDeletingAlarmBySender:(id)sender {
+    [self deleteAlarm:sender];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"embedEditTableView"]) {
+        [(KSSAlarmDetailViewController *)segue.destinationViewController setDelegate:self];
+    }
+}
+
 @end

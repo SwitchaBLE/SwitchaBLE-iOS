@@ -41,6 +41,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[KSSDeviceDetailsViewController closeView:]:KSSDeviceDetailsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self navigationController]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[KSSAlarmsViewController insertAlarm:]:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString

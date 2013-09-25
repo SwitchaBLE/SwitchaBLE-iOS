@@ -18,6 +18,7 @@
 		3A5E360C17F27E5300988496 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E360B17F27E5300988496 /* CoreBluetooth.framework */; };
 		3A5E360F17F2816C00988496 /* KSSBluetoothController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E360E17F2816C00988496 /* KSSBluetoothController.m */; };
 		3A5E361117F2849600988496 /* SupportedServiceUUIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E361017F2849600988496 /* SupportedServiceUUIDs.plist */; };
+		3A5E361717F3418000988496 /* KSSDeviceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E361617F3418000988496 /* KSSDeviceDetailsViewController.m */; };
 		3A9498BA17DD31C700F8872F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9498B917DD31C700F8872F /* Foundation.framework */; };
 		3A9498BC17DD31C700F8872F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9498BB17DD31C700F8872F /* CoreGraphics.framework */; };
 		3A9498BE17DD31C700F8872F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9498BD17DD31C700F8872F /* UIKit.framework */; };
@@ -72,6 +73,8 @@
 		3A5E360D17F2816C00988496 /* KSSBluetoothController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSBluetoothController.h; sourceTree = "<group>"; };
 		3A5E360E17F2816C00988496 /* KSSBluetoothController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSBluetoothController.m; sourceTree = "<group>"; };
 		3A5E361017F2849600988496 /* SupportedServiceUUIDs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SupportedServiceUUIDs.plist; sourceTree = "<group>"; };
+		3A5E361517F3418000988496 /* KSSDeviceDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSDeviceDetailsViewController.h; sourceTree = "<group>"; };
+		3A5E361617F3418000988496 /* KSSDeviceDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSDeviceDetailsViewController.m; sourceTree = "<group>"; };
 		3A9498B617DD31C700F8872F /* SwitchaBLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwitchaBLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A9498B917DD31C700F8872F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A9498BB17DD31C700F8872F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -129,6 +132,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A5E361217F332FB00988496 /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				3A3DC45E17DD427100EECC90 /* KSSDevicesViewController.h */,
+				3A3DC45F17DD427100EECC90 /* KSSDevicesViewController.m */,
+				3A5E361517F3418000988496 /* KSSDeviceDetailsViewController.h */,
+				3A5E361617F3418000988496 /* KSSDeviceDetailsViewController.m */,
+				3A5E360817F276F300988496 /* KSSDeviceTableViewCell.h */,
+				3A5E360917F276F300988496 /* KSSDeviceTableViewCell.m */,
+			);
+			name = Devices;
+			sourceTree = "<group>";
+		};
+		3A5E361317F3332700988496 /* Alarms */ = {
+			isa = PBXGroup;
+			children = (
+				3A3DC45B17DD423A00EECC90 /* KSSAlarmsViewController.h */,
+				3A3DC45C17DD423A00EECC90 /* KSSAlarmsViewController.m */,
+				3AD636A917E73E090009E792 /* KSSAlarmIsSetSwitch.h */,
+				3AD636AA17E73E090009E792 /* KSSAlarmIsSetSwitch.m */,
+				3A3DC46717DD4E9C00EECC90 /* KSSAddAlarmViewController.h */,
+				3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */,
+				3AEFC8D817E9375100092855 /* KSSEditAlarmViewController.h */,
+				3AEFC8D917E9375100092855 /* KSSEditAlarmViewController.m */,
+				3AFC527817F0F97D0017BCBC /* KSSAlarmDetailViewController.h */,
+				3AFC527917F0F97D0017BCBC /* KSSAlarmDetailViewController.m */,
+				3AD636A617E6BCB80009E792 /* KSSAlarmTableViewCell.h */,
+				3AD636A717E6BCB80009E792 /* KSSAlarmTableViewCell.m */,
+				3A3DC46A17DD797400EECC90 /* KSSAddAlarmNavigationController.h */,
+				3A3DC46B17DD797400EECC90 /* KSSAddAlarmNavigationController.m */,
+			);
+			name = Alarms;
+			sourceTree = "<group>";
+		};
+		3A5E361417F3334B00988496 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3A3DC46417DD46CE00EECC90 /* Alarm.h */,
+				3A3DC46517DD46CE00EECC90 /* Alarm.m */,
+				3A3DC46117DD46CE00EECC90 /* Device.h */,
+				3A3DC46217DD46CE00EECC90 /* Device.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		3A9498AD17DD31C700F8872F = {
 			isa = PBXGroup;
 			children = (
@@ -166,34 +214,15 @@
 			children = (
 				3A9498D017DD31C700F8872F /* Images.xcassets */,
 				3A9498CD17DD31C700F8872F /* SwitchaBLE.xcdatamodeld */,
-				3A3DC46417DD46CE00EECC90 /* Alarm.h */,
-				3A3DC46517DD46CE00EECC90 /* Alarm.m */,
-				3A3DC46117DD46CE00EECC90 /* Device.h */,
-				3A3DC46217DD46CE00EECC90 /* Device.m */,
+				3A5E361417F3334B00988496 /* Models */,
 				3A5E360D17F2816C00988496 /* KSSBluetoothController.h */,
 				3A5E360E17F2816C00988496 /* KSSBluetoothController.m */,
 				3A9498CA17DD31C700F8872F /* KSSAppDelegate.h */,
 				3A9498CB17DD31C700F8872F /* KSSAppDelegate.m */,
 				3A3DC46D17DD7F9E00EECC90 /* KSSRootViewController.h */,
 				3A3DC46E17DD7F9E00EECC90 /* KSSRootViewController.m */,
-				3A3DC45E17DD427100EECC90 /* KSSDevicesViewController.h */,
-				3A3DC45F17DD427100EECC90 /* KSSDevicesViewController.m */,
-				3A5E360817F276F300988496 /* KSSDeviceTableViewCell.h */,
-				3A5E360917F276F300988496 /* KSSDeviceTableViewCell.m */,
-				3A3DC45B17DD423A00EECC90 /* KSSAlarmsViewController.h */,
-				3A3DC45C17DD423A00EECC90 /* KSSAlarmsViewController.m */,
-				3AD636A917E73E090009E792 /* KSSAlarmIsSetSwitch.h */,
-				3AD636AA17E73E090009E792 /* KSSAlarmIsSetSwitch.m */,
-				3A3DC46717DD4E9C00EECC90 /* KSSAddAlarmViewController.h */,
-				3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */,
-				3AEFC8D817E9375100092855 /* KSSEditAlarmViewController.h */,
-				3AEFC8D917E9375100092855 /* KSSEditAlarmViewController.m */,
-				3AFC527817F0F97D0017BCBC /* KSSAlarmDetailViewController.h */,
-				3AFC527917F0F97D0017BCBC /* KSSAlarmDetailViewController.m */,
-				3AD636A617E6BCB80009E792 /* KSSAlarmTableViewCell.h */,
-				3AD636A717E6BCB80009E792 /* KSSAlarmTableViewCell.m */,
-				3A3DC46A17DD797400EECC90 /* KSSAddAlarmNavigationController.h */,
-				3A3DC46B17DD797400EECC90 /* KSSAddAlarmNavigationController.m */,
+				3A5E361317F3332700988496 /* Alarms */,
+				3A5E361217F332FB00988496 /* Devices */,
 				3A94993217DD385C00F8872F /* Main_iPhone.storyboard */,
 				3A94993517DD388700F8872F /* Main_iPad.storyboard */,
 				3A9498C217DD31C700F8872F /* Supporting Files */,
@@ -348,6 +377,7 @@
 				3A3DC46317DD46CE00EECC90 /* Device.m in Sources */,
 				3AD636AB17E73E090009E792 /* KSSAlarmIsSetSwitch.m in Sources */,
 				3AD636A817E6BCB80009E792 /* KSSAlarmTableViewCell.m in Sources */,
+				3A5E361717F3418000988496 /* KSSDeviceDetailsViewController.m in Sources */,
 				3A9498C817DD31C700F8872F /* main.m in Sources */,
 				3A9498CF17DD31C700F8872F /* SwitchaBLE.xcdatamodeld in Sources */,
 			);

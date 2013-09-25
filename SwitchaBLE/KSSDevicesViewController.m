@@ -10,6 +10,7 @@
 #import "KSSDevicesViewController.h"
 #import "KSSAppDelegate.h"
 #import "KSSDeviceTableViewCell.h"
+#import "KSSDeviceDetailsViewController.h"
 #import "Device.h"
 
 @interface KSSDevicesViewController ()
@@ -93,7 +94,7 @@
     //TODO peripheral.device = ...
     
     cell.statusLabel.text = @"Connected";
-    cell.nameLabel.text = @"Test Device";
+    cell.nameLabel.text = cell.peripheral.name;
     
     return cell;
 }
@@ -137,16 +138,14 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    KSSDeviceDetailsViewController *controller = [(UINavigationController *)segue.destinationViewController viewControllers].lastObject;
+    controller.peripheral = [self.peripheralsArray objectAtIndex:[self.tableView indexPathForSelectedRow].row];
 }
-
- */
 
 @end

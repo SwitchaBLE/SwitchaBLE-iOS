@@ -15,6 +15,9 @@
 
 @interface CBPeripheral (KSSDevice)
 @property Device *device;
+@property NSDictionary *advertisementInfo;
+@property NSString *uuid;
+@property NSString *temperature; //TODO remove these
 @end
 
 
@@ -45,6 +48,7 @@
     if (![connectedPeripherals containsObject:peripheral]) {
         [self.manager stopScan];
         [connectedPeripherals addObject:peripheral];
+        //peripheral.advertisementInfo = advertisementData;
         [self.manager connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES}];
         [self.manager scanForPeripheralsWithServices:self.supportedServices options:nil];
     }
@@ -74,7 +78,11 @@
         //[self cleanup];
         return;
     }
-    
+    for (CBService *service in peripheral.services) {
+        if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180A"]]) { //Device Information
+            
+        }
+    }
 }
 
 - (void)refreshPeripheralListCompletion:(KSSBluetoothRefreshedResult)completion {

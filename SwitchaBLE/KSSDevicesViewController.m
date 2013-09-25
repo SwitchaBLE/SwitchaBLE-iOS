@@ -6,20 +6,28 @@
 //  Copyright (c) 2013 Killascopes. All rights reserved.
 //
 
+#import <CoreBluetooth/CoreBluetooth.h>
 #import "KSSDevicesViewController.h"
+#import "KSSAppDelegate.h"
+#import "KSSDeviceTableViewCell.h"
 #import "Device.h"
 
 @interface KSSDevicesViewController ()
+
+@property (weak) KSSAppDelegate *appDelegate;
 
 @end
 
 @implementation KSSDevicesViewController
 
+@synthesize appDelegate;
+@synthesize peripheralsArray;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -33,6 +41,11 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.devicesViewController = self;
+    peripheralsArray = [[NSMutableArray alloc] init];
+    self.bluetoothController = [[KSSBluetoothController alloc] initWithDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,28 +54,46 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)bluetoothController:(KSSBluetoothController *)controller didConnectToPeripheral:(CBPeripheral *)peripheral {
+    [self.peripheralsArray addObject:peripheral];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[peripheralsArray indexOfObject:peripheral] inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[peripheralsArray indexOfObject:peripheral] inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (void)bluetoothController:(KSSBluetoothController *)controller didDisconnectFromPeripheral:(CBPeripheral *)peripheral {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[peripheralsArray indexOfObject:peripheral] inSection:0];
+    [self.peripheralsArray removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return peripheralsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"deviceCell";
+    KSSDeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[KSSDeviceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
-    // Configure the cell...
+    cell.peripheral = (CBPeripheral *)[peripheralsArray objectAtIndex:indexPath.row];
+    //TODO peripheral.device = ...
+    
+    cell.statusLabel.text = @"Connected";
+    cell.nameLabel.text = @"Test Device";
     
     return cell;
 }

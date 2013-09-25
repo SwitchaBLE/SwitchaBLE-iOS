@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 #import "KSSAlarmsViewController.h"
+#import "KSSDevicesViewController.h"
 
 @interface KSSAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -18,6 +20,7 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property KSSAlarmsViewController *alarmsViewController;
+@property KSSDevicesViewController *devicesViewController;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

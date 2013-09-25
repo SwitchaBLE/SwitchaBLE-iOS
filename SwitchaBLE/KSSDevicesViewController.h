@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KSSBluetoothController.h"
 
-@interface KSSDevicesViewController : UITableViewController
+@interface KSSDevicesViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, KSSBluetoothDelegate>
+
+@property (nonatomic, retain) KSSBluetoothController *bluetoothController;
+@property (nonatomic, retain) NSMutableArray *peripheralsArray;
 
 @end

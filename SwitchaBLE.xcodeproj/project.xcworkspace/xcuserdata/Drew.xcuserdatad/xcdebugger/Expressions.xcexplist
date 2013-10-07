@@ -68,6 +68,9 @@
          contextName = "-[KSSAlarmsViewController toggleAlarmSet:]:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString
+               value = "[self.tableView indexPathForCell:(UITableViewCell *)sender.superview]">
+            </PersistentString>
+            <PersistentString
                value = "[sender superview]">
             </PersistentString>
          </PersistentStrings>

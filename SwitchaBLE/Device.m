@@ -12,6 +12,7 @@
 @implementation Device
 
 @dynamic uuid;
+@dynamic name;
 @dynamic alarms;
 
 @end

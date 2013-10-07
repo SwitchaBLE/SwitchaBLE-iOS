@@ -8,14 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "KSSAlarmsViewController.h"
+@class KSSAddAlarmViewController;
+
+@protocol KSSAddAlarmDelegate <NSObject>
+
+- (void)addAlarmViewController:(KSSAddAlarmViewController *)viewController didSaveAlarm:(Alarm *)alarm;
+
+@end
 
 @interface KSSAddAlarmViewController : UIViewController
 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *cancelButton;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *saveButton;
-//@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
-@property KSSAlarmsViewController *alarmsViewController;
+@property (nonatomic) id <KSSAddAlarmDelegate> delegate;
 
 - (IBAction)cancelAlarm:(id)sender;
 - (IBAction)saveAlarm:(id)sender;

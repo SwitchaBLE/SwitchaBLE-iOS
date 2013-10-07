@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Alarm.h"
-#import "KSSAlarmIsSetSwitch.h"
+//#import "KSSAlarmIsSetSwitch.h"
 
 @class KSSAlarmIsSetSwitch;
 
 @interface KSSAlarmTableViewCell : UITableViewCell
 
 @property (nonatomic, retain) IBOutlet UILabel *timeLabel;
-@property (nonatomic, retain) IBOutlet KSSAlarmIsSetSwitch *isSetSwitch;
+@property (nonatomic, retain) IBOutlet UISwitch *isSetSwitch;
 @property Alarm *alarm;
 
 @end

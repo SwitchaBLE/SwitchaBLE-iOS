@@ -16,7 +16,6 @@
 @interface CBPeripheral (KSSDevice)
 @property Device *device;
 @property NSDictionary *advertisementInfo;
-@property NSString *uuid;
 @property NSString *temperature; //TODO remove these
 @end
 

@@ -8,10 +8,9 @@
 
 #import "KSSAppDelegate.h"
 #import "KSSAlarmsViewController.h"
-#import "KSSAddAlarmNavigationController.h"
 #import "KSSEditAlarmViewController.h"
 #import "KSSAlarmTableViewCell.h"
-#import "KSSAlarmIsSetSwitch.h"
+//#import "KSSAlarmIsSetSwitch.h"
 #import "Alarm.h"
 
 @interface KSSAlarmsViewController ()
@@ -92,7 +91,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertAlarm:(Alarm *)alarm
+- (void)addAlarmViewController:(KSSAddAlarmViewController *)viewController didSaveAlarm:(Alarm *)alarm
 {
     [alarmsArray insertObject:alarm atIndex:0];
     [alarmsArray sortUsingComparator:self.compareTimesIgnoringDates];
@@ -112,6 +111,14 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[alarmsArray indexOfObject:alarm] inSection:0];
     [alarmsArray removeObjectAtIndex:[indexPath row]];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)toggleAlarmSet:(UISwitch *)sender {
+    KSSAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    CGPoint switchPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    Alarm *alarm = [alarmsArray objectAtIndex:[self.tableView indexPathForRowAtPoint:switchPosition].row];
+    [alarm setIsSet:[NSNumber numberWithBool:[sender isOn]]];
+    [appDelegate saveContext];
 }
 
 #pragma mark - Table view data source
@@ -138,42 +145,26 @@
     
     // Configure the cell...
     
-//    static NSDateFormatter *dateFormatter = nil;
-//    
-//    if (dateFormatter == nil) {
-//        dateFormatter = [[NSDateFormatter alloc] init];
-//        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-//        [dateFormatter setDateStyle:NSDateFormatterNoStyle];
-//    }
-    
     Alarm *alarm = (Alarm *)[alarmsArray objectAtIndex:indexPath.row];
     
     [cell timeLabel].text = [dateFormatter stringFromDate:alarm.time];
     [cell setAlarm:alarm];
     
-    [[cell isSetSwitch] setOn:[alarm.isSet boolValue]];
-    [[cell isSetSwitch] setCell:cell];
-    [[cell isSetSwitch] addTarget:self action:@selector(toggleAlarmSet:) forControlEvents:UIControlEventValueChanged];
+    [cell.isSetSwitch setOn:[alarm.isSet boolValue]];
+    [cell.isSetSwitch addTarget:self action:@selector(toggleAlarmSet:) forControlEvents:UIControlEventValueChanged];
     
     return cell;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showEditAlarm"]) {
+    if ([segue.identifier isEqualToString:@"showAddAlarm"]) {
+        KSSAddAlarmViewController *controller = [(UINavigationController *)segue.destinationViewController viewControllers].lastObject;
+        controller.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"showEditAlarm"]) {
         KSSEditAlarmViewController *controller = segue.destinationViewController;
         controller.delegate = self;
         controller.alarm = [alarmsArray objectAtIndex:[self.tableView indexPathForSelectedRow].row];
     }
-}
-
-- (void)toggleAlarmSet:(KSSAlarmIsSetSwitch *)sender {
-    
-    KSSAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    Alarm *alarm = [[sender cell] alarm];
-    [alarm setIsSet:[NSNumber numberWithBool:[sender isOn]]];
-    
-    [delegate saveContext];
-    
 }
 
 /*

@@ -7,12 +7,15 @@
 //
 
 #import "KSSDeviceDetailsViewController.h"
+#import "Device.h"
 
 @interface KSSDeviceDetailsViewController ()
 
 @end
 
 @implementation KSSDeviceDetailsViewController
+
+@synthesize appDelegate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,6 +34,8 @@
         self.nameCell.detailTextLabel.text = self.peripheral.name;
         self.uuidCell.detailTextLabel.text = self.peripheral.identifier.UUIDString;
     }
+    
+    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,6 +46,24 @@
 
 - (void)closeView:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)saveDevice:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Device Name" message:@"Give device a unique nickname?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert textFieldAtIndex:0].text = self.peripheral.name;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        //TODO save device
+        Device *device = [NSEntityDescription insertNewObjectForEntityForName:@"Device" inManagedObjectContext:appDelegate.managedObjectContext];
+        device.uuid = self.peripheral.identifier.UUIDString;
+        device.name = [alertView textFieldAtIndex:0].text;
+        [appDelegate.managedObjectContext insertObject:device];
+        [appDelegate saveContext];
+    }
 }
 
 

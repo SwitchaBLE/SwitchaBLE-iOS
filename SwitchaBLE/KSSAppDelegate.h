@@ -10,6 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "KSSAlarmsViewController.h"
 #import "KSSDevicesViewController.h"
+@class KSSDevicesViewController;
 
 @interface KSSAppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -76,11 +76,7 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:^{
-        if (appDelegate.alarmsViewController) {
-            [appDelegate.alarmsViewController insertAlarm:alarm];
-        } else {
-            //TODO handle error
-        }
+        [self.delegate addAlarmViewController:self didSaveAlarm:alarm];
     }];
 }
 

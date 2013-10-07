@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "KSSBluetoothController.h"
+#import "KSSDeviceDetailsViewController.h"
 
 @interface KSSDevicesViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, KSSBluetoothDelegate>
 

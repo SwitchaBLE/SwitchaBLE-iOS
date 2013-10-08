@@ -20,8 +20,9 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-@property KSSAlarmsViewController *alarmsViewController;
-@property KSSDevicesViewController *devicesViewController;
+@property (nonatomic, retain) KSSBluetoothController *bluetoothController;
+@property KSSAlarmsViewController *alarmsViewController;   // TODO remove these if possible
+@property KSSDevicesViewController *devicesViewController; //
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

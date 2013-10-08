@@ -10,7 +10,7 @@
 #import "Device.h"
 
 @interface KSSDeviceDetailsViewController ()
-
+@property (weak) KSSAppDelegate *appDelegate;
 @end
 
 @implementation KSSDeviceDetailsViewController
@@ -29,13 +29,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
 
     if (self.peripheral) {
         self.nameCell.detailTextLabel.text = self.peripheral.name;
         self.uuidCell.detailTextLabel.text = self.peripheral.identifier.UUIDString;
+        self.temperatureCell.detailTextLabel.text = @"Waiting...";
+        [appDelegate.bluetoothController getTemperatureCharacteristicForPeripheral:self.peripheral deviceDelegate:self];
     }
-    
-    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,6 +65,32 @@
         [appDelegate.managedObjectContext insertObject:device];
         [appDelegate saveContext];
     }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didGetTemperatureCharacteristic:(CBCharacteristic *)characteristic {
+    NSData * updatedValue = characteristic.value;
+    uint8_t* dataPointer = (uint8_t*)[updatedValue bytes];
+    
+    uint8_t flags = dataPointer[0]; dataPointer++;
+    int32_t tempData = (int32_t)CFSwapInt32LittleToHost(*(uint32_t*)dataPointer); dataPointer += 4;
+    int8_t exponent = (int8_t)(tempData >> 24);
+    int32_t mantissa = (int32_t)(tempData & 0x00FFFFFF);
+    
+    if (tempData == 0x007FFFFF) {
+        NSLog(@"Invalid temperature value received");
+        return;
+    }
+    
+    float tempValue = (float)(mantissa*pow(10, exponent));
+    NSString *measurementType;
+    /* measurement type */
+    if (flags & 0x01) {
+        measurementType = @"ºF";
+    } else {
+        measurementType = @"ºC";
+    }
+    
+    self.temperatureCell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f%@", tempValue, measurementType];
 }
 
 

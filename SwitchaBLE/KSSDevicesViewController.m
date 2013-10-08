@@ -14,9 +14,7 @@
 #import "Device.h"
 
 @interface KSSDevicesViewController ()
-
 @property (weak) KSSAppDelegate *appDelegate;
-
 @end
 
 @implementation KSSDevicesViewController
@@ -42,11 +40,11 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+
+    peripheralsArray = [[NSMutableArray alloc] init];
     appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.devicesViewController = self;
-    peripheralsArray = [[NSMutableArray alloc] init];
-    self.bluetoothController = [[KSSBluetoothController alloc] initWithDelegate:self];
+    appDelegate.bluetoothController = [[KSSBluetoothController alloc] initWithDeviceListDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning

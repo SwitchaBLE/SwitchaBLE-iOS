@@ -12,22 +12,26 @@
 typedef void(^KSSBluetoothRefreshedResult)();
 @class KSSBluetoothController;
 
-@protocol KSSBluetoothDelegate <NSObject>
-
+@protocol KSSBluetoothDeviceListDelegate <NSObject>
 - (void)bluetoothController:(KSSBluetoothController *)controller didConnectToPeripheral:(CBPeripheral *)peripheral;
 - (void)bluetoothController:(KSSBluetoothController *)controller didDisconnectFromPeripheral:(CBPeripheral *)peripheral;
+@end
 
+@protocol KSSBluetoothDeviceDelegate <NSObject>
+- (void)peripheral:(CBPeripheral *)peripheral didGetTemperatureCharacteristic:(CBCharacteristic *)characteristic;
 @end
 
 @interface KSSBluetoothController : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 @property (nonatomic, strong) CBCentralManager *manager;
 @property (nonatomic, strong, retain) NSMutableArray *connectedPeripherals;
-@property (nonatomic, weak) id <KSSBluetoothDelegate> delegate;
+@property (nonatomic, weak) id <KSSBluetoothDeviceListDelegate> deviceListDelegate;
+@property (nonatomic, weak) id <KSSBluetoothDeviceDelegate> deviceDelegate;
 @property (readonly) NSArray *supportedServices;
 
-- (KSSBluetoothController *)initWithDelegate:(id)delegate;
+- (KSSBluetoothController *)initWithDeviceListDelegate:(id)delegate;
 - (void)refreshPeripheralListCompletion:(KSSBluetoothRefreshedResult)completion;
+- (void)getTemperatureCharacteristicForPeripheral:(CBPeripheral *)peripheral deviceDelegate:(id)delegate;
 - (void)stopScan;
 
 @end

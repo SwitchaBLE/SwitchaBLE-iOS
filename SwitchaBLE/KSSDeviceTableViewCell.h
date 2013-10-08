@@ -15,6 +15,7 @@
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 @property (nonatomic, retain) IBOutlet UILabel *nameLabel;
 @property (nonatomic, retain) IBOutlet UILabel *statusLabel;
+@property (nonatomic, retain) NSString *temperature; //TODO remove
 @property (nonatomic) CBPeripheral *peripheral;
 
 @end

@@ -24,11 +24,18 @@
 
 @synthesize connectedPeripherals;
 
-- (KSSBluetoothController *)initWithDelegate:(id)delegate {
+- (KSSBluetoothController *)initWithDeviceListDelegate:(id)delegate {
     self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-    self.delegate = delegate;
+    self.deviceListDelegate = delegate;
     connectedPeripherals = [[NSMutableArray alloc] init];
     return self;
+}
+
+- (void)getTemperatureCharacteristicForPeripheral:(CBPeripheral *)peripheral deviceDelegate:(id)delegate {
+    self.deviceDelegate = delegate;
+    if (peripheral) {
+        [peripheral discoverServices:self.supportedServices];
+    }
 }
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
@@ -55,8 +62,7 @@
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     peripheral.delegate = self;
-    [peripheral discoverServices:self.supportedServices];
-    [self.delegate bluetoothController:self didConnectToPeripheral:peripheral];
+    [self.deviceListDelegate bluetoothController:self didConnectToPeripheral:peripheral];
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -68,19 +74,43 @@
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     [connectedPeripherals removeObject:peripheral];
-    [self.delegate bluetoothController:self didDisconnectFromPeripheral:peripheral];
+    [self.deviceListDelegate bluetoothController:self didDisconnectFromPeripheral:peripheral];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
     if (error) {
-        NSLog(@"Error discovering service: %@", [error localizedDescription]);
-        //[self cleanup];
+        NSLog(@"Error discovering services: %@", [error localizedDescription]);
+        //TODO handle error
         return;
     }
     for (CBService *service in peripheral.services) {
-        if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180A"]]) { //Device Information
-            
+        if ([service.UUID isEqual:[CBUUID UUIDWithString:@"1809"]]) { //Health Thermometer
+            [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:@"2A1C"]] forService:service];
         }
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+    if (error) {
+        NSLog(@"Error discovering characteristics: %@", [error localizedDescription]);
+        //TODO handle error
+        return;
+    } else if ([service.UUID isEqual:[CBUUID UUIDWithString:@"1809"]]) {
+        for (CBCharacteristic *characteristic in service.characteristics) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A1C"]]) {
+                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            }
+        }
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if (error) {
+        NSLog(@"Error receiving update of characteristic: %@", [error localizedDescription]);
+        //TODO handle error
+        return;
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A1C"]]) {
+        [self.deviceDelegate peripheral:peripheral didGetTemperatureCharacteristic:characteristic];
     }
 }
 

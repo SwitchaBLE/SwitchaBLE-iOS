@@ -20,7 +20,8 @@
 @implementation KSSDevicesViewController
 
 @synthesize appDelegate;
-@synthesize peripheralsArray;
+@synthesize nearbyArray;
+@synthesize savedArray;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,10 +42,23 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    peripheralsArray = [[NSMutableArray alloc] init];
+    nearbyArray = [[NSMutableArray alloc] init];
     appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.devicesViewController = self;
     appDelegate.bluetoothController = [[KSSBluetoothController alloc] initWithDeviceListDelegate:self];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Device" inManagedObjectContext:appDelegate.managedObjectContext];
+    [request setEntity:entity];
+    
+    NSError *error = nil;
+    savedArray = [NSMutableArray arrayWithArray:[[appDelegate.managedObjectContext executeFetchRequest:request error:&error] mutableCopy]];
+    if (error != nil) {
+        //TODO handle the error.
+    }
+    
+    // TODO display a status indicator while waiting for bluetooth update
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,16 +68,25 @@
 }
 
 - (void)bluetoothController:(KSSBluetoothController *)controller didConnectToPeripheral:(CBPeripheral *)peripheral {
-    [self.peripheralsArray addObject:peripheral];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[peripheralsArray indexOfObject:peripheral] inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[peripheralsArray indexOfObject:peripheral] inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+    Device *device = [[savedArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid==%@", peripheral.identifier.UUIDString]] firstObject];
+    if (device != nil) {
+        device.peripheral = peripheral;
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[savedArray indexOfObject:device] inSection:[self sectionOfArray:savedArray]]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        Device *device = [[Device alloc] init];
+        device.peripheral = peripheral;
+        [nearbyArray addObject:device];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[nearbyArray indexOfObject:peripheral] inSection:[self sectionOfArray:nearbyArray]];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[nearbyArray indexOfObject:peripheral] inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 - (void)bluetoothController:(KSSBluetoothController *)controller didDisconnectFromPeripheral:(CBPeripheral *)peripheral {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[peripheralsArray indexOfObject:peripheral] inSection:0];
-    [self.peripheralsArray removeObjectAtIndex:indexPath.row];
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[peripheralsArray indexOfObject:peripheral] inSection:0];
+//    [self.peripheralsArray removeObjectAtIndex:indexPath.row];
+//    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table view data source
@@ -71,13 +94,24 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    NSInteger sections = 0;
+    sections += (savedArray.count > 0);
+    sections += (nearbyArray.count > 0);
+    return sections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return peripheralsArray.count;
+    return [self arrayForSection:section].count;
+}
+
+- (NSMutableArray *)arrayForSection:(NSInteger)section {
+    return (section == 0 && nearbyArray.count > 0) ? nearbyArray : savedArray;
+}
+
+- (NSInteger)sectionOfArray:(NSMutableArray *)array {
+    return [self arrayForSection:0] == array ? 0 : ([self numberOfSectionsInTableView:self.tableView] > 1 ? 1 : -1);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -88,11 +122,15 @@
         cell = [[KSSDeviceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.peripheral = (CBPeripheral *)[peripheralsArray objectAtIndex:indexPath.row];
-    //TODO peripheral.device = ...
+    cell.device = (Device *)[[self arrayForSection:indexPath.section] objectAtIndex:indexPath.row];
+
+    if (cell.device.peripheral != nil) {
+        cell.statusLabel.text = @"Connected";
+    } else {
+        cell.statusLabel.text = @"Not connected";
+    }
     
-    cell.statusLabel.text = @"Connected";
-    cell.nameLabel.text = cell.peripheral.name;
+    cell.nameLabel.text = cell.device.name != nil ? cell.device.name : cell.device.peripheral.name;
     
     return cell;
 }
@@ -143,7 +181,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     KSSDeviceDetailsViewController *controller = [(UINavigationController *)segue.destinationViewController viewControllers].lastObject;
-    controller.peripheral = [self.peripheralsArray objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    controller.device = (Device *)[[self arrayForSection:self.tableView.indexPathForSelectedRow.section] objectAtIndex:self.tableView.indexPathForSelectedRow.row];
 }
 
 @end

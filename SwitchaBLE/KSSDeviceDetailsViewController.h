@@ -17,7 +17,7 @@
 @property (nonatomic, retain) IBOutlet UITableViewCell *nameCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *uuidCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *temperatureCell;
-@property (nonatomic) CBPeripheral *peripheral;
+@property (nonatomic) Device *device;
 
 - (IBAction)closeView:(id)sender;
 - (IBAction)saveDevice:(id)sender;

@@ -12,6 +12,7 @@
 
 @interface KSSDevicesViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, KSSBluetoothDeviceListDelegate>
 
-@property (nonatomic, retain) NSMutableArray *peripheralsArray;
+@property (nonatomic, retain) NSMutableArray *nearbyArray;
+@property (nonatomic, retain) NSMutableArray *savedArray;
 
 @end

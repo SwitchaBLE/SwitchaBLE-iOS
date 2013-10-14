@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
+#import <CoreBluetooth/CoreBluetooth.h>
 
 @interface Device : NSManagedObject
 
 @property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSSet *alarms;
+@property (nonatomic, retain) CBPeripheral *peripheral;
 
 @end
 

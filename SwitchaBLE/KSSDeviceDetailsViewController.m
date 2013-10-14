@@ -31,11 +31,11 @@
     [super viewDidLoad];
     appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
 
-    if (self.peripheral) {
-        self.nameCell.detailTextLabel.text = self.peripheral.name;
-        self.uuidCell.detailTextLabel.text = self.peripheral.identifier.UUIDString;
+    if (self.device) {
+        self.nameCell.detailTextLabel.text = self.device.name;
+        self.uuidCell.detailTextLabel.text = self.device.peripheral.identifier.UUIDString;
         self.temperatureCell.detailTextLabel.text = @"Waiting...";
-        [appDelegate.bluetoothController getTemperatureCharacteristicForPeripheral:self.peripheral deviceDelegate:self];
+        [appDelegate.bluetoothController getTemperatureCharacteristicForPeripheral:self.device.peripheral deviceDelegate:self];
     }
 }
 
@@ -52,7 +52,7 @@
 - (void)saveDevice:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Device Name" message:@"Give device a unique nickname?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert textFieldAtIndex:0].text = self.peripheral.name;
+    [alert textFieldAtIndex:0].text = self.device.peripheral.name;
     [alert show];
 }
 
@@ -60,7 +60,7 @@
     if (buttonIndex == 1) {
         //TODO save device
         Device *device = [NSEntityDescription insertNewObjectForEntityForName:@"Device" inManagedObjectContext:appDelegate.managedObjectContext];
-        device.uuid = self.peripheral.identifier.UUIDString;
+        device.uuid = self.device.peripheral.identifier.UUIDString;
         device.name = [alertView textFieldAtIndex:0].text;
         [appDelegate.managedObjectContext insertObject:device];
         [appDelegate saveContext];

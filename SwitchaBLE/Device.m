@@ -15,4 +15,6 @@
 @dynamic name;
 @dynamic alarms;
 
+@synthesize peripheral;
+
 @end

@@ -8,6 +8,7 @@
 
 #import "KSSDeviceDetailsViewController.h"
 #import "Device.h"
+#import "KSSAppDelegate.h"
 
 @interface KSSDeviceDetailsViewController ()
 @property (weak) KSSAppDelegate *appDelegate;
@@ -32,8 +33,8 @@
     appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
 
     if (self.device) {
-        self.nameCell.detailTextLabel.text = self.device.name;
-        self.uuidCell.detailTextLabel.text = self.device.peripheral.identifier.UUIDString;
+        self.nameCell.detailTextLabel.text = self.device.name ? : self.device.peripheral.name;
+        self.uuidCell.detailTextLabel.text = self.device.uuid ? : self.device.peripheral.identifier.UUIDString;
         self.temperatureCell.detailTextLabel.text = @"Waiting...";
         [appDelegate.bluetoothController getTemperatureCharacteristicForPeripheral:self.device.peripheral deviceDelegate:self];
     }
@@ -58,12 +59,12 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        //TODO save device
-        Device *device = [NSEntityDescription insertNewObjectForEntityForName:@"Device" inManagedObjectContext:appDelegate.managedObjectContext];
-        device.uuid = self.device.peripheral.identifier.UUIDString;
+        Device *device = (Device *)[NSEntityDescription insertNewObjectForEntityForName:@"Device" inManagedObjectContext:appDelegate.managedObjectContext];
+        device.uuid = self.device.uuid;
         device.name = [alertView textFieldAtIndex:0].text;
-        [appDelegate.managedObjectContext insertObject:device];
         [appDelegate saveContext];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.delegate deviceDetailsViewController:self didFinishSavingDevice:device];
     }
 }
 

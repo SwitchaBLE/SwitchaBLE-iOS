@@ -67,26 +67,76 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)deviceDetailsViewController:(KSSDeviceDetailsViewController *)controller didFinishSavingDevice:(Device *)device {
+    Device *tempDevice = [nearbyArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid=%@", device.uuid]].firstObject;
+    if (tempDevice != nil) {
+        NSIndexPath *sourcePath = [NSIndexPath indexPathForRow:[nearbyArray indexOfObject:tempDevice] inSection:0];
+        NSIndexPath *destinationPath = [NSIndexPath indexPathForRow:0 inSection:1];
+        [nearbyArray removeObject:tempDevice];
+        [savedArray insertObject:device atIndex:0];
+        [self.tableView beginUpdates];
+        [self.tableView moveRowAtIndexPath:sourcePath toIndexPath:destinationPath];
+        if (nearbyArray.count == 0) {
+            [self.tableView insertRowsAtIndexPaths:@[sourcePath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        if (savedArray.count == 1) {
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        [self.tableView endUpdates];
+    }
+}
+
 - (void)bluetoothController:(KSSBluetoothController *)controller didConnectToPeripheral:(CBPeripheral *)peripheral {
     
     Device *device = [[savedArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid==%@", peripheral.identifier.UUIDString]] firstObject];
+    
     if (device != nil) {
         device.peripheral = peripheral;
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[savedArray indexOfObject:device] inSection:[self sectionOfArray:savedArray]]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[savedArray indexOfObject:device] inSection:1];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     } else {
-        Device *device = [[Device alloc] init];
+        Device *device = (Device *)[NSEntityDescription insertNewObjectForEntityForName:@"Device" inManagedObjectContext:appDelegate.tempObjectContext];
         device.peripheral = peripheral;
-        [nearbyArray addObject:device];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[nearbyArray indexOfObject:peripheral] inSection:[self sectionOfArray:nearbyArray]];
+        device.uuid = peripheral.identifier.UUIDString;
+        device.name = peripheral.name;
+        [nearbyArray insertObject:device atIndex:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[nearbyArray indexOfObject:device] inSection:0];
+        [self.tableView beginUpdates];
+        if (nearbyArray.count == 1) {
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
         [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[nearbyArray indexOfObject:peripheral] inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [self.tableView endUpdates];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
 }
 
 - (void)bluetoothController:(KSSBluetoothController *)controller didDisconnectFromPeripheral:(CBPeripheral *)peripheral {
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[peripheralsArray indexOfObject:peripheral] inSection:0];
-//    [self.peripheralsArray removeObjectAtIndex:indexPath.row];
-//    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    Device *device = [[savedArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid==%@", peripheral.identifier.UUIDString]] firstObject];
+    
+    if (device != nil) {
+        device.peripheral = nil;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[savedArray indexOfObject:device] inSection:1];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        
+        device = [[nearbyArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid==%@", peripheral.identifier.UUIDString]] firstObject];
+        
+        if (device != nil) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[nearbyArray indexOfObject:device] inSection:0];
+            [nearbyArray removeObject:device];
+            [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            if (nearbyArray.count == 0) {
+                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            [self.tableView endUpdates];
+        }
+    }
+    
+    
+    
 }
 
 #pragma mark - Table view data source
@@ -94,32 +144,57 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    NSInteger sections = 0;
-    sections += (savedArray.count > 0);
-    sections += (nearbyArray.count > 0);
-    return sections;
+//    NSInteger sections = 0;
+//    sections += (savedArray.count > 0);
+//    sections += (nearbyArray.count > 0);
+//    return sections;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self arrayForSection:section].count;
+    return [self arrayForSection:section].count || 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return section == 0 ? @"NEW DEVICES NEARBY" : @"SAVED DEVICES";
 }
 
 - (NSMutableArray *)arrayForSection:(NSInteger)section {
-    return (section == 0 && nearbyArray.count > 0) ? nearbyArray : savedArray;
+//    return (section == 0 && nearbyArray.count > 0) ? nearbyArray : savedArray;
+    return section == 0 ? nearbyArray : savedArray;
 }
 
 - (NSInteger)sectionOfArray:(NSMutableArray *)array {
     return [self arrayForSection:0] == array ? 0 : ([self numberOfSectionsInTableView:self.tableView] > 1 ? 1 : -1);
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self arrayForSection:indexPath.section].count == 0) {
+        return 60;
+    } else {
+        return 91;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"deviceCell";
-    KSSDeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if ([self arrayForSection:indexPath.section].count == 0) {
+        static NSString *placeholderCellIdentifier = @"placeholderCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:placeholderCellIdentifier forIndexPath:indexPath];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:placeholderCellIdentifier];
+        }
+        ((UILabel *)[cell viewWithTag:100]).text = indexPath.section == 0 ? @"No new devices found" : @"No devices saved";
+        
+        return cell;
+    }
+    
+    static NSString *deviceCellIdentifier = @"deviceCell";
+    KSSDeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:deviceCellIdentifier forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[KSSDeviceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[KSSDeviceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:deviceCellIdentifier];
     }
     
     cell.device = (Device *)[[self arrayForSection:indexPath.section] objectAtIndex:indexPath.row];
@@ -181,7 +256,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     KSSDeviceDetailsViewController *controller = [(UINavigationController *)segue.destinationViewController viewControllers].lastObject;
-    controller.device = (Device *)[[self arrayForSection:self.tableView.indexPathForSelectedRow.section] objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    CGPoint accessoryPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *pathAtPosition = [self.tableView indexPathForRowAtPoint:accessoryPosition];
+    controller.device = (Device *)[[self arrayForSection:pathAtPosition.section] objectAtIndex:pathAtPosition.row];
+    controller.delegate = self;
 }
 
 @end

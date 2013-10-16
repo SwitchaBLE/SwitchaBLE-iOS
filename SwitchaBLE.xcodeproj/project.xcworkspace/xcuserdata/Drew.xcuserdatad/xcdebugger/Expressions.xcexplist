@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[KSSDevicesViewController bluetoothController:didDisconnectFromPeripheral:]:KSSDevicesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "((Device *)nearbyArray.firstObject).uuid">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "__38-[KSSAlarmsViewController viewDidLoad]_block_invoke:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString

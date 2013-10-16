@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "KSSAppDelegate.h"
 #import "KSSBluetoothController.h"
-@class KSSAppDelegate;
+@class Device;
+@class KSSDeviceDetailsViewController;
+
+@protocol KSSDeviceDetailsDelegate <NSObject>
+- (void)deviceDetailsViewController:(KSSDeviceDetailsViewController *)controller didFinishSavingDevice:(Device *)device;
+@end
 
 @interface KSSDeviceDetailsViewController : UITableViewController <UIAlertViewDelegate, KSSBluetoothDeviceDelegate>
 
+@property (nonatomic, weak) id <KSSDeviceDetailsDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UITableViewCell *nameCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *uuidCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *temperatureCell;

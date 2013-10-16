@@ -7,6 +7,7 @@
     </entity>
     <entity name="Device" representedClassName="Device" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="peripheral" optional="YES" transient="YES" syncable="YES"/>
         <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="alarms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Alarm" inverseName="device" inverseEntity="Alarm" syncable="YES"/>
     </entity>

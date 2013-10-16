@@ -11,6 +11,7 @@
 @implementation KSSAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
+@synthesize tempObjectContext = _tempObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
@@ -110,10 +111,20 @@
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     return _managedObjectContext;
+}
+
+- (NSManagedObjectContext *)tempObjectContext {
+    if (_tempObjectContext != nil) {
+        return _tempObjectContext;
+    }
+    
+    _tempObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    [_tempObjectContext setParentContext:self.managedObjectContext];
+    return  _tempObjectContext;
 }
 
 // Returns the managed object model for the application.

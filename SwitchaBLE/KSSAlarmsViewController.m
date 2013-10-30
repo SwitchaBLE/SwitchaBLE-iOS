@@ -14,11 +14,13 @@
 #import "Alarm.h"
 
 @interface KSSAlarmsViewController ()
+@property (nonatomic, retain) KSSAppDelegate *appDelegate;
 @property (nonatomic, retain) NSDateFormatter *dateFormatter;
 @end
 
 @implementation KSSAlarmsViewController
 
+@synthesize appDelegate;
 @synthesize alarmsArray;
 @synthesize dateFormatter;
 
@@ -55,7 +57,7 @@
     
     dateFormatter = [[NSDateFormatter alloc] init];
     
-    KSSAppDelegate *appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
     
     [appDelegate setAlarmsViewController:self];
@@ -95,25 +97,36 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[alarmsArray indexOfObject:alarm] inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+    // Save first for new alarms so an alarm has a UUID
+    [appDelegate saveContext];
+    [appDelegate scheduleAlarm:alarm];
 }
 
 - (void)editAlarmViewController:(KSSEditAlarmViewController *)controller didFinishEditingAlarm:(Alarm *)alarm {
     KSSAlarmTableViewCell *cell = (KSSAlarmTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:[alarmsArray indexOfObject:alarm] inSection:0]];
     [self formatCell:cell withAlarm:alarm];
     [cell isSetSwitch].on = TRUE;
+    
+    [appDelegate scheduleAlarm:alarm];
+    [appDelegate saveContext];
 }
 
 - (void)editAlarmViewController:(KSSEditAlarmViewController *)controller didFinishDeletingAlarm:(Alarm *)alarm {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[alarmsArray indexOfObject:alarm] inSection:0];
     [alarmsArray removeObjectAtIndex:[indexPath row]];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [appDelegate scheduleAlarm:alarm];
+    [appDelegate saveContext];
 }
 
 - (void)toggleAlarmSet:(UISwitch *)sender {
-    KSSAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     CGPoint switchPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     Alarm *alarm = [alarmsArray objectAtIndex:[self.tableView indexPathForRowAtPoint:switchPosition].row];
     [alarm setIsSet:[NSNumber numberWithBool:[sender isOn]]];
+    
+    [appDelegate scheduleAlarm:alarm];
     [appDelegate saveContext];
 }
 
@@ -194,11 +207,11 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        KSSAppDelegate *appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
-        NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-        [managedObjectContext deleteObject:[alarmsArray objectAtIndex:[indexPath row]]];
-        [alarmsArray removeObjectAtIndex:[indexPath row]];
+        Alarm *alarm = [alarmsArray objectAtIndex:[indexPath row]];
+        [appDelegate.managedObjectContext deleteObject:alarm];
+        [alarmsArray removeObject:alarm];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [appDelegate scheduleAlarm:alarm];
         [appDelegate saveContext];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {

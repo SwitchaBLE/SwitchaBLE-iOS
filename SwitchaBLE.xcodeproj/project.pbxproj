@@ -609,7 +609,7 @@
 				3ADDD04A180EDA9C002B51CC /* SwitchaBLE_1.2.xcdatamodel */,
 				3A9498CE17DD31C700F8872F /* SwitchaBLE.xcdatamodel */,
 			);
-			currentVersion = 3A54B11217FC6183004BB445 /* SwitchaBLE_1.1.xcdatamodel */;
+			currentVersion = 3ADDD04A180EDA9C002B51CC /* SwitchaBLE_1.2.xcdatamodel */;
 			path = SwitchaBLE.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

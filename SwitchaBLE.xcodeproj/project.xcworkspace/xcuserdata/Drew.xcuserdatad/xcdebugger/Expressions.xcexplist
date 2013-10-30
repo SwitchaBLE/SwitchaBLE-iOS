@@ -11,6 +11,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "__32-[KSSAppDelegate scheduleAlarm:]_block_invoke:KSSAppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "notification">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "__38-[KSSAlarmsViewController viewDidLoad]_block_invoke:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString

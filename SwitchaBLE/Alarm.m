@@ -14,6 +14,13 @@
 
 @dynamic isSet;
 @dynamic time;
+@dynamic uuid;
 @dynamic device;
+
+- (void)willSave {
+    if (!self.uuid) {
+        self.uuid = [[NSProcessInfo processInfo] globallyUniqueString];
+    }
+}
 
 @end

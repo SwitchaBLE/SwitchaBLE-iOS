@@ -26,6 +26,7 @@
 @property KSSDevicesViewController *devicesViewController; //
 
 - (void)saveContext;
+- (void)scheduleAlarm:(Alarm *)alarm;
 - (NSURL *)applicationDocumentsDirectory;
 
 @end

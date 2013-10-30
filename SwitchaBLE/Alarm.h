@@ -13,8 +13,9 @@
 
 @interface Alarm : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * isSet;
-@property (nonatomic, retain) NSDate * time;
+@property (nonatomic, retain) NSNumber *isSet;
+@property (nonatomic, retain) NSDate *time;
+@property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) Device *device;
 
 @end

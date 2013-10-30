@@ -69,11 +69,6 @@
     
     [alarm setTime:newAlarmTime];
     
-    NSError *saveError = nil;
-    if (![appDelegate.managedObjectContext save:&saveError]) {
-        //TODO handle error
-    }
-    
     [self dismissViewControllerAnimated:YES completion:^{
         [self.delegate addAlarmViewController:self didSaveAlarm:alarm];
     }];

@@ -40,8 +40,6 @@
 
 - (void)saveAlarm:(id)sender {
     
-    KSSAppDelegate *appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
     [self.alarm setTime:[self.datePicker date]];
     [self.alarm setIsSet:@1];
     
@@ -61,8 +59,6 @@
     
     [self.alarm setTime:newAlarmTime];
     
-    [appDelegate saveContext];
-    
     //TODO communicate with device
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -74,7 +70,6 @@
     
     KSSAppDelegate *appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.managedObjectContext deleteObject:self.alarm];
-    [appDelegate saveContext];
     
     [self.navigationController popViewControllerAnimated:YES];
     [self.delegate editAlarmViewController:self didFinishDeletingAlarm:self.alarm];

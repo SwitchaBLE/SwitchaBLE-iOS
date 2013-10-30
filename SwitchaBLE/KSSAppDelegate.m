@@ -49,12 +49,55 @@
             }
             
             [alarm setTime:newAlarmTime];
+            if ([alarm isUpdated]) {
+                [self scheduleAlarm:alarm];
+            }
         }
     }
     
     [self saveContext];
     
     return YES;
+}
+
+- (void)scheduleAlarm:(Alarm *)alarm {
+        
+    NSArray *scheduledNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    NSLog(@"%i", scheduledNotifications.count);
+    UILocalNotification *notification = [scheduledNotifications objectsAtIndexes:[scheduledNotifications indexesOfObjectsPassingTest:^BOOL(UILocalNotification *n, NSUInteger idx, BOOL *stop) {
+        return [[n.userInfo objectForKey:@"alarmUUID"] isEqualToString:alarm.uuid];
+    }]].firstObject;
+    
+    if (![alarm isDeleted] && alarm.isSet) {
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        if (notification) {
+            // Update
+            [[UIApplication sharedApplication] cancelLocalNotification:notification];
+            notification.fireDate = alarm.time;
+            notification.timeZone = [NSTimeZone systemTimeZone];
+            [dateFormatter setDateFormat:@"h:ss a"];
+            notification.alertBody = [NSString stringWithFormat:@"%@ Alarm", [dateFormatter stringFromDate:alarm.time]];
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        } else {
+            // Schedule
+            notification = [[UILocalNotification alloc] init];
+            notification.fireDate = alarm.time;
+            notification.timeZone = [NSTimeZone systemTimeZone];
+            [dateFormatter setDateFormat:@"h:ss a"];
+            notification.alertBody = [NSString stringWithFormat:@"%@ Alarm", [dateFormatter stringFromDate:alarm.time]];
+            notification.alertAction = @"Dismiss";
+            notification.soundName = UILocalNotificationDefaultSoundName;
+            notification.userInfo = @{ @"alarmUUID": alarm.uuid };
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        }
+        
+    } else {
+        // Unschedule
+        if (notification) {
+            [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        }
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

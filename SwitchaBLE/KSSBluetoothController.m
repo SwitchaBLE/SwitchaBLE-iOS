@@ -13,10 +13,35 @@
 @property NSArray *supportedServices;
 @end
 
-@interface CBPeripheral (KSSDevice)
-@property Device *device;
-@property NSDictionary *advertisementInfo;
-@property NSString *temperature; //TODO remove these
+@interface CBPeripheral (SwitchaBLE)
+@property (readonly) CBCharacteristic *lightCharacteristic;
+ - (CBCharacteristic *)lightCharacteristic;
+@end
+
+@implementation CBPeripheral (SwitchaBLE)
+
+- (CBCharacteristic *)lightCharacteristic {
+    
+    NSLog(@"%i services", self.services.count);
+    NSInteger serviceIndex = [self.services indexOfObjectPassingTest:^BOOL(CBService *svc, NSUInteger idx, BOOL *stop) {
+        return [svc.UUID isEqual:[CBUUID UUIDWithString:@"00006D59-1B47-929D-0D37-09FB5CE1C126"]];
+    }];
+    
+    if (serviceIndex != NSNotFound) {
+        CBService *service = [self.services objectAtIndex:serviceIndex];
+        
+        NSInteger characteristicIndex = [service.characteristics indexOfObjectPassingTest:^BOOL(CBCharacteristic *c, NSUInteger idx, BOOL *stop) {
+            return [c.UUID isEqual:[CBUUID UUIDWithString:@"00006D5A-1B47-929D-0D37-09FB5CE1C126"]];
+        }];
+        
+        if (characteristicIndex != NSNotFound) {
+            return [service.characteristics objectAtIndex:characteristicIndex];
+        }
+    }
+    
+    return nil;
+}
+
 @end
 
 
@@ -50,7 +75,7 @@
             [supportedServices addObject:[CBUUID UUIDWithString:service]];
         }];
         self.supportedServices = [NSArray arrayWithArray:supportedServices];
-        [self.manager scanForPeripheralsWithServices:supportedServices options:nil];
+        [self.manager scanForPeripheralsWithServices:nil options:nil];
     }
 }
 
@@ -66,6 +91,7 @@
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     peripheral.delegate = self;
+    [peripheral discoverServices:self.supportedServices];
     [self.deviceListDelegate bluetoothController:self didConnectToPeripheral:peripheral];
 }
 
@@ -87,9 +113,11 @@
         //TODO handle error
         return;
     }
-    for (CBService *service in peripheral.services) {
-        if ([service.UUID isEqual:[CBUUID UUIDWithString:@"1809"]]) { //Health Thermometer
-            [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:@"2A1C"]] forService:service];
+    for (int i = 0; i < peripheral.services.count; i++) {
+        CBService *service = [peripheral.services objectAtIndex:i];
+        NSLog(@"found service");
+        if ([service.UUID isEqual:[CBUUID UUIDWithString:@"00006D59-1B47-929D-0D37-09FB5CE1C126"]]) { // SwitchaBLE Service UUID
+            [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:@"00006D5A-1B47-929D-0D37-09FB5CE1C126"]] forService:service];
         }
     }
 }
@@ -99,10 +127,10 @@
         NSLog(@"Error discovering characteristics: %@", [error localizedDescription]);
         //TODO handle error
         return;
-    } else if ([service.UUID isEqual:[CBUUID UUIDWithString:@"1809"]]) {
+    } else if ([service.UUID isEqual:[CBUUID UUIDWithString:@"00006D59-1B47-929D-0D37-09FB5CE1C126"]]) {
         for (CBCharacteristic *characteristic in service.characteristics) {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A1C"]]) {
-                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"00006D5A-1B47-929D-0D37-09FB5CE1C126"]]) {
+                // Something?
             }
         }
     }
@@ -120,6 +148,21 @@
 
 - (void)refreshPeripheralListCompletion:(KSSBluetoothRefreshedResult)completion {
     
+}
+
+- (void)identifyPeripheral:(CBPeripheral *)peripheral {
+    if (peripheral.lightCharacteristic) {
+        const unsigned char zero[] = { 0x00 };
+        const unsigned char one[] = { 0x01 };
+        
+        [peripheral writeValue:[NSData dataWithBytes:zero length:1] forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
+        sleep(1);
+        [peripheral writeValue:[NSData dataWithBytes:one length:1] forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
+        sleep(1);
+        [peripheral writeValue:[NSData dataWithBytes:zero length:1] forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
+        sleep(1);
+        [peripheral writeValue:[NSData dataWithBytes:one length:1] forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
+    }
 }
 
 - (void)stopScan {

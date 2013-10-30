@@ -32,6 +32,7 @@ typedef void(^KSSBluetoothRefreshedResult)();
 - (KSSBluetoothController *)initWithDeviceListDelegate:(id <KSSBluetoothDeviceListDelegate>)delegate;
 - (void)refreshWithDeviceListDelegate:(id <KSSBluetoothDeviceListDelegate>)delegate;
 - (void)getTemperatureCharacteristicForPeripheral:(CBPeripheral *)peripheral deviceDelegate:(id)delegate;
+- (void)identifyPeripheral:(CBPeripheral *)peripheral;
 - (void)stopScan;
 
 @end

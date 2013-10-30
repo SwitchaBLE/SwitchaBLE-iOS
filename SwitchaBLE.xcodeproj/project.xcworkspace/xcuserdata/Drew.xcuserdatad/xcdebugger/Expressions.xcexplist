@@ -11,14 +11,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__32-[KSSAppDelegate scheduleAlarm:]_block_invoke:KSSAppDelegate.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "notification">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "__38-[KSSAlarmsViewController viewDidLoad]_block_invoke:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -33,10 +25,34 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[KSSDeviceDetailsViewController closeView:]:KSSDeviceDetailsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self navigationController]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[KSSRootViewController viewDidLoad]:KSSRootViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self viewControllers]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[KSSAlarmsViewController viewDidLoad]:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString
                value = "mutableFetchResults[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__32-[KSSAppDelegate scheduleAlarm:]_block_invoke:KSSAppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "notification">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -49,22 +65,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[KSSDeviceDetailsViewController closeView:]:KSSDeviceDetailsViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[self navigationController]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[KSSEditAlarmViewController viewDidLoad]:KSSEditAlarmViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.alarm">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "-[KSSAlarmsViewController insertAlarm:]:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -73,10 +73,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[KSSRootViewController viewDidLoad]:KSSRootViewController.m">
+         contextName = "-[KSSEditAlarmViewController viewDidLoad]:KSSEditAlarmViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "[self viewControllers]">
+               value = "self.alarm">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

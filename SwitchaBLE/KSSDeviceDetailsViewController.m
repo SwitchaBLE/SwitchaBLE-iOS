@@ -42,6 +42,11 @@
         self.saveButton.title = @"Forget";
         self.saveButton.action = @selector(forgetDevice:);
     }
+    
+    if (self.device.peripheral.state != CBPeripheralStateConnected) {
+        self.identifyCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.identifyCell.userInteractionEnabled = self.identifyCell.textLabel.enabled = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,6 +76,17 @@
         [self dismissViewControllerAnimated:YES completion:nil];
         [self.delegate deviceDetailsViewController:self didFinishSavingDevice:device];
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView cellForRowAtIndexPath:indexPath] == self.identifyCell) {
+        [self identify];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
+- (void)identify {
+    [appDelegate.bluetoothController identifyPeripheral:self.device.peripheral];
 }
 
 - (void)forgetDevice:(id)sender {

@@ -24,6 +24,7 @@
 @property (nonatomic, retain) IBOutlet UITableViewCell *nameCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *uuidCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *temperatureCell;
+@property (nonatomic, retain) IBOutlet UITableViewCell *identifyCell;
 @property (nonatomic) Device *device;
 @property (nonatomic) BOOL deviceIsSaved;
 

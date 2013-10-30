@@ -59,8 +59,6 @@
     
     [self.alarm setTime:newAlarmTime];
     
-    //TODO communicate with device
-    
     [self.navigationController popViewControllerAnimated:YES];
     [self.delegate editAlarmViewController:self didFinishEditingAlarm:self.alarm];
     

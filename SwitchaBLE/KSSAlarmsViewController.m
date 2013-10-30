@@ -14,9 +14,7 @@
 #import "Alarm.h"
 
 @interface KSSAlarmsViewController ()
-
 @property (nonatomic, retain) NSDateFormatter *dateFormatter;
-
 @end
 
 @implementation KSSAlarmsViewController
@@ -56,8 +54,6 @@
     };
     
     dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [dateFormatter setDateStyle:NSDateFormatterNoStyle];
     
     KSSAppDelegate *appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
@@ -103,7 +99,7 @@
 
 - (void)editAlarmViewController:(KSSEditAlarmViewController *)controller didFinishEditingAlarm:(Alarm *)alarm {
     KSSAlarmTableViewCell *cell = (KSSAlarmTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:[alarmsArray indexOfObject:alarm] inSection:0]];
-    [cell timeLabel].text = [dateFormatter stringFromDate:alarm.time];
+    [self formatCell:cell withAlarm:alarm];
     [cell isSetSwitch].on = TRUE;
 }
 
@@ -119,6 +115,21 @@
     Alarm *alarm = [alarmsArray objectAtIndex:[self.tableView indexPathForRowAtPoint:switchPosition].row];
     [alarm setIsSet:[NSNumber numberWithBool:[sender isOn]]];
     [appDelegate saveContext];
+}
+
+- (void)formatCell:(KSSAlarmTableViewCell *)cell withAlarm:(Alarm *)alarm {
+    
+    [dateFormatter setDateFormat:@"h:mm"];
+    cell.timeLabel.text = [dateFormatter stringFromDate:alarm.time];
+    [cell.timeLabel sizeToFit];
+    
+    [dateFormatter setDateFormat:@"a"];
+    cell.meridiemLabel.text = [dateFormatter stringFromDate:alarm.time];
+    CGRect meridiemPosition = cell.meridiemLabel.frame;
+    meridiemPosition.origin.x = cell.timeLabel.frame.origin.x + cell.timeLabel.frame.size.width;
+    [cell.meridiemLabel removeFromSuperview];
+    cell.meridiemLabel.frame = meridiemPosition;
+    [cell.contentView addSubview:cell.meridiemLabel];
 }
 
 #pragma mark - Table view data source
@@ -146,9 +157,10 @@
     // Configure the cell...
     
     Alarm *alarm = (Alarm *)[alarmsArray objectAtIndex:indexPath.row];
+    [self formatCell:cell withAlarm:alarm];
     
-    [cell timeLabel].text = [dateFormatter stringFromDate:alarm.time];
-    [cell setAlarm:alarm];
+    cell.alarm = alarm;
+    cell.deviceLabel.text = alarm.device.name ?: @"No device selected";
     
     [cell.isSetSwitch setOn:[alarm.isSet boolValue]];
     [cell.isSetSwitch addTarget:self action:@selector(toggleAlarmSet:) forControlEvents:UIControlEventValueChanged];

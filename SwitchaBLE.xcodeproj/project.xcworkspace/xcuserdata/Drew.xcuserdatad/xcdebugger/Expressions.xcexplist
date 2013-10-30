@@ -3,10 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[KSSDevicesViewController bluetoothController:didDisconnectFromPeripheral:]:KSSDevicesViewController.m">
+         contextName = "-[KSSAddAlarmViewController saveAlarm:]:KSSAddAlarmViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "((Device *)nearbyArray.firstObject).uuid">
+               value = "[NSDate date]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -41,18 +41,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[KSSEditAlarmViewController viewDidLoad]:KSSEditAlarmViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.alarm">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "-[KSSDeviceDetailsViewController closeView:]:KSSDeviceDetailsViewController.m">
          <PersistentStrings>
             <PersistentString
                value = "[self navigationController]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[KSSEditAlarmViewController viewDidLoad]:KSSEditAlarmViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.alarm">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -73,18 +73,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[KSSAlarmsViewController toggleAlarmSet:]:KSSAlarmsViewController.m">
+         contextName = "-[KSSDevicesViewController bluetoothController:didDisconnectFromPeripheral:]:KSSDevicesViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "[sender superview]">
+               value = "((Device *)nearbyArray.firstObject).uuid">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[KSSAddAlarmViewController saveAlarm:]:KSSAddAlarmViewController.m">
+         contextName = "-[KSSAlarmsViewController toggleAlarmSet:]:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "[NSDate date]">
+               value = "[sender superview]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

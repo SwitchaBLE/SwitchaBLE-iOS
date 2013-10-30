@@ -92,7 +92,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"embedEditTableView"]) {
         self.embeddedView = (KSSAlarmDetailViewController *)segue.destinationViewController;
-        [self.embeddedView setDelegate:self];
+        self.embeddedView.delegate = self;
+        self.embeddedView.selectedDevice = self.alarm.device;
     }
 }
 

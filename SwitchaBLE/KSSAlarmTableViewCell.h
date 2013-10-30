@@ -15,6 +15,8 @@
 @interface KSSAlarmTableViewCell : UITableViewCell
 
 @property (nonatomic, retain) IBOutlet UILabel *timeLabel;
+@property (nonatomic, retain) IBOutlet UILabel *meridiemLabel;
+@property (nonatomic, retain) IBOutlet UILabel *deviceLabel;
 @property (nonatomic, retain) IBOutlet UISwitch *isSetSwitch;
 @property Alarm *alarm;
 

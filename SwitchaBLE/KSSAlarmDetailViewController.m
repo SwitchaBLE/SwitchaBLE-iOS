@@ -27,12 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    if (self.selectedDevice) {
+        self.deviceCell.detailTextLabel.text = self.selectedDevice.name;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,7 +52,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showChooseDevice"]) {
-        ((KSSChooseDeviceViewController *)segue.destinationViewController).delegate = self;
+        KSSChooseDeviceViewController *viewController = (KSSChooseDeviceViewController *)segue.destinationViewController;
+        viewController.delegate = self;
+        viewController.initialDevice = self.selectedDevice;
     }
 }
 

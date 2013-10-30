@@ -97,9 +97,14 @@
         cell = [[KSSDeviceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:deviceCellIdentifier];
     }
     
-    cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.device = (Device *)[savedArray objectAtIndex:indexPath.row];
+    
+    if (self.initialDevice == cell.device) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     
     if (cell.device.peripheral != nil) {
         cell.statusLabel.text = @"Connected";
@@ -113,6 +118,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.initialDevice) {
+        [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[savedArray indexOfObject:self.initialDevice] inSection:0]].accessoryType = UITableViewCellAccessoryNone;
+    }
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
     [self.delegate chooseDeviceViewController:self didChooseDevice:[savedArray objectAtIndex:indexPath.row]];
     [self.navigationController popViewControllerAnimated:YES];
 }

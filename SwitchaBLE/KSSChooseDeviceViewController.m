@@ -98,6 +98,7 @@
     }
     
     cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.device = (Device *)[savedArray objectAtIndex:indexPath.row];
     
     if (cell.device.peripheral != nil) {
@@ -113,7 +114,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.delegate chooseDeviceViewController:self didChooseDevice:[savedArray objectAtIndex:indexPath.row]];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

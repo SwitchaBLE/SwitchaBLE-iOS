@@ -7,16 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Device.h"
+#import "KSSChooseDeviceViewController.h"
 
 @class KSSAlarmDetailViewController;
 
 @protocol KSSAlarmDetailViewControllerDelegate <NSObject>
 
 - (void)alarmDetailViewController:(KSSAlarmDetailViewController *)controller didFinishDeletingAlarmBySender:(id)sender;
+- (void)alarmDetailViewController:(KSSAlarmDetailViewController *)controller didChooseDevice:(Device *)device;
 
 @end
 
-@interface KSSAlarmDetailViewController : UITableViewController
+@interface KSSAlarmDetailViewController : UITableViewController <KSSChooseDeviceDelegate>
 
 @property (nonatomic, retain) IBOutlet UITableViewCell *deleteCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *deviceCell;

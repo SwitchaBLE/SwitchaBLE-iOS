@@ -7,6 +7,7 @@
 //
 
 #import "KSSAlarmDetailViewController.h"
+#import "KSSChooseDeviceViewController.h"
 
 @interface KSSAlarmDetailViewController ()
 
@@ -44,6 +45,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([[self.tableView cellForRowAtIndexPath:indexPath] isEqual:self.deleteCell]) {
         [self.delegate alarmDetailViewController:self didFinishDeletingAlarmBySender:self.deleteCell];
+    }
+}
+
+- (void)chooseDeviceViewController:(KSSChooseDeviceViewController *)viewController didChooseDevice:(Device *)device {
+    self.deviceCell.detailTextLabel.text = device.name;
+    [self.delegate alarmDetailViewController:self didChooseDevice:device];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showChooseDevice"]) {
+        ((KSSChooseDeviceViewController *)segue.destinationViewController).delegate = self;
     }
 }
 

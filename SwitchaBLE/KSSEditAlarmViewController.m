@@ -85,17 +85,14 @@
     [self deleteAlarm:sender];
 }
 
-- (void)chooseDeviceViewController:(KSSChooseDeviceViewController *)viewController didChooseDevice:(Device *)device {
+- (void)alarmDetailViewController:(KSSAlarmDetailViewController *)controller didChooseDevice:(Device *)device {
     self.alarm.device = device;
-    self.embeddedView.deviceCell.detailTextLabel.text = device.name;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"embedEditTableView"]) {
         self.embeddedView = (KSSAlarmDetailViewController *)segue.destinationViewController;
         [self.embeddedView setDelegate:self];
-    } else if ([segue.identifier isEqualToString:@"showChooseDevice"]) {
-        ((KSSChooseDeviceViewController *)segue.destinationViewController).delegate = self;
     }
 }
 

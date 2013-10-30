@@ -16,7 +16,7 @@
 
 @end
 
-@interface KSSAddAlarmViewController : UIViewController <KSSChooseDeviceDelegate>
+@interface KSSAddAlarmViewController : UIViewController <KSSAlarmDetailViewControllerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *cancelButton;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *saveButton;

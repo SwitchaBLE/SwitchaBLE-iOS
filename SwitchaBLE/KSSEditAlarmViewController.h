@@ -20,7 +20,7 @@
 
 @end
 
-@interface KSSEditAlarmViewController : UIViewController <KSSAlarmDetailViewControllerDelegate, KSSChooseDeviceDelegate>
+@interface KSSEditAlarmViewController : UIViewController <KSSAlarmDetailViewControllerDelegate>
 
 @property (nonatomic, weak) id <KSSEditAlarmDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;

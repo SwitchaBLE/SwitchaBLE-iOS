@@ -44,8 +44,13 @@
 
     nearbyArray = [[NSMutableArray alloc] init];
     appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.devicesViewController = self;
-    appDelegate.bluetoothController = [[KSSBluetoothController alloc] initWithDeviceListDelegate:self];
+    //appDelegate.devicesViewController = self;
+    
+    if (!appDelegate.bluetoothController) {
+        appDelegate.bluetoothController = [[KSSBluetoothController alloc] initWithDeviceListDelegate:self];
+    } else {
+        [appDelegate.bluetoothController refreshWithDeviceListDelegate:self];
+    }
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Device" inManagedObjectContext:appDelegate.managedObjectContext];
@@ -81,6 +86,25 @@
         }
         if (savedArray.count == 1) {
             [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        [self.tableView endUpdates];
+    }
+}
+
+- (void)deviceDetailsViewController:(KSSDeviceDetailsViewController *)controller didFinishForgettingDevice:(Device *)device {
+    NSIndexPath *sourcePath = [NSIndexPath indexPathForRow:[savedArray indexOfObject:device] inSection:1];
+    if (device.peripheral.state == CBPeripheralStateConnected) {
+        NSIndexPath *destinationPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [savedArray removeObject:device];
+        [nearbyArray insertObject:device atIndex:0];
+        device.name = device.peripheral.name;
+        [self.tableView beginUpdates];
+        [self.tableView moveRowAtIndexPath:sourcePath toIndexPath:destinationPath];
+        if (savedArray.count == 0) {
+            [self.tableView insertRowsAtIndexPaths:@[sourcePath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        if (nearbyArray.count == 1) {
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         [self.tableView endUpdates];
     }
@@ -134,9 +158,7 @@
             [self.tableView endUpdates];
         }
     }
-    
-    
-    
+        
 }
 
 #pragma mark - Table view data source
@@ -259,6 +281,7 @@
     CGPoint accessoryPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *pathAtPosition = [self.tableView indexPathForRowAtPoint:accessoryPosition];
     controller.device = (Device *)[[self arrayForSection:pathAtPosition.section] objectAtIndex:pathAtPosition.row];
+    controller.deviceIsSaved = pathAtPosition.section == 1;
     controller.delegate = self;
 }
 

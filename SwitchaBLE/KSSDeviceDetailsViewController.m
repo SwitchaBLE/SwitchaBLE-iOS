@@ -32,11 +32,15 @@
     [super viewDidLoad];
     appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
 
-    if (self.device) {
-        self.nameCell.detailTextLabel.text = self.device.name ? : self.device.peripheral.name;
-        self.uuidCell.detailTextLabel.text = self.device.uuid ? : self.device.peripheral.identifier.UUIDString;
-        self.temperatureCell.detailTextLabel.text = @"Waiting...";
-        [appDelegate.bluetoothController getTemperatureCharacteristicForPeripheral:self.device.peripheral deviceDelegate:self];
+
+    self.nameCell.detailTextLabel.text = self.device.name;
+    self.uuidCell.detailTextLabel.text = self.device.uuid;
+    self.temperatureCell.detailTextLabel.text = @"Waiting...";
+    [appDelegate.bluetoothController getTemperatureCharacteristicForPeripheral:self.device.peripheral deviceDelegate:self];
+    
+    if (self.deviceIsSaved) {
+        self.saveButton.title = @"Forget";
+        self.saveButton.action = @selector(forgetDevice:);
     }
 }
 
@@ -60,12 +64,20 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
         Device *device = (Device *)[NSEntityDescription insertNewObjectForEntityForName:@"Device" inManagedObjectContext:appDelegate.managedObjectContext];
+        device.peripheral = self.device.peripheral;
         device.uuid = self.device.uuid;
         device.name = [alertView textFieldAtIndex:0].text;
         [appDelegate saveContext];
         [self dismissViewControllerAnimated:YES completion:nil];
         [self.delegate deviceDetailsViewController:self didFinishSavingDevice:device];
     }
+}
+
+- (void)forgetDevice:(id)sender {
+    [appDelegate.managedObjectContext deleteObject:self.device];
+    [appDelegate saveContext];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate deviceDetailsViewController:self didFinishForgettingDevice:self.device];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didGetTemperatureCharacteristic:(CBCharacteristic *)characteristic {

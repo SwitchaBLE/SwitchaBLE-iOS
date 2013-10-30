@@ -19,6 +19,7 @@
 @interface KSSAlarmDetailViewController : UITableViewController
 
 @property (nonatomic, retain) IBOutlet UITableViewCell *deleteCell;
+@property (nonatomic, retain) IBOutlet UITableViewCell *deviceCell;
 @property (weak) id <KSSAlarmDetailViewControllerDelegate> delegate;
 
 @end

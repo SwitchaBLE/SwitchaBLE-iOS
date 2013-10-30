@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Alarm.h"
+#import "KSSChooseDeviceViewController.h"
 #import "KSSAlarmDetailViewController.h"
 
 @class KSSEditAlarmViewController;
@@ -19,10 +20,11 @@
 
 @end
 
-@interface KSSEditAlarmViewController : UIViewController <KSSAlarmDetailViewControllerDelegate>
+@interface KSSEditAlarmViewController : UIViewController <KSSAlarmDetailViewControllerDelegate, KSSChooseDeviceDelegate>
 
 @property (nonatomic, weak) id <KSSEditAlarmDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic, retain) KSSAlarmDetailViewController *embeddedView;
 @property Alarm *alarm;
 
 - (IBAction)saveAlarm:(id)sender;

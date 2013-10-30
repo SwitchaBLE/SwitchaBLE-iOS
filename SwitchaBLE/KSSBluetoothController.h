@@ -29,8 +29,8 @@ typedef void(^KSSBluetoothRefreshedResult)();
 @property (nonatomic, weak) id <KSSBluetoothDeviceDelegate> deviceDelegate;
 @property (readonly) NSArray *supportedServices;
 
-- (KSSBluetoothController *)initWithDeviceListDelegate:(id)delegate;
-- (void)refreshPeripheralListCompletion:(KSSBluetoothRefreshedResult)completion;
+- (KSSBluetoothController *)initWithDeviceListDelegate:(id <KSSBluetoothDeviceListDelegate>)delegate;
+- (void)refreshWithDeviceListDelegate:(id <KSSBluetoothDeviceListDelegate>)delegate;
 - (void)getTemperatureCharacteristicForPeripheral:(CBPeripheral *)peripheral deviceDelegate:(id)delegate;
 - (void)stopScan;
 

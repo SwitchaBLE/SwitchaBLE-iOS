@@ -9,14 +9,16 @@
 #import "KSSAppDelegate.h"
 #import "KSSAddAlarmViewController.h"
 #import "Alarm.h"
+#import "Device.h"
 
 @interface KSSAddAlarmViewController ()
-
+@property (nonatomic, retain) KSSAppDelegate *appDelegate;
 @end
 
 @implementation KSSAddAlarmViewController
 
-//@synthesize managedObjectContext;
+@synthesize alarm;
+@synthesize appDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,7 +32,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    alarm = (Alarm *)[NSEntityDescription insertNewObjectForEntityForName:@"Alarm" inManagedObjectContext:appDelegate.managedObjectContext];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,11 +50,6 @@
 
 - (IBAction)saveAlarm:(id)sender
 {
-    KSSAppDelegate *appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    
-    Alarm *alarm = (Alarm *)[NSEntityDescription insertNewObjectForEntityForName:@"Alarm" inManagedObjectContext:managedObjectContext];
-    
     [alarm setTime:[self.datePicker date]];
     [alarm setIsSet:@1];
     
@@ -71,13 +70,26 @@
     [alarm setTime:newAlarmTime];
     
     NSError *saveError = nil;
-    if (![managedObjectContext save:&saveError]) {
+    if (![appDelegate.managedObjectContext save:&saveError]) {
         //TODO handle error
     }
     
     [self dismissViewControllerAnimated:YES completion:^{
         [self.delegate addAlarmViewController:self didSaveAlarm:alarm];
     }];
+}
+
+- (void)chooseDeviceViewController:(KSSChooseDeviceViewController *)viewController didChooseDevice:(Device *)device {
+    self.alarm.device = device;
+    self.embeddedView.deviceCell.detailTextLabel.text = device.name;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"embedEditTableView"]) {
+        self.embeddedView = (KSSAlarmDetailViewController *)segue.destinationViewController;
+    } else if ([segue.identifier isEqualToString:@"showChooseDevice"]) {
+        ((KSSChooseDeviceViewController *)segue.destinationViewController).delegate = self;
+    }
 }
 
 @end

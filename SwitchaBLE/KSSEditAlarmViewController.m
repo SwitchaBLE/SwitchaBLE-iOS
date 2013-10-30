@@ -8,6 +8,7 @@
 
 #import "KSSEditAlarmViewController.h"
 #import "KSSAppDelegate.h"
+#import "Device.h"
 
 @interface KSSEditAlarmViewController ()
 
@@ -62,6 +63,8 @@
     
     [appDelegate saveContext];
     
+    //TODO communicate with device
+    
     [self.navigationController popViewControllerAnimated:YES];
     [self.delegate editAlarmViewController:self didFinishEditingAlarm:self.alarm];
     
@@ -82,9 +85,17 @@
     [self deleteAlarm:sender];
 }
 
+- (void)chooseDeviceViewController:(KSSChooseDeviceViewController *)viewController didChooseDevice:(Device *)device {
+    self.alarm.device = device;
+    self.embeddedView.deviceCell.detailTextLabel.text = device.name;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"embedEditTableView"]) {
-        [(KSSAlarmDetailViewController *)segue.destinationViewController setDelegate:self];
+        self.embeddedView = (KSSAlarmDetailViewController *)segue.destinationViewController;
+        [self.embeddedView setDelegate:self];
+    } else if ([segue.identifier isEqualToString:@"showChooseDevice"]) {
+        ((KSSChooseDeviceViewController *)segue.destinationViewController).delegate = self;
     }
 }
 

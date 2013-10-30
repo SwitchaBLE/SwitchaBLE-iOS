@@ -14,17 +14,21 @@
 
 @protocol KSSDeviceDetailsDelegate <NSObject>
 - (void)deviceDetailsViewController:(KSSDeviceDetailsViewController *)controller didFinishSavingDevice:(Device *)device;
+- (void)deviceDetailsViewController:(KSSDeviceDetailsViewController *)controller didFinishForgettingDevice:(Device *)device;
 @end
 
 @interface KSSDeviceDetailsViewController : UITableViewController <UIAlertViewDelegate, KSSBluetoothDeviceDelegate>
 
 @property (nonatomic, weak) id <KSSDeviceDetailsDelegate> delegate;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *saveButton;
 @property (nonatomic, retain) IBOutlet UITableViewCell *nameCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *uuidCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *temperatureCell;
 @property (nonatomic) Device *device;
+@property (nonatomic) BOOL deviceIsSaved;
 
 - (IBAction)closeView:(id)sender;
 - (IBAction)saveDevice:(id)sender;
+- (void)forgetDevice:(id)sender;
 
 @end

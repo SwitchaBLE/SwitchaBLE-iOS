@@ -12,6 +12,7 @@
 		3A3DC46317DD46CE00EECC90 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46217DD46CE00EECC90 /* Device.m */; };
 		3A3DC46617DD46CE00EECC90 /* Alarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46517DD46CE00EECC90 /* Alarm.m */; };
 		3A3DC46917DD4E9C00EECC90 /* KSSAddAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */; };
+		3A47644C18208EE8003F7201 /* KSSChooseDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47644B18208EE8003F7201 /* KSSChooseDeviceViewController.m */; };
 		3A5E360A17F276F300988496 /* KSSDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E360917F276F300988496 /* KSSDeviceTableViewCell.m */; };
 		3A5E360C17F27E5300988496 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E360B17F27E5300988496 /* CoreBluetooth.framework */; };
 		3A5E360F17F2816C00988496 /* KSSBluetoothController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E360E17F2816C00988496 /* KSSBluetoothController.m */; };
@@ -60,6 +61,8 @@
 		3A3DC46517DD46CE00EECC90 /* Alarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alarm.m; sourceTree = "<group>"; };
 		3A3DC46717DD4E9C00EECC90 /* KSSAddAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSAddAlarmViewController.h; sourceTree = "<group>"; };
 		3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSAddAlarmViewController.m; sourceTree = "<group>"; };
+		3A47644A18208EE8003F7201 /* KSSChooseDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSChooseDeviceViewController.h; sourceTree = "<group>"; };
+		3A47644B18208EE8003F7201 /* KSSChooseDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSChooseDeviceViewController.m; sourceTree = "<group>"; };
 		3A54B11217FC6183004BB445 /* SwitchaBLE_1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwitchaBLE_1.1.xcdatamodel; sourceTree = "<group>"; };
 		3A5E360817F276F300988496 /* KSSDeviceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSDeviceTableViewCell.h; sourceTree = "<group>"; };
 		3A5E360917F276F300988496 /* KSSDeviceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSDeviceTableViewCell.m; sourceTree = "<group>"; };
@@ -147,6 +150,8 @@
 				3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */,
 				3AEFC8D817E9375100092855 /* KSSEditAlarmViewController.h */,
 				3AEFC8D917E9375100092855 /* KSSEditAlarmViewController.m */,
+				3A47644A18208EE8003F7201 /* KSSChooseDeviceViewController.h */,
+				3A47644B18208EE8003F7201 /* KSSChooseDeviceViewController.m */,
 				3AFC527817F0F97D0017BCBC /* KSSAlarmDetailViewController.h */,
 				3AFC527917F0F97D0017BCBC /* KSSAlarmDetailViewController.m */,
 				3AD636A617E6BCB80009E792 /* KSSAlarmTableViewCell.h */,
@@ -362,6 +367,7 @@
 				3A3DC46317DD46CE00EECC90 /* Device.m in Sources */,
 				3AD636A817E6BCB80009E792 /* KSSAlarmTableViewCell.m in Sources */,
 				3A5E361717F3418000988496 /* KSSDeviceDetailsViewController.m in Sources */,
+				3A47644C18208EE8003F7201 /* KSSChooseDeviceViewController.m in Sources */,
 				3A9498C817DD31C700F8872F /* main.m in Sources */,
 				3A9498CF17DD31C700F8872F /* SwitchaBLE.xcdatamodeld in Sources */,
 			);

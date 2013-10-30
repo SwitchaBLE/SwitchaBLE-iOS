@@ -24,11 +24,15 @@
 
 @synthesize connectedPeripherals;
 
-- (KSSBluetoothController *)initWithDeviceListDelegate:(id)delegate {
+- (KSSBluetoothController *)initWithDeviceListDelegate:(id <KSSBluetoothDeviceListDelegate>)delegate {
     self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     self.deviceListDelegate = delegate;
     connectedPeripherals = [[NSMutableArray alloc] init];
     return self;
+}
+
+- (void)refreshWithDeviceListDelegate:(id <KSSBluetoothDeviceListDelegate>)delegate {
+    self.deviceListDelegate = delegate;
 }
 
 - (void)getTemperatureCharacteristicForPeripheral:(CBPeripheral *)peripheral deviceDelegate:(id)delegate {

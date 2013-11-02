@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A09E0DD1824B535007DE4C4 /* KSSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A09E0DC1824B535007DE4C4 /* KSSTabBarController.m */; };
 		3A3DC45D17DD423B00EECC90 /* KSSAlarmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC45C17DD423A00EECC90 /* KSSAlarmsViewController.m */; };
 		3A3DC46017DD427100EECC90 /* KSSDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC45F17DD427100EECC90 /* KSSDevicesViewController.m */; };
 		3A3DC46317DD46CE00EECC90 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46217DD46CE00EECC90 /* Device.m */; };
@@ -34,7 +35,6 @@
 		3A9498E317DD31C700F8872F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A9498E117DD31C700F8872F /* InfoPlist.strings */; };
 		3A9498E517DD31C700F8872F /* SwitchaBLETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A9498E417DD31C700F8872F /* SwitchaBLETests.m */; };
 		3A94993417DD385C00F8872F /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A94993217DD385C00F8872F /* Main_iPhone.storyboard */; };
-		3A94993717DD388700F8872F /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A94993517DD388700F8872F /* Main_iPad.storyboard */; };
 		3AD636A817E6BCB80009E792 /* KSSAlarmTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD636A717E6BCB80009E792 /* KSSAlarmTableViewCell.m */; };
 		3AEFC8DA17E9375100092855 /* KSSEditAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFC8D917E9375100092855 /* KSSEditAlarmViewController.m */; };
 		3AFC527A17F0F97D0017BCBC /* KSSAlarmDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFC527917F0F97D0017BCBC /* KSSAlarmDetailViewController.m */; };
@@ -51,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A09E0DB1824B535007DE4C4 /* KSSTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSTabBarController.h; sourceTree = "<group>"; };
+		3A09E0DC1824B535007DE4C4 /* KSSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSTabBarController.m; sourceTree = "<group>"; };
 		3A3DC45B17DD423A00EECC90 /* KSSAlarmsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSAlarmsViewController.h; sourceTree = "<group>"; };
 		3A3DC45C17DD423A00EECC90 /* KSSAlarmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSAlarmsViewController.m; sourceTree = "<group>"; };
 		3A3DC45E17DD427100EECC90 /* KSSDevicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSDevicesViewController.h; sourceTree = "<group>"; };
@@ -91,7 +93,6 @@
 		3A9498E217DD31C700F8872F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3A9498E417DD31C700F8872F /* SwitchaBLETests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchaBLETests.m; sourceTree = "<group>"; };
 		3A94993317DD385C00F8872F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		3A94993617DD388700F8872F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		3AD636A617E6BCB80009E792 /* KSSAlarmTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSAlarmTableViewCell.h; sourceTree = "<group>"; };
 		3AD636A717E6BCB80009E792 /* KSSAlarmTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSAlarmTableViewCell.m; sourceTree = "<group>"; };
 		3ADDD04A180EDA9C002B51CC /* SwitchaBLE_1.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwitchaBLE_1.2.xcdatamodel; sourceTree = "<group>"; };
@@ -209,14 +210,15 @@
 				3A9498D017DD31C700F8872F /* Images.xcassets */,
 				3A9498CD17DD31C700F8872F /* SwitchaBLE.xcdatamodeld */,
 				3A5E361417F3334B00988496 /* Models */,
-				3A5E360D17F2816C00988496 /* KSSBluetoothController.h */,
-				3A5E360E17F2816C00988496 /* KSSBluetoothController.m */,
 				3A9498CA17DD31C700F8872F /* KSSAppDelegate.h */,
 				3A9498CB17DD31C700F8872F /* KSSAppDelegate.m */,
+				3A5E360D17F2816C00988496 /* KSSBluetoothController.h */,
+				3A5E360E17F2816C00988496 /* KSSBluetoothController.m */,
+				3A09E0DB1824B535007DE4C4 /* KSSTabBarController.h */,
+				3A09E0DC1824B535007DE4C4 /* KSSTabBarController.m */,
 				3A5E361317F3332700988496 /* Alarms */,
 				3A5E361217F332FB00988496 /* Devices */,
 				3A94993217DD385C00F8872F /* Main_iPhone.storyboard */,
-				3A94993517DD388700F8872F /* Main_iPad.storyboard */,
 				3A9498C217DD31C700F8872F /* Supporting Files */,
 			);
 			path = SwitchaBLE;
@@ -334,7 +336,6 @@
 			files = (
 				3A5E361117F2849600988496 /* SupportedServiceUUIDs.plist in Resources */,
 				3A9498C617DD31C700F8872F /* InfoPlist.strings in Resources */,
-				3A94993717DD388700F8872F /* Main_iPad.storyboard in Resources */,
 				3A9498D117DD31C700F8872F /* Images.xcassets in Resources */,
 				3A94993417DD385C00F8872F /* Main_iPhone.storyboard in Resources */,
 			);
@@ -356,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A3DC45D17DD423B00EECC90 /* KSSAlarmsViewController.m in Sources */,
+				3A09E0DD1824B535007DE4C4 /* KSSTabBarController.m in Sources */,
 				3A3DC46617DD46CE00EECC90 /* Alarm.m in Sources */,
 				3A5E360F17F2816C00988496 /* KSSBluetoothController.m in Sources */,
 				3AEFC8DA17E9375100092855 /* KSSEditAlarmViewController.m in Sources */,
@@ -414,14 +416,6 @@
 				3A94993317DD385C00F8872F /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		3A94993517DD388700F8872F /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3A94993617DD388700F8872F /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -509,6 +503,7 @@
 				INFOPLIST_FILE = "SwitchaBLE/SwitchaBLE-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -525,6 +520,7 @@
 				INFOPLIST_FILE = "SwitchaBLE/SwitchaBLE-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

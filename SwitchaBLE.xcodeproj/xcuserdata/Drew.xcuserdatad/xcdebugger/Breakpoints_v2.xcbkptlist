@@ -287,7 +287,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "155"
             endingLineNumber = "155"
-            landmarkName = "-identifyPeripheral:"
+            landmarkName = "-toggleLightForPeripheral:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

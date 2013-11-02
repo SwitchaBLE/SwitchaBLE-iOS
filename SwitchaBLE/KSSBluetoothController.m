@@ -150,6 +150,10 @@
     
 }
 
+- (void)toggleLightForPeripheral:(CBPeripheral *)peripheral {
+    
+}
+
 - (void)identifyPeripheral:(CBPeripheral *)peripheral {
     if (peripheral.lightCharacteristic) {
         const unsigned char zero[] = { 0x00 };

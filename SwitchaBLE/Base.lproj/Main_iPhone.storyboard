@@ -221,7 +221,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <!--Tab Bar Controller-->
         <scene sceneID="m86-vF-h6d">
             <objects>
-                <tabBarController definesPresentationContext="YES" id="dWU-Tu-bfI" sceneMemberID="viewController">
+                <tabBarController definesPresentationContext="YES" id="dWU-Tu-bfI" customClass="KSSTabBarController" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="MsI-8z-Fde">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
@@ -456,7 +456,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <scene sceneID="6eE-1h-fKb">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3qV-tM-2WV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Alarms" id="0Zx-Ub-dak"/>
+                    <tabBarItem key="tabBarItem" title="Alarms" image="AlarmIcon" id="0Zx-Ub-dak"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1gI-Te-hXC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -475,7 +475,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <scene sceneID="B1U-2t-LkD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o3G-u5-OAe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Devices" id="pXr-U0-LmO"/>
+                    <tabBarItem key="tabBarItem" title="Devices" image="DeviceIcon" id="pXr-U0-LmO"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OXl-XN-cKk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -775,6 +775,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
     </scenes>
     <resources>
         <image name="70x70placeholder" width="70" height="70"/>
+        <image name="AlarmIcon" width="30" height="30"/>
+        <image name="DeviceIcon" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

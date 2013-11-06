@@ -31,6 +31,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStyleDone target:self action:@selector(clearDeviceSelection)];
 
     appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -55,6 +57,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)clearDeviceSelection {
+    if (self.initialDevice) {
+        [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[savedArray indexOfObject:self.initialDevice] inSection:0]].accessoryType = UITableViewCellAccessoryNone;
+    }
+    [self.delegate chooseDeviceViewController:self didChooseDevice:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source

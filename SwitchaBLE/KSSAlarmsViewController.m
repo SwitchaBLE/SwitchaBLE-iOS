@@ -143,6 +143,8 @@
     [cell.meridiemLabel removeFromSuperview];
     cell.meridiemLabel.frame = meridiemPosition;
     [cell.contentView addSubview:cell.meridiemLabel];
+    
+    cell.deviceLabel.text = alarm.device.name ?: @"No deivce selected";
 }
 
 #pragma mark - Table view data source
@@ -173,7 +175,6 @@
     [self formatCell:cell withAlarm:alarm];
     
     cell.alarm = alarm;
-    cell.deviceLabel.text = alarm.device.name ?: @"No device selected";
     
     [cell.isSetSwitch setOn:[alarm.isSet boolValue]];
     [cell.isSetSwitch addTarget:self action:@selector(toggleAlarmSet:) forControlEvents:UIControlEventValueChanged];

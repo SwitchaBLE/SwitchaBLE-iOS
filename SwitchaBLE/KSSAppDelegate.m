@@ -58,16 +58,20 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    
+    [application presentLocalNotificationNow:notification];
 }
 
 - (void)scheduleAlarm:(Alarm *)alarm {
         
     NSArray *scheduledNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
-    NSLog(@"%i", scheduledNotifications.count);
-    UILocalNotification *notification = [scheduledNotifications objectAtIndex:[scheduledNotifications indexOfObjectPassingTest:^BOOL(UILocalNotification *n, NSUInteger idx, BOOL *stop) {
-        return [[n.userInfo objectForKey:@"alarmUUID"] isEqualToString:alarm.uuid];
-    }]];
+    NSLog(@"%i scheduled local notifications", scheduledNotifications.count);
+    UILocalNotification *notification;
+    
+    if (scheduledNotifications.count) {
+        notification = [scheduledNotifications objectAtIndex:[scheduledNotifications indexOfObjectPassingTest:^BOOL(UILocalNotification *n, NSUInteger idx, BOOL *stop) {
+            return [[n.userInfo objectForKey:@"alarmUUID"] isEqualToString:alarm.uuid];
+        }]];
+    }
     
     if (!alarm.isDeleted && alarm.isSet) {
         

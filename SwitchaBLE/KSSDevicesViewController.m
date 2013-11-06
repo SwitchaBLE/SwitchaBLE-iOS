@@ -52,15 +52,7 @@
         [appDelegate.bluetoothController refreshWithDeviceListDelegate:self];
     }
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Device" inManagedObjectContext:appDelegate.managedObjectContext];
-    [request setEntity:entity];
-    
-    NSError *error = nil;
-    savedArray = [NSMutableArray arrayWithArray:[[appDelegate.managedObjectContext executeFetchRequest:request error:&error] mutableCopy]];
-    if (error != nil) {
-        //TODO handle the error.
-    }
+    savedArray = [appDelegate getEntityWithName:@"Device"];
     
     // TODO display a status indicator while waiting for bluetooth update
     

@@ -27,6 +27,7 @@
 
 - (void)saveContext;
 - (void)scheduleAlarm:(Alarm *)alarm;
+- (NSMutableArray *)getEntityWithName:(NSString *)name;
 - (NSURL *)applicationDocumentsDirectory;
 
 @end

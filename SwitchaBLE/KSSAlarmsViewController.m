@@ -56,31 +56,13 @@
     };
     
     dateFormatter = [[NSDateFormatter alloc] init];
-    
     appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
+    appDelegate.alarmsViewController = self;
     
-    [appDelegate setAlarmsViewController:self];
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Alarm" inManagedObjectContext:managedObjectContext];
-    [request setEntity:entity];
-    
-    NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-    if (mutableFetchResults == nil) {
-        //TODO handle the error.
-    }
-    
-    [mutableFetchResults sortUsingComparator:self.compareTimesIgnoringDates];
-    
-    [self setAlarmsArray:mutableFetchResults];
+    NSMutableArray *alarms = [appDelegate getEntityWithName:@"Alarm"];
+    [alarms sortUsingComparator:self.compareTimesIgnoringDates];
+    self.alarmsArray = alarms;
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning

@@ -35,22 +35,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStyleDone target:self action:@selector(clearDeviceSelection)];
 
     appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-//    if (!appDelegate.bluetoothController) {
-//        appDelegate.bluetoothController = [[KSSBluetoothController alloc] initWithDeviceListDelegate:self];
-//    } else {
-//        [appDelegate.bluetoothController refreshWithDeviceListDelegate:self];
-//    }
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Device" inManagedObjectContext:appDelegate.managedObjectContext];
-    [request setEntity:entity];
-    
-    NSError *error = nil;
-    savedArray = [NSMutableArray arrayWithArray:[[appDelegate.managedObjectContext executeFetchRequest:request error:&error] mutableCopy]];
-    if (error != nil) {
-        //TODO handle the error.
-    }
+    savedArray = [appDelegate getEntityWithName:@"Device"];
 }
 
 - (void)didReceiveMemoryWarning

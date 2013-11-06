@@ -17,39 +17,36 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSMutableArray *alarms = [self getEntityWithName:@"Alarm"];
     
-    //Reschedule past alarms
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Alarm" inManagedObjectContext:self.managedObjectContext];
-    [request setEntity:entity];
-    
-    NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-    if (mutableFetchResults == nil) {
-        //TODO handle the error.
+    // Turn off alarm that's going off
+    UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (notification) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uuid=='%@'", [notification.userInfo objectForKey:@"alarmUUID"]];
+        ((Alarm *)[alarms filteredArrayUsingPredicate:predicate].firstObject).isSet = NO;
     }
     
-    for (id alarm in mutableFetchResults) {
+    // Reschedule past alarms
+    for (Alarm *alarm in alarms) {
         
-        if ([alarm time] < [NSDate date]) {
+        if (alarm.time < [NSDate date]) {
             
             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
             
             NSDateComponents *alarmComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:[alarm time]];
             NSDateComponents *nowComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:[NSDate date]];
             
-            [alarmComponents setYear:[nowComponents year]];
-            [alarmComponents setMonth:[nowComponents month]];
-            [alarmComponents setDay:[nowComponents day]];
+            alarmComponents.year = nowComponents.year;
+            alarmComponents.month = nowComponents.month;
+            alarmComponents.day = nowComponents.day;
             
             NSDate *newAlarmTime = [calendar dateFromComponents:alarmComponents];
             if (newAlarmTime < [NSDate date]) {
                 newAlarmTime = [newAlarmTime dateByAddingTimeInterval:60 * 60 * 24 * 1];
             }
             
-            [alarm setTime:newAlarmTime];
-            if ([alarm isUpdated]) {
+            alarm.time = newAlarmTime;
+            if (alarm.isUpdated) {
                 [self scheduleAlarm:alarm];
             }
         }
@@ -60,15 +57,19 @@
     return YES;
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
+}
+
 - (void)scheduleAlarm:(Alarm *)alarm {
         
     NSArray *scheduledNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
     NSLog(@"%i", scheduledNotifications.count);
-    UILocalNotification *notification = [scheduledNotifications objectsAtIndexes:[scheduledNotifications indexesOfObjectsPassingTest:^BOOL(UILocalNotification *n, NSUInteger idx, BOOL *stop) {
+    UILocalNotification *notification = [scheduledNotifications objectAtIndex:[scheduledNotifications indexOfObjectPassingTest:^BOOL(UILocalNotification *n, NSUInteger idx, BOOL *stop) {
         return [[n.userInfo objectForKey:@"alarmUUID"] isEqualToString:alarm.uuid];
-    }]].firstObject;
+    }]];
     
-    if (![alarm isDeleted] && alarm.isSet) {
+    if (!alarm.isDeleted && alarm.isSet) {
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         if (notification) {
@@ -133,10 +134,10 @@
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+        if (managedObjectContext.hasChanges && ![managedObjectContext save:&error]) {
              // Replace this implementation with code to handle the error appropriately.
              // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            NSLog(@"Unresolved error %@, %@", error, error.userInfo);
             abort();
         } 
     }
@@ -224,6 +225,20 @@
     }    
     
     return _persistentStoreCoordinator;
+}
+
+- (NSMutableArray *)getEntityWithName:(NSString *)name {
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:name inManagedObjectContext:self.managedObjectContext];
+    [request setEntity:entity];
+    
+    NSError *error = nil;
+    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    if (error != nil) {
+        // TODO handle the error.
+    }
+    
+    return mutableFetchResults;
 }
 
 #pragma mark - Application's Documents directory

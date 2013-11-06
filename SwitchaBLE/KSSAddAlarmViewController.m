@@ -29,27 +29,22 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	
     appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
     alarm = (Alarm *)[NSEntityDescription insertNewObjectForEntityForName:@"Alarm" inManagedObjectContext:appDelegate.managedObjectContext];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)cancelAlarm:(id)sender
-{
+- (IBAction)cancelAlarm:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)saveAlarm:(id)sender
-{
+- (IBAction)saveAlarm:(id)sender {
+    
     [alarm setTime:[self.datePicker date]];
     [alarm setIsSet:@1];
     
@@ -63,7 +58,7 @@
     [alarmComponents setDay:[nowComponents day]];
     
     NSDate *newAlarmTime = [calendar dateFromComponents:alarmComponents];
-    if (newAlarmTime < [NSDate date]) {
+    if ([newAlarmTime compare:[NSDate date]] == NSOrderedAscending) {
         newAlarmTime = [newAlarmTime dateByAddingTimeInterval:60 * 60 * 24 * 1];
     }
     

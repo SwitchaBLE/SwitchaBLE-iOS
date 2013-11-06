@@ -89,16 +89,16 @@
     [appDelegate scheduleAlarm:alarm];
 }
 
-- (void)editAlarmViewController:(KSSEditAlarmViewController *)controller didFinishEditingAlarm:(Alarm *)alarm {
+- (void)editAlarmController:(id)controller didFinishEditingAlarm:(Alarm *)alarm {
     KSSAlarmTableViewCell *cell = (KSSAlarmTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:[alarmsArray indexOfObject:alarm] inSection:0]];
     [self formatCell:cell withAlarm:alarm];
-    [cell isSetSwitch].on = TRUE;
+    [cell isSetSwitch].on = (BOOL)alarm.isSet;
     
     [appDelegate scheduleAlarm:alarm];
     [appDelegate saveContext];
 }
 
-- (void)editAlarmViewController:(KSSEditAlarmViewController *)controller didFinishDeletingAlarm:(Alarm *)alarm {
+- (void)editAlarmController:(id)controller didFinishDeletingAlarm:(Alarm *)alarm {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[alarmsArray indexOfObject:alarm] inSection:0];
     [alarmsArray removeObjectAtIndex:[indexPath row]];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

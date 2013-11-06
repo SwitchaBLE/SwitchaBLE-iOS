@@ -15,8 +15,8 @@
 
 @protocol KSSEditAlarmDelegate <NSObject>
 
-- (void)editAlarmViewController:(KSSEditAlarmViewController *)controller didFinishEditingAlarm:(Alarm *)alarm;
-- (void)editAlarmViewController:(KSSEditAlarmViewController *)controller didFinishDeletingAlarm:(Alarm *)alarm;
+- (void)editAlarmController:(id)controller didFinishEditingAlarm:(Alarm *)alarm;
+- (void)editAlarmController:(id)controller didFinishDeletingAlarm:(Alarm *)alarm;
 
 @end
 

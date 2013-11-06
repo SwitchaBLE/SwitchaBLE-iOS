@@ -13,6 +13,7 @@
 		3A3DC46317DD46CE00EECC90 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46217DD46CE00EECC90 /* Device.m */; };
 		3A3DC46617DD46CE00EECC90 /* Alarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46517DD46CE00EECC90 /* Alarm.m */; };
 		3A3DC46917DD4E9C00EECC90 /* KSSAddAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */; };
+		3A4129B8182ACC0300A021E7 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4129B7182ACC0300A021E7 /* UIAlertView+Blocks.m */; };
 		3A47644C18208EE8003F7201 /* KSSChooseDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47644B18208EE8003F7201 /* KSSChooseDeviceViewController.m */; };
 		3A5E360A17F276F300988496 /* KSSDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E360917F276F300988496 /* KSSDeviceTableViewCell.m */; };
 		3A5E360C17F27E5300988496 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E360B17F27E5300988496 /* CoreBluetooth.framework */; };
@@ -63,6 +64,8 @@
 		3A3DC46517DD46CE00EECC90 /* Alarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alarm.m; sourceTree = "<group>"; };
 		3A3DC46717DD4E9C00EECC90 /* KSSAddAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSAddAlarmViewController.h; sourceTree = "<group>"; };
 		3A3DC46817DD4E9C00EECC90 /* KSSAddAlarmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSAddAlarmViewController.m; sourceTree = "<group>"; };
+		3A4129B6182ACC0300A021E7 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		3A4129B7182ACC0300A021E7 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		3A47644A18208EE8003F7201 /* KSSChooseDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSChooseDeviceViewController.h; sourceTree = "<group>"; };
 		3A47644B18208EE8003F7201 /* KSSChooseDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSChooseDeviceViewController.m; sourceTree = "<group>"; };
 		3A54B11217FC6183004BB445 /* SwitchaBLE_1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwitchaBLE_1.1.xcdatamodel; sourceTree = "<group>"; };
@@ -227,6 +230,8 @@
 		3A9498C217DD31C700F8872F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3A4129B6182ACC0300A021E7 /* UIAlertView+Blocks.h */,
+				3A4129B7182ACC0300A021E7 /* UIAlertView+Blocks.m */,
 				3A9498C317DD31C700F8872F /* SwitchaBLE-Info.plist */,
 				3A5E361017F2849600988496 /* SupportedServiceUUIDs.plist */,
 				3A9498C417DD31C700F8872F /* InfoPlist.strings */,
@@ -356,6 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4129B8182ACC0300A021E7 /* UIAlertView+Blocks.m in Sources */,
 				3A3DC45D17DD423B00EECC90 /* KSSAlarmsViewController.m in Sources */,
 				3A09E0DD1824B535007DE4C4 /* KSSTabBarController.m in Sources */,
 				3A3DC46617DD46CE00EECC90 /* Alarm.m in Sources */,

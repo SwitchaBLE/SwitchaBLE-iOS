@@ -3,14 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[KSSAddAlarmViewController saveAlarm:]:KSSAddAlarmViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[NSDate date]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "__38-[KSSAlarmsViewController viewDidLoad]_block_invoke:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -37,6 +29,14 @@
          <PersistentStrings>
             <PersistentString
                value = "[self viewControllers]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[KSSAddAlarmViewController saveAlarm:]:KSSAddAlarmViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[NSDate date]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

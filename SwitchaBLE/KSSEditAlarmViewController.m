@@ -60,7 +60,7 @@
     [self.alarm setTime:newAlarmTime];
     
     [self.navigationController popViewControllerAnimated:YES];
-    [self.delegate editAlarmViewController:self didFinishEditingAlarm:self.alarm];
+    [self.delegate editAlarmController:self didFinishEditingAlarm:self.alarm];
     
 }
 
@@ -70,7 +70,7 @@
     [appDelegate.managedObjectContext deleteObject:self.alarm];
     
     [self.navigationController popViewControllerAnimated:YES];
-    [self.delegate editAlarmViewController:self didFinishDeletingAlarm:self.alarm];
+    [self.delegate editAlarmController:self didFinishDeletingAlarm:self.alarm];
     
 }
 

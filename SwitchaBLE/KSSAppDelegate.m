@@ -7,6 +7,7 @@
 //
 
 #import "KSSAppDelegate.h"
+#import "UIAlertView+Blocks.h"
 
 @implementation KSSAppDelegate
 
@@ -22,8 +23,7 @@
     // Turn off alarm that's going off
     UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (notification) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uuid=='%@'", [notification.userInfo objectForKey:@"alarmUUID"]];
-        ((Alarm *)[alarms filteredArrayUsingPredicate:predicate].firstObject).isSet = NO;
+        [self turnOffAlarmFromNotification:notification usingFetchedAlarms:alarms];
     }
     
     // Reschedule past alarms
@@ -57,8 +57,30 @@
     return YES;
 }
 
+- (Alarm *)turnOffAlarmFromNotification:(UILocalNotification *)notification usingFetchedAlarms:(NSMutableArray *)alarms {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uuid = %@", [notification.userInfo objectForKey:@"alarmUUID"]];
+    Alarm *alarm = [alarms filteredArrayUsingPredicate:predicate].firstObject;
+    alarm.isSet = NO;
+    [self saveContext];
+    return alarm;
+}
+
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    [application presentLocalNotificationNow:notification];
+    
+    void (^updateSwitch)(void) = ^{
+        NSString *uuid = [self turnOffAlarmFromNotification:notification usingFetchedAlarms:[self getEntityWithName:@"Alarm"]].uuid;
+        if (self.alarmsViewController) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uuid = %@", uuid];
+            Alarm *alarm = [self.alarmsViewController.alarmsArray filteredArrayUsingPredicate:predicate].firstObject;
+            [self.alarmsViewController editAlarmController:self didFinishEditingAlarm:alarm];
+        }
+    };
+    
+    if (application.applicationState == UIApplicationStateActive) {
+        [UIAlertView displayAlertWithTitle:@"Alarm" message:[notification.userInfo objectForKey:@"deviceName"] leftButtonTitle:@"Turn Off" leftButtonAction:updateSwitch rightButtonTitle:nil rightButtonAction:nil];
+    } else {
+        updateSwitch();
+    }
 }
 
 - (void)scheduleAlarm:(Alarm *)alarm {
@@ -68,9 +90,12 @@
     UILocalNotification *notification;
     
     if (scheduledNotifications.count) {
-        notification = [scheduledNotifications objectAtIndex:[scheduledNotifications indexOfObjectPassingTest:^BOOL(UILocalNotification *n, NSUInteger idx, BOOL *stop) {
+        NSInteger i = [scheduledNotifications indexOfObjectPassingTest:^BOOL(UILocalNotification *n, NSUInteger idx, BOOL *stop) {
             return [[n.userInfo objectForKey:@"alarmUUID"] isEqualToString:alarm.uuid];
-        }]];
+        }];
+        if (i != NSNotFound) {
+            notification = scheduledNotifications[i];
+        }
     }
     
     if (!alarm.isDeleted && alarm.isSet) {
@@ -93,7 +118,7 @@
             notification.alertBody = [NSString stringWithFormat:@"%@ Alarm", [dateFormatter stringFromDate:alarm.time]];
             notification.alertAction = @"Dismiss";
             notification.soundName = UILocalNotificationDefaultSoundName;
-            notification.userInfo = @{ @"alarmUUID": alarm.uuid };
+            notification.userInfo = @{ @"alarmUUID": alarm.uuid, @"deviceName": alarm.device.name ?: @"" };
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         }
         

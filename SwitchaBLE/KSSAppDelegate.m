@@ -106,7 +106,7 @@
             [[UIApplication sharedApplication] cancelLocalNotification:notification];
             notification.fireDate = alarm.time;
             notification.timeZone = [NSTimeZone systemTimeZone];
-            [dateFormatter setDateFormat:@"h:ss a"];
+            [dateFormatter setDateFormat:@"h:mm a"];
             notification.alertBody = [NSString stringWithFormat:@"%@ Alarm", [dateFormatter stringFromDate:alarm.time]];
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         } else {
@@ -114,7 +114,7 @@
             notification = [[UILocalNotification alloc] init];
             notification.fireDate = alarm.time;
             notification.timeZone = [NSTimeZone systemTimeZone];
-            [dateFormatter setDateFormat:@"h:ss a"];
+            [dateFormatter setDateFormat:@"h:mm a"];
             notification.alertBody = [NSString stringWithFormat:@"%@ Alarm", [dateFormatter stringFromDate:alarm.time]];
             notification.alertAction = @"Dismiss";
             notification.soundName = UILocalNotificationDefaultSoundName;

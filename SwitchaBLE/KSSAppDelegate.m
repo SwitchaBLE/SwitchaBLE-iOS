@@ -70,6 +70,7 @@
     void (^updateSwitch)(void) = ^{
         NSString *uuid = [self turnOffAlarmFromNotification:notification usingFetchedAlarms:[self getEntityWithName:@"Alarm"]].uuid;
         if (self.alarmsViewController) {
+            self.alarmsViewController.tabBarController.selectedIndex = 0;
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uuid = %@", uuid];
             Alarm *alarm = [self.alarmsViewController.alarmsArray filteredArrayUsingPredicate:predicate].firstObject;
             [self.alarmsViewController editAlarmController:self didFinishEditingAlarm:alarm];

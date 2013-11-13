@@ -28,10 +28,9 @@ typedef void(^KSSBluetoothRefreshedResult)();
 @property (nonatomic, weak) id <KSSBluetoothDeviceListDelegate> deviceListDelegate;
 @property (nonatomic, weak) id <KSSBluetoothDeviceDelegate> deviceDelegate;
 @property (readonly) NSArray *supportedServices;
+@property (readonly) CBUUID *SWITCHABLE_BASE;
 
 - (KSSBluetoothController *)initWithDeviceListDelegate:(id <KSSBluetoothDeviceListDelegate>)delegate;
-- (void)refreshWithDeviceListDelegate:(id <KSSBluetoothDeviceListDelegate>)delegate;
-- (void)getTemperatureCharacteristicForPeripheral:(CBPeripheral *)peripheral deviceDelegate:(id)delegate;
 - (void)identifyPeripheral:(CBPeripheral *)peripheral;
 - (void)stopScan;
 

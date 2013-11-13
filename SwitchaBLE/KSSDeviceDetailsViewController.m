@@ -36,7 +36,7 @@
     self.nameCell.detailTextLabel.text = self.device.name;
     self.uuidCell.detailTextLabel.text = self.device.uuid;
     self.temperatureCell.detailTextLabel.text = @"Waiting...";
-    [appDelegate.bluetoothController getTemperatureCharacteristicForPeripheral:self.device.peripheral deviceDelegate:self];
+    //[appDelegate.bluetoothController getTemperatureCharacteristicForPeripheral:self.device.peripheral deviceDelegate:self];
     
     if (self.deviceIsSaved) {
         self.saveButton.title = @"Forget";
@@ -91,7 +91,6 @@
 
 - (void)forgetDevice:(id)sender {
     [appDelegate.managedObjectContext deleteObject:self.device];
-    [appDelegate saveContext];
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.delegate deviceDetailsViewController:self didFinishForgettingDevice:self.device];
 }

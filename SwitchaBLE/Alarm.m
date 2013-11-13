@@ -8,6 +8,7 @@
 
 #import "Alarm.h"
 #import "Device.h"
+#import "KSSAppDelegate.h"
 
 
 @implementation Alarm
@@ -21,6 +22,13 @@
     if (!self.uuid) {
         self.uuid = [[NSProcessInfo processInfo] globallyUniqueString];
     }
+    if (self.isUpdated || self.isDeleted) {
+        [(KSSAppDelegate *)[UIApplication sharedApplication].delegate scheduleAlarm:self];
+    }
+}
+
+- (void)didChangeValueForKey:(NSString *)key {
+    
 }
 
 @end

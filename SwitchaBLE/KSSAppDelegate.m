@@ -47,7 +47,7 @@
             
             alarm.time = newAlarmTime;
             if (alarm.isUpdated) {
-                [self scheduleAlarm:alarm];
+                //[self scheduleAlarm:alarm];
             }
         }
     }
@@ -87,7 +87,6 @@
 - (void)scheduleAlarm:(Alarm *)alarm {
         
     NSArray *scheduledNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
-    NSLog(@"%i scheduled local notifications", scheduledNotifications.count);
     UILocalNotification *notification;
     
     if (scheduledNotifications.count) {
@@ -99,7 +98,7 @@
         }
     }
     
-    if (!alarm.isDeleted && alarm.isSet) {
+    if (!alarm.isDeleted && [alarm.isSet boolValue]) {
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         if (notification) {
@@ -129,6 +128,7 @@
             [[UIApplication sharedApplication] cancelLocalNotification:notification];
         }
     }
+    NSLog(@"%i scheduled local notifications", [[UIApplication sharedApplication] scheduledLocalNotifications].count);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

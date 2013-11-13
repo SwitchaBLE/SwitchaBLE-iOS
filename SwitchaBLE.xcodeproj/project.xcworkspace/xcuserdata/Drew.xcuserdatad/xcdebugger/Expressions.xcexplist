@@ -89,6 +89,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[KSSAppDelegate scheduleAlarm:]:KSSAppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "alarm.isSet">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[KSSAlarmsViewController toggleAlarmSet:]:KSSAlarmsViewController.m">
          <PersistentStrings>
             <PersistentString

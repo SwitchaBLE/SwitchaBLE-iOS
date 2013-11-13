@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SupportedServices</key>
+	<array>
+		<dict>
+			<key>UUID</key>
+			<string>00006D59-1B47-929D-0D37-09FB5CE1C126</string>
+			<key>Name</key>
+			<string>SwitchaBLE Base</string>
+			<key>CharacteristicUUIDs</key>
+			<dict>
+				<key>LightState</key>
+				<string>00006D5A-1B47-929D-0D37-09FB5CE1C126</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

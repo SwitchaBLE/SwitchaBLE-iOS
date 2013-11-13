@@ -86,15 +86,15 @@
     
     // Save first for new alarms so an alarm has a UUID
     [appDelegate saveContext];
-    [appDelegate scheduleAlarm:alarm];
+    //[appDelegate scheduleAlarm:alarm];
 }
 
 - (void)editAlarmController:(id)controller didFinishEditingAlarm:(Alarm *)alarm {
     KSSAlarmTableViewCell *cell = (KSSAlarmTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:[alarmsArray indexOfObject:alarm] inSection:0]];
     [self formatCell:cell withAlarm:alarm];
-    [cell isSetSwitch].on = (BOOL)alarm.isSet;
+    [cell isSetSwitch].on = [alarm.isSet boolValue];
     
-    [appDelegate scheduleAlarm:alarm];
+    //[appDelegate scheduleAlarm:alarm];
     [appDelegate saveContext];
 }
 
@@ -103,7 +103,7 @@
     [alarmsArray removeObjectAtIndex:[indexPath row]];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
-    [appDelegate scheduleAlarm:alarm];
+    //[appDelegate scheduleAlarm:alarm];
     [appDelegate saveContext];
 }
 
@@ -112,7 +112,7 @@
     Alarm *alarm = [alarmsArray objectAtIndex:[self.tableView indexPathForRowAtPoint:switchPosition].row];
     [alarm setIsSet:[NSNumber numberWithBool:[sender isOn]]];
     
-    [appDelegate scheduleAlarm:alarm];
+    //[appDelegate scheduleAlarm:alarm];
     [appDelegate saveContext];
 }
 
@@ -198,7 +198,7 @@
         [appDelegate.managedObjectContext deleteObject:alarm];
         [alarmsArray removeObject:alarm];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [appDelegate scheduleAlarm:alarm];
+        //[appDelegate scheduleAlarm:alarm];
         [appDelegate saveContext];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {

@@ -49,7 +49,7 @@
     if (!appDelegate.bluetoothController) {
         appDelegate.bluetoothController = [[KSSBluetoothController alloc] initWithDeviceListDelegate:self];
     } else {
-        [appDelegate.bluetoothController refreshWithDeviceListDelegate:self];
+        //[appDelegate.bluetoothController refreshWithDeviceListDelegate:self];
     }
     
     savedArray = [appDelegate getEntityWithName:@"Device"];
@@ -99,7 +99,16 @@
             [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         [self.tableView endUpdates];
+    } else {
+        [savedArray removeObject:device];
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:@[sourcePath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        if (savedArray.count == 0) {
+            [self.tableView insertRowsAtIndexPaths:@[sourcePath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        [self.tableView endUpdates];
     }
+    [appDelegate saveContext];
 }
 
 - (void)bluetoothController:(KSSBluetoothController *)controller didConnectToPeripheral:(CBPeripheral *)peripheral {

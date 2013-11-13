@@ -18,7 +18,7 @@
 		3A5E360A17F276F300988496 /* KSSDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E360917F276F300988496 /* KSSDeviceTableViewCell.m */; };
 		3A5E360C17F27E5300988496 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E360B17F27E5300988496 /* CoreBluetooth.framework */; };
 		3A5E360F17F2816C00988496 /* KSSBluetoothController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E360E17F2816C00988496 /* KSSBluetoothController.m */; };
-		3A5E361117F2849600988496 /* SupportedServiceUUIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E361017F2849600988496 /* SupportedServiceUUIDs.plist */; };
+		3A5E361117F2849600988496 /* UUIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E361017F2849600988496 /* UUIDs.plist */; };
 		3A5E361717F3418000988496 /* KSSDeviceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E361617F3418000988496 /* KSSDeviceDetailsViewController.m */; };
 		3A9498BA17DD31C700F8872F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9498B917DD31C700F8872F /* Foundation.framework */; };
 		3A9498BC17DD31C700F8872F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9498BB17DD31C700F8872F /* CoreGraphics.framework */; };
@@ -74,7 +74,7 @@
 		3A5E360B17F27E5300988496 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		3A5E360D17F2816C00988496 /* KSSBluetoothController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSBluetoothController.h; sourceTree = "<group>"; };
 		3A5E360E17F2816C00988496 /* KSSBluetoothController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSBluetoothController.m; sourceTree = "<group>"; };
-		3A5E361017F2849600988496 /* SupportedServiceUUIDs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SupportedServiceUUIDs.plist; sourceTree = "<group>"; };
+		3A5E361017F2849600988496 /* UUIDs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UUIDs.plist; sourceTree = "<group>"; };
 		3A5E361517F3418000988496 /* KSSDeviceDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSDeviceDetailsViewController.h; sourceTree = "<group>"; };
 		3A5E361617F3418000988496 /* KSSDeviceDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSDeviceDetailsViewController.m; sourceTree = "<group>"; };
 		3A9498B617DD31C700F8872F /* SwitchaBLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwitchaBLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,7 +233,7 @@
 				3A4129B6182ACC0300A021E7 /* UIAlertView+Blocks.h */,
 				3A4129B7182ACC0300A021E7 /* UIAlertView+Blocks.m */,
 				3A9498C317DD31C700F8872F /* SwitchaBLE-Info.plist */,
-				3A5E361017F2849600988496 /* SupportedServiceUUIDs.plist */,
+				3A5E361017F2849600988496 /* UUIDs.plist */,
 				3A9498C417DD31C700F8872F /* InfoPlist.strings */,
 				3A9498C717DD31C700F8872F /* main.m */,
 				3A9498C917DD31C700F8872F /* SwitchaBLE-Prefix.pch */,
@@ -339,7 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A5E361117F2849600988496 /* SupportedServiceUUIDs.plist in Resources */,
+				3A5E361117F2849600988496 /* UUIDs.plist in Resources */,
 				3A9498C617DD31C700F8872F /* InfoPlist.strings in Resources */,
 				3A9498D117DD31C700F8872F /* Images.xcassets in Resources */,
 				3A94993417DD385C00F8872F /* Main_iPhone.storyboard in Resources */,

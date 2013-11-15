@@ -41,22 +41,22 @@
         
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         
-        NSDateComponents *aComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:[a time]];
-        NSDateComponents *bComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:[b time]];
+        NSDateComponents *aComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:a.time];
+        NSDateComponents *bComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:b.time];
         
-        [aComponents setYear:[bComponents year]];
-        [aComponents setMonth:[bComponents month]];
-        [aComponents setDay:[bComponents day]];
-        [aComponents setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]];
-        [bComponents setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]];
-        NSDate *aDate = [aComponents date];
-        NSDate *bDate = [bComponents date];
+        aComponents.year = bComponents.year;
+        aComponents.month = bComponents.month;
+        aComponents.day = bComponents.day;
+        aComponents.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        bComponents.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDate *aDate = aComponents.date;
+        NSDate *bDate = bComponents.date;
         
         return [aDate compare:bDate];
     };
     
     dateFormatter = [[NSDateFormatter alloc] init];
-    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate = (KSSAppDelegate *)[UIApplication sharedApplication].delegate;
     appDelegate.alarmsViewController = self;
     
     NSMutableArray *alarms = [appDelegate getEntityWithName:@"Alarm"];
@@ -92,7 +92,7 @@
 - (void)editAlarmController:(id)controller didFinishEditingAlarm:(Alarm *)alarm {
     KSSAlarmTableViewCell *cell = (KSSAlarmTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:[alarmsArray indexOfObject:alarm] inSection:0]];
     [self formatCell:cell withAlarm:alarm];
-    [cell isSetSwitch].on = [alarm.isSet boolValue];
+    cell.isSetSwitch.on = [alarm.isSet boolValue];
     
     //[appDelegate scheduleAlarm:alarm];
     [appDelegate saveContext];
@@ -110,7 +110,7 @@
 - (void)toggleAlarmSet:(UISwitch *)sender {
     CGPoint switchPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     Alarm *alarm = [alarmsArray objectAtIndex:[self.tableView indexPathForRowAtPoint:switchPosition].row];
-    [alarm setIsSet:[NSNumber numberWithBool:[sender isOn]]];
+    alarm.isSet = [NSNumber numberWithBool:sender.isOn];
     
     //[appDelegate scheduleAlarm:alarm];
     [appDelegate saveContext];
@@ -118,11 +118,11 @@
 
 - (void)formatCell:(KSSAlarmTableViewCell *)cell withAlarm:(Alarm *)alarm {
     
-    [dateFormatter setDateFormat:@"h:mm"];
+    dateFormatter.dateFormat = @"h:mm";
     cell.timeLabel.text = [dateFormatter stringFromDate:alarm.time];
     [cell.timeLabel sizeToFit];
     
-    [dateFormatter setDateFormat:@"a"];
+    dateFormatter.dateFormat = @"a";
     cell.meridiemLabel.text = [dateFormatter stringFromDate:alarm.time];
     CGRect meridiemPosition = cell.meridiemLabel.frame;
     meridiemPosition.origin.x = cell.timeLabel.frame.origin.x + cell.timeLabel.frame.size.width;
@@ -144,7 +144,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [alarmsArray count];
+    return alarmsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -162,7 +162,7 @@
     
     cell.alarm = alarm;
     
-    [cell.isSetSwitch setOn:[alarm.isSet boolValue]];
+    cell.isSetSwitch.on = [alarm.isSet boolValue];
     [cell.isSetSwitch addTarget:self action:@selector(toggleAlarmSet:) forControlEvents:UIControlEventValueChanged];
     
     return cell;
@@ -194,7 +194,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        Alarm *alarm = [alarmsArray objectAtIndex:[indexPath row]];
+        Alarm *alarm = [alarmsArray objectAtIndex:indexPath.row];
         [appDelegate.managedObjectContext deleteObject:alarm];
         [alarmsArray removeObject:alarm];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

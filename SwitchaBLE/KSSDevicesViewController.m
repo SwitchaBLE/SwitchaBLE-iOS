@@ -43,13 +43,11 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     nearbyArray = [[NSMutableArray alloc] init];
-    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate = (KSSAppDelegate *)[UIApplication sharedApplication].delegate;
     //appDelegate.devicesViewController = self;
     
     if (!appDelegate.bluetoothController) {
         appDelegate.bluetoothController = [[KSSBluetoothController alloc] initWithDeviceListDelegate:self];
-    } else {
-        //[appDelegate.bluetoothController refreshWithDeviceListDelegate:self];
     }
     
     savedArray = [appDelegate getEntityWithName:@"Device"];
@@ -228,7 +226,7 @@
         cell.statusLabel.text = @"Not connected";
     }
     
-    cell.nameLabel.text = cell.device.name != nil ? cell.device.name : cell.device.peripheral.name;
+    cell.nameLabel.text = cell.device.name ?: cell.device.peripheral.name;
     
     return cell;
 }

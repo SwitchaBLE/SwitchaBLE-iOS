@@ -34,7 +34,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStyleDone target:self action:@selector(clearDeviceSelection)];
 
-    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate = (KSSAppDelegate *)[UIApplication sharedApplication].delegate;
     savedArray = [appDelegate getEntityWithName:@"Device"];
 }
 
@@ -107,7 +107,7 @@
         cell.statusLabel.text = @"Not connected";
     }
     
-    cell.nameLabel.text = cell.device.name != nil ? cell.device.name : cell.device.peripheral.name;
+    cell.nameLabel.text = cell.device.name ?: cell.device.peripheral.name;
     
     return cell;
 }

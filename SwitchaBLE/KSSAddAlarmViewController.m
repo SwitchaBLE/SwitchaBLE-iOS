@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate = (KSSAppDelegate *)[UIApplication sharedApplication].delegate;
     alarm = (Alarm *)[NSEntityDescription insertNewObjectForEntityForName:@"Alarm" inManagedObjectContext:appDelegate.managedObjectContext];
 }
 
@@ -45,24 +45,24 @@
 
 - (IBAction)saveAlarm:(id)sender {
     
-    [alarm setTime:[self.datePicker date]];
-    [alarm setIsSet:@1];
+    alarm.time = self.datePicker.date;
+    alarm.isSet = @1;
     
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     
-    NSDateComponents *alarmComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:[alarm time]];
+    NSDateComponents *alarmComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:alarm.time];
     NSDateComponents *nowComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:[NSDate date]];
     
-    [alarmComponents setYear:[nowComponents year]];
-    [alarmComponents setMonth:[nowComponents month]];
-    [alarmComponents setDay:[nowComponents day]];
+    alarmComponents.year = nowComponents.year;
+    alarmComponents.month = nowComponents.month;
+    alarmComponents.day = nowComponents.day;
     
     NSDate *newAlarmTime = [calendar dateFromComponents:alarmComponents];
     if ([newAlarmTime compare:[NSDate date]] == NSOrderedAscending) {
         newAlarmTime = [newAlarmTime dateByAddingTimeInterval:60 * 60 * 24 * 1];
     }
     
-    [alarm setTime:newAlarmTime];
+    alarm.time = newAlarmTime;
     
     [self dismissViewControllerAnimated:YES completion:^{
         [self.delegate addAlarmViewController:self didSaveAlarm:alarm];

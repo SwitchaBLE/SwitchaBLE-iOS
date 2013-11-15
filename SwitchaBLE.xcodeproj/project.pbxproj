@@ -222,6 +222,7 @@
 				3A5E361317F3332700988496 /* Alarms */,
 				3A5E361217F332FB00988496 /* Devices */,
 				3A94993217DD385C00F8872F /* Main_iPhone.storyboard */,
+				3AF0EAE31835C60B00567821 /* Utilities */,
 				3A9498C217DD31C700F8872F /* Supporting Files */,
 			);
 			path = SwitchaBLE;
@@ -230,8 +231,6 @@
 		3A9498C217DD31C700F8872F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3A4129B6182ACC0300A021E7 /* UIAlertView+Blocks.h */,
-				3A4129B7182ACC0300A021E7 /* UIAlertView+Blocks.m */,
 				3A9498C317DD31C700F8872F /* SwitchaBLE-Info.plist */,
 				3A5E361017F2849600988496 /* UUIDs.plist */,
 				3A9498C417DD31C700F8872F /* InfoPlist.strings */,
@@ -257,6 +256,15 @@
 				3A9498E117DD31C700F8872F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3AF0EAE31835C60B00567821 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				3A4129B6182ACC0300A021E7 /* UIAlertView+Blocks.h */,
+				3A4129B7182ACC0300A021E7 /* UIAlertView+Blocks.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

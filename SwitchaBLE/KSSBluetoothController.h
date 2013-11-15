@@ -18,7 +18,7 @@ typedef void(^KSSBluetoothRefreshedResult)();
 @end
 
 @protocol KSSBluetoothDeviceDelegate <NSObject>
-- (void)peripheral:(CBPeripheral *)peripheral didGetTemperatureCharacteristic:(CBCharacteristic *)characteristic;
+
 @end
 
 @interface KSSBluetoothController : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>

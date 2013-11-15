@@ -86,10 +86,6 @@
     return self;
 }
 
-- (void)refreshWithDeviceListDelegate:(id <KSSBluetoothDeviceListDelegate>)delegate {
-    self.deviceListDelegate = delegate;
-}
-
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
     if (central.state == CBCentralManagerStatePoweredOn) {
         NSMutableArray *supportedServices = [[NSMutableArray alloc] init];

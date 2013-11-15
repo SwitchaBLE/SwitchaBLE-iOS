@@ -30,13 +30,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate = (KSSAppDelegate *)[UIApplication sharedApplication].delegate;
 
 
     self.nameCell.detailTextLabel.text = self.device.name;
     self.uuidCell.detailTextLabel.text = self.device.uuid;
     self.temperatureCell.detailTextLabel.text = @"Waiting...";
-    //[appDelegate.bluetoothController getTemperatureCharacteristicForPeripheral:self.device.peripheral deviceDelegate:self];
     
     if (self.deviceIsSaved) {
         self.saveButton.title = @"Forget";
@@ -80,13 +79,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView cellForRowAtIndexPath:indexPath] == self.identifyCell) {
-        [self identify];
+        [appDelegate.bluetoothController identifyPeripheral:self.device.peripheral];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
-}
-
-- (void)identify {
-    [appDelegate.bluetoothController identifyPeripheral:self.device.peripheral];
 }
 
 - (void)forgetDevice:(id)sender {
@@ -94,33 +89,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.delegate deviceDetailsViewController:self didFinishForgettingDevice:self.device];
 }
-
-- (void)peripheral:(CBPeripheral *)peripheral didGetTemperatureCharacteristic:(CBCharacteristic *)characteristic {
-    NSData * updatedValue = characteristic.value;
-    uint8_t* dataPointer = (uint8_t*)[updatedValue bytes];
-    
-    uint8_t flags = dataPointer[0]; dataPointer++;
-    int32_t tempData = (int32_t)CFSwapInt32LittleToHost(*(uint32_t*)dataPointer); dataPointer += 4;
-    int8_t exponent = (int8_t)(tempData >> 24);
-    int32_t mantissa = (int32_t)(tempData & 0x00FFFFFF);
-    
-    if (tempData == 0x007FFFFF) {
-        NSLog(@"Invalid temperature value received");
-        return;
-    }
-    
-    float tempValue = (float)(mantissa*pow(10, exponent));
-    NSString *measurementType;
-    /* measurement type */
-    if (flags & 0x01) {
-        measurementType = @"ºF";
-    } else {
-        measurementType = @"ºC";
-    }
-    
-    self.temperatureCell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f%@", tempValue, measurementType];
-}
-
 
 /*
 #pragma mark - Navigation

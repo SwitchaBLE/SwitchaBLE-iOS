@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self.datePicker setDate:self.alarm.time];
+	self.datePicker.date = self.alarm.time;
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,24 +40,24 @@
 
 - (void)saveAlarm:(id)sender {
     
-    [self.alarm setTime:[self.datePicker date]];
-    [self.alarm setIsSet:@1];
+    self.alarm.time = self.datePicker.date;
+    self.alarm.isSet = @1;
     
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     
-    NSDateComponents *alarmComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:[self.alarm time]];
+    NSDateComponents *alarmComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:self.alarm.time];
     NSDateComponents *nowComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:[NSDate date]];
     
-    [alarmComponents setYear:[nowComponents year]];
-    [alarmComponents setMonth:[nowComponents month]];
-    [alarmComponents setDay:[nowComponents day]];
+    alarmComponents.year = nowComponents.year;
+    alarmComponents.month = nowComponents.month;
+    alarmComponents.day = nowComponents.day;
     
     NSDate *newAlarmTime = [calendar dateFromComponents:alarmComponents];
-    if (newAlarmTime < [NSDate date]) {
+    if ([newAlarmTime compare:[NSDate date]] == NSOrderedAscending) {
         newAlarmTime = [newAlarmTime dateByAddingTimeInterval:60 * 60 * 24 * 1];
     }
     
-    [self.alarm setTime:newAlarmTime];
+    self.alarm.time = newAlarmTime;
     
     [self.navigationController popViewControllerAnimated:YES];
     [self.delegate editAlarmController:self didFinishEditingAlarm:self.alarm];
@@ -66,7 +66,7 @@
 
 - (void)deleteAlarm:(id)sender {
     
-    KSSAppDelegate *appDelegate = (KSSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    KSSAppDelegate *appDelegate = (KSSAppDelegate *)[UIApplication sharedApplication].delegate;
     [appDelegate.managedObjectContext deleteObject:self.alarm];
     
     [self.navigationController popViewControllerAnimated:YES];

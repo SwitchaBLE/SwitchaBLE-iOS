@@ -61,6 +61,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uuid = %@", [notification.userInfo objectForKey:@"alarmUUID"]];
     Alarm *alarm = [alarms filteredArrayUsingPredicate:predicate].firstObject;
     alarm.isSet = NO;
+    alarm.time = [alarm.time dateByAddingTimeInterval:60*60*24];
     [self saveContext];
     return alarm;
 }
@@ -106,7 +107,7 @@
             [[UIApplication sharedApplication] cancelLocalNotification:notification];
             notification.fireDate = alarm.time;
             notification.timeZone = [NSTimeZone systemTimeZone];
-            [dateFormatter setDateFormat:@"h:mm a"];
+            dateFormatter.dateFormat = @"h:mm a";
             notification.alertBody = [NSString stringWithFormat:@"%@ Alarm", [dateFormatter stringFromDate:alarm.time]];
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         } else {
@@ -114,7 +115,7 @@
             notification = [[UILocalNotification alloc] init];
             notification.fireDate = alarm.time;
             notification.timeZone = [NSTimeZone systemTimeZone];
-            [dateFormatter setDateFormat:@"h:mm a"];
+            dateFormatter.dateFormat = @"h:mm a";
             notification.alertBody = [NSString stringWithFormat:@"%@ Alarm", [dateFormatter stringFromDate:alarm.time]];
             notification.alertAction = @"Dismiss";
             notification.soundName = UILocalNotificationDefaultSoundName;
@@ -129,6 +130,19 @@
         }
     }
     NSLog(@"%i scheduled local notifications", [[UIApplication sharedApplication] scheduledLocalNotifications].count);
+    
+    if (self.bluetoothController) {
+         NSUInteger deviceIndex = [self.bluetoothController.connectedPeripherals indexOfObjectPassingTest:^BOOL(CBPeripheral *p, NSUInteger idx, BOOL *stop) {
+            return [p.identifier.UUIDString isEqualToString:alarm.device.uuid];
+        }];
+        if (deviceIndex != NSNotFound) {
+            // Update the device now
+        } else {
+            // Update the device ASAP
+        }
+    } else {
+        // Initialize DevicesViewController?
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -19,6 +19,7 @@
 @property NSData *OFF;
 @property CBUUID *SWITCHABLE_BASE;
 @property CBUUID *LIGHTSTATE;
+@property CBUUID *TEST_NOTIFY;
 @end
 
 
@@ -30,10 +31,10 @@
 @synthesize SWITCHABLE_BASE;
 @synthesize LIGHTSTATE;
 @synthesize SERVICE_UUIDS;
+@synthesize TEST_NOTIFY;
 
-- (KSSBluetoothController *)initWithDeviceListDelegate:(id <KSSBluetoothDeviceListDelegate>)delegate {
-    self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-    self.deviceListDelegate = delegate;
+- (KSSBluetoothController *)init {
+    self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:@{CBCentralManagerOptionRestoreIdentifierKey: @"switchableCentralManager"}];
     connectedPeripherals = [[NSMutableArray alloc] init];
     
     const unsigned char zero[] = { 0x00 };
@@ -41,6 +42,7 @@
     ON = [NSData dataWithBytes:zero length:1];
     OFF = [NSData dataWithBytes:one length:1];
     
+    return self;
     return self;
 }
 
@@ -53,6 +55,7 @@
             if ([[service objectForKey:@"Name"] isEqual:@"SwitchaBLE Base"]) {
                 SWITCHABLE_BASE = [CBUUID UUIDWithString:[service objectForKey:@"UUID"]];
                 LIGHTSTATE = [CBUUID UUIDWithString:[(NSDictionary *)[service objectForKey:@"CharacteristicUUIDs"] objectForKey:@"LightState"]];
+                TEST_NOTIFY = [CBUUID UUIDWithString:[(NSDictionary *)[service objectForKey:@"CharacteristicUUIDs"] objectForKey:@"TestNotify"]];
                 [KSSGlobalManager sharedManager].serviceUUID = SWITCHABLE_BASE;
                 [KSSGlobalManager sharedManager].lightStateUUID = LIGHTSTATE;
             }
@@ -61,16 +64,16 @@
         for (NSDictionary *service in self.supportedServices) {
             [SERVICE_UUIDS addObject:[CBUUID UUIDWithString:[service objectForKey:@"UUID"]]];
         }
-        [self.manager scanForPeripheralsWithServices:SERVICE_UUIDS options:nil];
+        [central scanForPeripheralsWithServices:SERVICE_UUIDS options:nil];
     }
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
     if (![connectedPeripherals containsObject:peripheral]) {
-        [self.manager stopScan];
+        [central stopScan];
         [connectedPeripherals addObject:peripheral];
-        [self.manager connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES}];
-        [self.manager scanForPeripheralsWithServices:SERVICE_UUIDS options:nil];
+        [central connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES}];
+        [central scanForPeripheralsWithServices:SERVICE_UUIDS options:nil];
     }
 }
 
@@ -87,9 +90,18 @@
     [connectedPeripherals removeObject:peripheral];
 }
 
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)state {
+    NSArray *peripherals = state[CBCentralManagerRestoredStatePeripheralsKey];
+    for (CBPeripheral *peripheral in peripherals) {
+        [central connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES}];
+    }
+}
+
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     [connectedPeripherals removeObject:peripheral];
     [self.deviceListDelegate bluetoothController:self didDisconnectFromPeripheral:peripheral];
+    [self.deviceDelegate bluetoothController:self didDisconnectFromPeripheral:peripheral];
+    [central connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES}];
 }
 
 
@@ -122,7 +134,9 @@
         //TODO handle error
     } else if ([service.UUID isEqual:SWITCHABLE_BASE]) {
         for (CBCharacteristic *characteristic in service.characteristics) {
-            if ([characteristic.UUID isEqual:LIGHTSTATE] && characteristic.properties & CBCharacteristicPropertyNotify) {
+            if ([characteristic.UUID isEqual:LIGHTSTATE]) {
+                [peripheral readValueForCharacteristic:characteristic];
+            } else if ([characteristic.UUID isEqual:TEST_NOTIFY]) {
                 [peripheral setNotifyValue:YES forCharacteristic:characteristic];
             }
         }
@@ -141,23 +155,23 @@
     if (error) {
         NSLog(@"Error receiving update of characteristic: %@", [error localizedDescription]);
         //TODO handle error
-    } else if ([characteristic.UUID isEqual:LIGHTSTATE]) {
+    } else if ([characteristic.UUID isEqual:TEST_NOTIFY]) {
         // Not sure if we need to do something here or not
     }
 }
 
 // NEEDS TO BE TESTED
-- (void)toggleLightForPeripheral:(CBPeripheral *)peripheral {
-    if (peripheral.lightCharacteristic) {
-        BOOL isOn = [peripheral.lightCharacteristic.value isEqualToData:ON];
-        [peripheral writeValue:(isOn ? OFF : ON) forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
-    }
+- (void)switchLightForPeripheral:(CBPeripheral *)peripheral toState:(NSData *)state {
+    [peripheral writeValue:state forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 // NEEDS TO BE TESTED
 - (void)identifyPeripheral:(CBPeripheral *)peripheral {
-    [self toggleLightForPeripheral:peripheral];
-    [self performSelector:@selector(toggleLightForPeripheral:) withObject:peripheral afterDelay:0.2];
+    BOOL isOn = [peripheral.lightCharacteristic.value isEqualToData:ON];
+    [self switchLightForPeripheral:peripheral toState:(isOn ? OFF : ON)];
+    usleep(200000);
+    [self switchLightForPeripheral:peripheral toState:(isOn ? ON : OFF)];
+    [peripheral readValueForCharacteristic:peripheral.lightCharacteristic];
 }
 
 - (void)stopScan {

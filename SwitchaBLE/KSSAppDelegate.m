@@ -41,18 +41,20 @@
             alarmComponents.day = nowComponents.day;
             
             NSDate *newAlarmTime = [calendar dateFromComponents:alarmComponents];
-            if (newAlarmTime < [NSDate date]) {
+            if ([newAlarmTime compare:[NSDate date]] == NSOrderedAscending) {
                 newAlarmTime = [newAlarmTime dateByAddingTimeInterval:60 * 60 * 24 * 1];
             }
             
             alarm.time = newAlarmTime;
-            if (alarm.isUpdated) {
-                //[self scheduleAlarm:alarm];
-            }
         }
     }
     
     [self saveContext];
+    
+    // Restore Bluetooth State
+    if (!self.bluetoothController) {
+        self.bluetoothController = [[KSSBluetoothController alloc] init];
+    }
     
     return YES;
 }

@@ -42,15 +42,21 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    nearbyArray = [[NSMutableArray alloc] init];
     appDelegate = (KSSAppDelegate *)[UIApplication sharedApplication].delegate;
-    //appDelegate.devicesViewController = self;
+    appDelegate.devicesViewController = self;
+    
+    nearbyArray = [[NSMutableArray alloc] init];
+    savedArray = [appDelegate getEntityWithName:@"Device"];
     
     if (!appDelegate.bluetoothController) {
-        appDelegate.bluetoothController = [[KSSBluetoothController alloc] initWithDeviceListDelegate:self];
+        appDelegate.bluetoothController = [[KSSBluetoothController alloc] init];
     }
     
-    savedArray = [appDelegate getEntityWithName:@"Device"];
+    // NEEDS TO BE TESTED
+    appDelegate.bluetoothController.deviceListDelegate = self;
+    for (CBPeripheral *peripheral in appDelegate.bluetoothController.connectedPeripherals) {
+        [self bluetoothController:appDelegate.bluetoothController didConnectToPeripheral:peripheral];
+    }
     
     // TODO display a status indicator while waiting for bluetooth update
     
@@ -109,9 +115,14 @@
     [appDelegate saveContext];
 }
 
+- (void)deviceDetailsViewController:(KSSDeviceDetailsViewController *)controller didFinishEditingDevice:(Device *)device {
+    NSIndexPath *devicePath = [NSIndexPath indexPathForRow:[savedArray indexOfObject:device] inSection:1];
+    ((KSSDeviceTableViewCell *)[self.tableView cellForRowAtIndexPath:devicePath]).nameLabel.text = device.name;
+}
+
 - (void)bluetoothController:(KSSBluetoothController *)controller didConnectToPeripheral:(CBPeripheral *)peripheral {
     
-    Device *device = [[savedArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid==%@", peripheral.identifier.UUIDString]] firstObject];
+    Device *device = [savedArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid==%@", peripheral.identifier.UUIDString]].firstObject;
     
     if (device != nil) {
         device.peripheral = peripheral;
@@ -136,7 +147,7 @@
 
 - (void)bluetoothController:(KSSBluetoothController *)controller didDisconnectFromPeripheral:(CBPeripheral *)peripheral {
     
-    Device *device = [[savedArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid==%@", peripheral.identifier.UUIDString]] firstObject];
+    Device *device = [savedArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid==%@", peripheral.identifier.UUIDString]].firstObject;
     
     if (device != nil) {
         device.peripheral = nil;
@@ -144,7 +155,7 @@
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     } else {
         
-        device = [[nearbyArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid==%@", peripheral.identifier.UUIDString]] firstObject];
+        device = [nearbyArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid==%@", peripheral.identifier.UUIDString]].firstObject;
         
         if (device != nil) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[nearbyArray indexOfObject:device] inSection:0];
@@ -175,7 +186,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self arrayForSection:section].count || 1;
+    return [self arrayForSection:section].count ?: 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -222,8 +233,10 @@
 
     if (cell.device.peripheral != nil) {
         cell.statusLabel.text = @"Connected";
+        cell.statusLabel.enabled = cell.nameLabel.enabled = YES;
     } else {
         cell.statusLabel.text = @"Not connected";
+        cell.statusLabel.enabled = cell.nameLabel.enabled = NO;
     }
     
     cell.nameLabel.text = cell.device.name ?: cell.device.peripheral.name;

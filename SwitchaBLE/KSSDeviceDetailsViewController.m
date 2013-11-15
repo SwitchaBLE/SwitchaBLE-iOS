@@ -33,13 +33,14 @@
     appDelegate = (KSSAppDelegate *)[UIApplication sharedApplication].delegate;
 
 
-    self.nameCell.detailTextLabel.text = self.device.name;
-    self.uuidCell.detailTextLabel.text = self.device.uuid;
-    self.temperatureCell.detailTextLabel.text = @"Waiting...";
+    self.name.text = self.device.name ?: self.device.peripheral.name;
+    self.name.delegate = self;
+    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     
     if (self.deviceIsSaved) {
-        self.saveButton.title = @"Forget";
-        self.saveButton.action = @selector(forgetDevice:);
+        self.saveOrForgetCell.textLabel.text = @"Forget Device";
+    } else {
+        self.name.enabled = NO;
     }
     
     if (self.device.peripheral.state != CBPeripheralStateConnected) {
@@ -81,6 +82,12 @@
     if ([tableView cellForRowAtIndexPath:indexPath] == self.identifyCell) {
         [appDelegate.bluetoothController identifyPeripheral:self.device.peripheral];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    } else if ([tableView cellForRowAtIndexPath:indexPath] == self.saveOrForgetCell) {
+        if (self.deviceIsSaved) {
+            [self forgetDevice:self.saveOrForgetCell];
+        } else {
+            [self saveDevice:self.saveOrForgetCell];
+        }
     }
 }
 
@@ -88,6 +95,39 @@
     [appDelegate.managedObjectContext deleteObject:self.device];
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.delegate deviceDetailsViewController:self didFinishForgettingDevice:self.device];
+}
+
+- (void)bluetoothController:(KSSBluetoothController *)controller didDisconnectFromPeripheral:(CBPeripheral *)peripheral {
+    self.identifyCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.identifyCell.userInteractionEnabled = self.identifyCell.textLabel.enabled = NO;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self.view addGestureRecognizer:self.tapRecognizer];
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    if (!textField.text.length) {
+        textField.text = self.device.name;
+    } else if ([((KSSDevicesViewController *)self.delegate).savedArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(name ==[c] %@) AND (uuid != %@)", textField.text, self.device.uuid]].count) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"A device by that name already exists. Please choose a unique name." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    self.device.name = textField.text;
+    [self.delegate deviceDetailsViewController:self didFinishEditingDevice:self.device];
+    [self.view removeGestureRecognizer:self.tapRecognizer];
+    return YES;
+}
+
+- (void)dismissKeyboard {
+    [self.name resignFirstResponder];
 }
 
 /*

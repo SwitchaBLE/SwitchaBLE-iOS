@@ -16,6 +16,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *nameLabel;
 @property (nonatomic, retain) IBOutlet UILabel *statusLabel;
 @property (nonatomic, retain) NSString *temperature; //TODO remove
-@property (nonatomic) Device *device;
+@property (nonatomic, retain) Device *device;
+@property (nonatomic) BOOL *isConnected;
 
 @end

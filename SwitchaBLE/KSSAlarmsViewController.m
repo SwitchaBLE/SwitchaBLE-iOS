@@ -124,12 +124,6 @@
     
     dateFormatter.dateFormat = @"a";
     cell.meridiemLabel.text = [dateFormatter stringFromDate:alarm.time];
-    CGRect meridiemPosition = cell.meridiemLabel.frame;
-    meridiemPosition.origin.x = cell.timeLabel.frame.origin.x + cell.timeLabel.frame.size.width;
-    [cell.meridiemLabel removeFromSuperview];
-    cell.meridiemLabel.frame = meridiemPosition;
-    [cell.contentView addSubview:cell.meridiemLabel];
-    
     cell.deviceLabel.text = alarm.device.name ?: @"No deivce selected";
 }
 

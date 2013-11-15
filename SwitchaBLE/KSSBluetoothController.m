@@ -8,6 +8,9 @@
 
 #import "KSSBluetoothController.h"
 #import "Device.h"
+#import "CBPeripheral+SwitchaBLE.h"
+#import "NSArray+Map.h"
+#import "KSSGlobalManager.h"
 
 @interface KSSBluetoothController ()
 @property NSArray *supportedServices;
@@ -16,51 +19,6 @@
 @property NSData *OFF;
 @property CBUUID *SWITCHABLE_BASE;
 @property CBUUID *LIGHTSTATE;
-@end
-
-@interface NSArray (Map)
-- (NSArray *)mapObjectsUsingBlock:(id (^)(id obj, NSUInteger idx))block;
-@end
-
-@implementation NSArray (Map)
-- (NSArray *)mapObjectsUsingBlock:(id (^)(id obj, NSUInteger idx))block {
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
-    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [result addObject:block(obj, idx)];
-    }];
-    return result;
-}
-@end
-
-@interface CBPeripheral (SwitchaBLE)
-@property (readonly) CBCharacteristic *lightCharacteristic;
- - (CBCharacteristic *)lightCharacteristic;
-@end
-
-@implementation CBPeripheral (SwitchaBLE)
-
-- (CBCharacteristic *)lightCharacteristic {
-    
-    // TODO get rid of the literal uuids
-    NSInteger serviceIndex = [self.services indexOfObjectPassingTest:^BOOL(CBService *svc, NSUInteger idx, BOOL *stop) {
-        return [svc.UUID isEqual:[CBUUID UUIDWithString:@"00006D59-1B47-929D-0D37-09FB5CE1C126"]];
-    }];
-    
-    if (serviceIndex != NSNotFound) {
-        CBService *service = [self.services objectAtIndex:serviceIndex];
-        
-        NSInteger characteristicIndex = [service.characteristics indexOfObjectPassingTest:^BOOL(CBCharacteristic *c, NSUInteger idx, BOOL *stop) {
-            return [c.UUID isEqual:[CBUUID UUIDWithString:@"00006D5A-1B47-929D-0D37-09FB5CE1C126"]];
-        }];
-        
-        if (characteristicIndex != NSNotFound) {
-            return [service.characteristics objectAtIndex:characteristicIndex];
-        }
-    }
-    
-    return nil;
-}
-
 @end
 
 
@@ -95,6 +53,8 @@
             if ([[service objectForKey:@"Name"] isEqual:@"SwitchaBLE Base"]) {
                 SWITCHABLE_BASE = [CBUUID UUIDWithString:[service objectForKey:@"UUID"]];
                 LIGHTSTATE = [CBUUID UUIDWithString:[(NSDictionary *)[service objectForKey:@"CharacteristicUUIDs"] objectForKey:@"LightState"]];
+                [KSSGlobalManager sharedManager].serviceUUID = SWITCHABLE_BASE;
+                [KSSGlobalManager sharedManager].lightStateUUID = LIGHTSTATE;
             }
         }];
         self.supportedServices = [NSArray arrayWithArray:supportedServices];

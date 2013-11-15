@@ -38,6 +38,9 @@
 		3A94993417DD385C00F8872F /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A94993217DD385C00F8872F /* Main_iPhone.storyboard */; };
 		3AD636A817E6BCB80009E792 /* KSSAlarmTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD636A717E6BCB80009E792 /* KSSAlarmTableViewCell.m */; };
 		3AEFC8DA17E9375100092855 /* KSSEditAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFC8D917E9375100092855 /* KSSEditAlarmViewController.m */; };
+		3AF0EAE61835E7E300567821 /* NSArray+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF0EAE51835E7E300567821 /* NSArray+Map.m */; };
+		3AF0EAE91835E87000567821 /* CBPeripheral+SwitchaBLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF0EAE81835E87000567821 /* CBPeripheral+SwitchaBLE.m */; };
+		3AF0EAEC1835EBD500567821 /* KSSGlobalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF0EAEB1835EBD500567821 /* KSSGlobalManager.m */; };
 		3AFC527A17F0F97D0017BCBC /* KSSAlarmDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFC527917F0F97D0017BCBC /* KSSAlarmDetailViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +104,12 @@
 		3ADDD04A180EDA9C002B51CC /* SwitchaBLE_1.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwitchaBLE_1.2.xcdatamodel; sourceTree = "<group>"; };
 		3AEFC8D817E9375100092855 /* KSSEditAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSEditAlarmViewController.h; sourceTree = "<group>"; };
 		3AEFC8D917E9375100092855 /* KSSEditAlarmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSEditAlarmViewController.m; sourceTree = "<group>"; };
+		3AF0EAE41835E7E300567821 /* NSArray+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Map.h"; sourceTree = "<group>"; };
+		3AF0EAE51835E7E300567821 /* NSArray+Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Map.m"; sourceTree = "<group>"; };
+		3AF0EAE71835E87000567821 /* CBPeripheral+SwitchaBLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+SwitchaBLE.h"; sourceTree = "<group>"; };
+		3AF0EAE81835E87000567821 /* CBPeripheral+SwitchaBLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+SwitchaBLE.m"; sourceTree = "<group>"; };
+		3AF0EAEA1835EBD500567821 /* KSSGlobalManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSGlobalManager.h; sourceTree = "<group>"; };
+		3AF0EAEB1835EBD500567821 /* KSSGlobalManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSGlobalManager.m; sourceTree = "<group>"; };
 		3AFC527817F0F97D0017BCBC /* KSSAlarmDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSAlarmDetailViewController.h; sourceTree = "<group>"; };
 		3AFC527917F0F97D0017BCBC /* KSSAlarmDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSAlarmDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -261,8 +270,14 @@
 		3AF0EAE31835C60B00567821 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				3AF0EAE41835E7E300567821 /* NSArray+Map.h */,
+				3AF0EAE51835E7E300567821 /* NSArray+Map.m */,
 				3A4129B6182ACC0300A021E7 /* UIAlertView+Blocks.h */,
 				3A4129B7182ACC0300A021E7 /* UIAlertView+Blocks.m */,
+				3AF0EAE71835E87000567821 /* CBPeripheral+SwitchaBLE.h */,
+				3AF0EAE81835E87000567821 /* CBPeripheral+SwitchaBLE.m */,
+				3AF0EAEA1835EBD500567821 /* KSSGlobalManager.h */,
+				3AF0EAEB1835EBD500567821 /* KSSGlobalManager.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -371,15 +386,18 @@
 			files = (
 				3A4129B8182ACC0300A021E7 /* UIAlertView+Blocks.m in Sources */,
 				3A3DC45D17DD423B00EECC90 /* KSSAlarmsViewController.m in Sources */,
+				3AF0EAE91835E87000567821 /* CBPeripheral+SwitchaBLE.m in Sources */,
 				3A09E0DD1824B535007DE4C4 /* KSSTabBarController.m in Sources */,
 				3A3DC46617DD46CE00EECC90 /* Alarm.m in Sources */,
 				3A5E360F17F2816C00988496 /* KSSBluetoothController.m in Sources */,
+				3AF0EAEC1835EBD500567821 /* KSSGlobalManager.m in Sources */,
 				3AEFC8DA17E9375100092855 /* KSSEditAlarmViewController.m in Sources */,
 				3A3DC46017DD427100EECC90 /* KSSDevicesViewController.m in Sources */,
 				3A5E360A17F276F300988496 /* KSSDeviceTableViewCell.m in Sources */,
 				3AFC527A17F0F97D0017BCBC /* KSSAlarmDetailViewController.m in Sources */,
 				3A9498CC17DD31C700F8872F /* KSSAppDelegate.m in Sources */,
 				3A3DC46917DD4E9C00EECC90 /* KSSAddAlarmViewController.m in Sources */,
+				3AF0EAE61835E7E300567821 /* NSArray+Map.m in Sources */,
 				3A3DC46317DD46CE00EECC90 /* Device.m in Sources */,
 				3AD636A817E6BCB80009E792 /* KSSAlarmTableViewCell.m in Sources */,
 				3A5E361717F3418000988496 /* KSSDeviceDetailsViewController.m in Sources */,

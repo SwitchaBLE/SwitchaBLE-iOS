@@ -18,7 +18,9 @@ typedef void(^KSSBluetoothRefreshedResult)();
 @end
 
 @protocol KSSBluetoothDeviceDelegate <NSObject>
+- (void)bluetoothController:(KSSBluetoothController *)controller didConnectToPeripheral:(CBPeripheral *)peripheral;
 - (void)bluetoothController:(KSSBluetoothController *)controller didDisconnectFromPeripheral:(CBPeripheral *)peripheral;
+- (void)bluetoothController:(KSSBluetoothController *)controller didUpdateRSSIForPeripheral:(CBPeripheral *)peripheral;
 @end
 
 @interface KSSBluetoothController : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
@@ -32,6 +34,8 @@ typedef void(^KSSBluetoothRefreshedResult)();
 
 
 - (void)identifyPeripheral:(CBPeripheral *)peripheral;
+- (NSTimer *)startPollingRSSIForPeripheral:(CBPeripheral *)peripheral;
+- (void)stopPollingRSSIOnTimer:(NSTimer *)timer;
 - (void)stopScan;
 
 @end

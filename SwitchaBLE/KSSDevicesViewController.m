@@ -76,6 +76,7 @@
         [nearbyArray removeObject:tempDevice];
         [savedArray insertObject:device atIndex:0];
         [self.tableView beginUpdates];
+        ((KSSDeviceTableViewCell *)[self.tableView cellForRowAtIndexPath:sourcePath]).nameLabel.text = device.name;
         [self.tableView moveRowAtIndexPath:sourcePath toIndexPath:destinationPath];
         if (nearbyArray.count == 0) {
             [self.tableView insertRowsAtIndexPaths:@[sourcePath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -92,9 +93,13 @@
     if (device.peripheral.state == CBPeripheralStateConnected) {
         NSIndexPath *destinationPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [savedArray removeObject:device];
-        [nearbyArray insertObject:device atIndex:0];
-        device.name = device.peripheral.name;
+        Device *newDevice = (Device *)[NSEntityDescription insertNewObjectForEntityForName:@"Device" inManagedObjectContext:appDelegate.tempObjectContext];
+        newDevice.peripheral = device.peripheral;
+        newDevice.uuid = device.peripheral.identifier.UUIDString;
+        newDevice.name = device.peripheral.name;
+        [nearbyArray insertObject:newDevice atIndex:0];
         [self.tableView beginUpdates];
+        ((KSSDeviceTableViewCell *)[self.tableView cellForRowAtIndexPath:sourcePath]).nameLabel.text = newDevice.name;
         [self.tableView moveRowAtIndexPath:sourcePath toIndexPath:destinationPath];
         if (savedArray.count == 0) {
             [self.tableView insertRowsAtIndexPaths:@[sourcePath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -118,6 +123,7 @@
 - (void)deviceDetailsViewController:(KSSDeviceDetailsViewController *)controller didFinishEditingDevice:(Device *)device {
     NSIndexPath *devicePath = [NSIndexPath indexPathForRow:[savedArray indexOfObject:device] inSection:1];
     ((KSSDeviceTableViewCell *)[self.tableView cellForRowAtIndexPath:devicePath]).nameLabel.text = device.name;
+    [appDelegate saveContext];
 }
 
 - (void)bluetoothController:(KSSBluetoothController *)controller didConnectToPeripheral:(CBPeripheral *)peripheral {
@@ -194,7 +200,6 @@
 }
 
 - (NSMutableArray *)arrayForSection:(NSInteger)section {
-//    return (section == 0 && nearbyArray.count > 0) ? nearbyArray : savedArray;
     return section == 0 ? nearbyArray : savedArray;
 }
 

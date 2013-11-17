@@ -68,6 +68,13 @@
     }
 }
 
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)state {
+    NSArray *peripherals = state[CBCentralManagerRestoredStatePeripheralsKey];
+    for (CBPeripheral *peripheral in peripherals) {
+        [central connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES}];
+    }
+}
+
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
     if (![connectedPeripherals containsObject:peripheral]) {
         [central stopScan];
@@ -79,8 +86,10 @@
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     peripheral.delegate = self;
+    [peripheral readRSSI];
     [peripheral discoverServices:SERVICE_UUIDS];
     [self.deviceListDelegate bluetoothController:self didConnectToPeripheral:peripheral];
+    [self.deviceDelegate bluetoothController:self didConnectToPeripheral:peripheral];
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -88,13 +97,6 @@
         NSLog(@"%@", [error localizedDescription]);
     }
     [connectedPeripherals removeObject:peripheral];
-}
-
-- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)state {
-    NSArray *peripherals = state[CBCentralManagerRestoredStatePeripheralsKey];
-    for (CBPeripheral *peripheral in peripherals) {
-        [central connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES}];
-    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -158,6 +160,26 @@
     } else if ([characteristic.UUID isEqual:TEST_NOTIFY]) {
         // Not sure if we need to do something here or not
     }
+}
+
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error {
+    if (error) {
+        NSLog(@"Error receiving update of RSSI: %@", [error localizedDescription]);
+    } else {
+        [self.deviceDelegate bluetoothController:self didUpdateRSSIForPeripheral:peripheral];
+    }
+}
+
+- (NSTimer *)startPollingRSSIForPeripheral:(CBPeripheral *)peripheral {
+    NSTimer *rssiTimer;
+    [rssiTimer invalidate];
+    rssiTimer = [NSTimer timerWithTimeInterval:1.0 target:peripheral selector:@selector(readRSSI) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop]addTimer:rssiTimer forMode:NSRunLoopCommonModes];
+    return rssiTimer;
+}
+
+- (void)stopPollingRSSIOnTimer:(NSTimer *)timer {
+    [timer invalidate];
 }
 
 // NEEDS TO BE TESTED

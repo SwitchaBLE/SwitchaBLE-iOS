@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSDevicesViewController.m"
-            timestampString = "406235327.792316"
+            timestampString = "406405112.667965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSDevicesViewController.m"
-            timestampString = "406235327.792316"
+            timestampString = "406405112.667965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "-bluetoothController:didConnectToPeripheral:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSDeviceDetailsViewController.m"
-            timestampString = "406232159.546965"
+            timestampString = "406405869.236335"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSDeviceDetailsViewController.m"
-            timestampString = "406235327.792316"
+            timestampString = "406405869.236335"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "-closeView:"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "-formatRSSI:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,27 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSDevicesViewController.m"
-            timestampString = "406198248.53332"
+            timestampString = "406405112.667965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "-deviceDetailsViewController:didFinishForgettingDevice:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwitchaBLE/KSSDevicesViewController.m"
-            timestampString = "406235327.792316"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "-bluetoothController:didConnectToPeripheral:"
             landmarkType = "5">
          </BreakpointContent>
@@ -282,28 +266,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSBluetoothController.m"
-            timestampString = "406199038.59507"
+            timestampString = "406403218.370331"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "-identifyPeripheral:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwitchaBLE/KSSDevicesViewController.m"
-            timestampString = "406198248.53332"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "-deviceDetailsViewController:didFinishForgettingDevice:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -442,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSBluetoothController.m"
-            timestampString = "406199038.59507"
+            timestampString = "406403218.370331"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "-switchLightForPeripheral:toState:"
             landmarkType = "5">
          </BreakpointContent>
@@ -458,11 +426,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSBluetoothController.m"
-            timestampString = "406199038.59507"
+            timestampString = "406403218.370331"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "-peripheral:didUpdateValueForCharacteristic:error:"
             landmarkType = "5">
          </BreakpointContent>
@@ -470,15 +438,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSBluetoothController.m"
-            timestampString = "406199038.59507"
+            timestampString = "406403218.370331"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "-centralManager:didDisconnectPeripheral:error:"
             landmarkType = "5">
          </BreakpointContent>
@@ -490,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSDeviceDetailsViewController.m"
-            timestampString = "406235327.792316"
+            timestampString = "406405869.236335"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -506,12 +474,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSDeviceDetailsViewController.m"
-            timestampString = "406235327.792316"
+            timestampString = "406405869.236335"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -522,28 +490,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSDeviceDetailsViewController.m"
-            timestampString = "406235327.792316"
+            timestampString = "406406169.196403"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "-dismissKeyboard"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwitchaBLE/KSSDeviceDetailsViewController.m"
-            timestampString = "406235327.792316"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "-textFieldShouldEndEditing:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitchaBLE/KSSDeviceDetailsViewController.m"
+            timestampString = "406406169.196403"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "-textFieldShouldReturn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -570,11 +538,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSDevicesViewController.m"
-            timestampString = "406235327.792316"
+            timestampString = "406405112.667965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -586,12 +554,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSDevicesViewController.m"
-            timestampString = "406235327.792316"
+            timestampString = "406405112.667965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "-tableView:numberOfRowsInSection:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitchaBLE/KSSDeviceDetailsViewController.m"
+            timestampString = "406405869.236335"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "-bluetoothController:didUpdateRSSIForPeripheral:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitchaBLE/KSSDevicesViewController.m"
+            timestampString = "406403531.598139"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-deviceDetailsViewController:didFinishSavingDevice:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitchaBLE/KSSDevicesViewController.m"
+            timestampString = "406405112.667965"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
+            landmarkName = "-prepareForSegue:sender:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitchaBLE/KSSDevicesViewController.m"
+            timestampString = "406405112.667965"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "-deviceDetailsViewController:didFinishForgettingDevice:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitchaBLE/KSSDeviceDetailsViewController.m"
+            timestampString = "406406169.196403"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "-textFieldShouldReturn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

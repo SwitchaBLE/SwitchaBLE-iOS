@@ -24,13 +24,15 @@
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 @property (nonatomic, retain) IBOutlet UITextField *name;
 @property (nonatomic, retain) IBOutlet UITableViewCell *identifyCell;
+@property (nonatomic, retain) IBOutlet UITableViewCell *connectionCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell *saveOrForgetCell;
 @property (nonatomic) Device *device;
 @property (nonatomic) BOOL deviceIsSaved;
 @property (nonatomic, retain) UITapGestureRecognizer *tapRecognizer;
+@property (nonatomic, retain) UIAlertView *alert;
 
 - (IBAction)closeView:(id)sender;
-- (IBAction)saveDevice:(id)sender;
+- (void)saveDevice:(id)sender;
 - (void)forgetDevice:(id)sender;
 
 @end

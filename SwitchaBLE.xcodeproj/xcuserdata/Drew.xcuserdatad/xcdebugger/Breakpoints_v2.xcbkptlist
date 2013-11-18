@@ -265,22 +265,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SwitchaBLE/KSSBluetoothController.m"
-            timestampString = "406403218.370331"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "-identifyPeripheral:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SwitchaBLE/KSSAppDelegate.m"
             timestampString = "406198794.339081"
             startingColumnNumber = "9223372036854775807"
@@ -400,22 +384,6 @@
             startingLineNumber = "17"
             endingLineNumber = "17"
             landmarkName = "-lightCharacteristic"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwitchaBLE/KSSBluetoothController.m"
-            timestampString = "406403218.370331"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "-switchLightForPeripheral:toState:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

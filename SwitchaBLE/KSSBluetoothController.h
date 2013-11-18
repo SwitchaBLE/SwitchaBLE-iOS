@@ -23,7 +23,21 @@ typedef void(^KSSBluetoothRefreshedResult)();
 - (void)bluetoothController:(KSSBluetoothController *)controller didUpdateRSSIForPeripheral:(CBPeripheral *)peripheral;
 @end
 
-@interface KSSBluetoothController : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
+typedef NS_OPTIONS(NSInteger, LightState) {
+    LightStateOff    = 0,
+    LightStateOn     = 1 << 0,
+    LightStateToggle = 1 << 1,
+    LightStatePulse  = 1 << 2,
+    LightStateStrobe = 1 << 3
+};
+
+@interface KSSBluetoothController : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate> {
+    NSData *ON;
+    NSData *OFF;
+    NSData *TOGGLE;
+    NSData *PULSE;
+    NSData *STROBE;
+}
 
 @property (nonatomic, strong) CBCentralManager *manager;
 @property (nonatomic, strong, retain) NSMutableArray *connectedPeripherals;
@@ -33,9 +47,12 @@ typedef void(^KSSBluetoothRefreshedResult)();
 @property (readonly) CBUUID *SWITCHABLE_BASE;
 
 
-- (void)identifyPeripheral:(CBPeripheral *)peripheral;
 - (NSTimer *)startPollingRSSIForPeripheral:(CBPeripheral *)peripheral;
 - (void)stopPollingRSSIOnTimer:(NSTimer *)timer;
+- (void)turnLightOnForPeripheral:(CBPeripheral *)peripheral;
+- (void)turnLightOffForPeripheral:(CBPeripheral *)peripheral;
+- (void)toggleLightForPeripheral:(CBPeripheral *)peripheral;
+- (void)startPulsingLightForPeripheral:(CBPeripheral *)peripheral;
 - (void)stopScan;
 
 @end

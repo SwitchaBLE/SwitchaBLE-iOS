@@ -15,8 +15,6 @@
 @interface KSSBluetoothController ()
 @property NSArray *supportedServices;
 @property NSMutableArray *SERVICE_UUIDS;
-@property NSData *ON;
-@property NSData *OFF;
 @property CBUUID *SWITCHABLE_BASE;
 @property CBUUID *LIGHTSTATE;
 @property CBUUID *TEST_NOTIFY;
@@ -26,8 +24,6 @@
 @implementation KSSBluetoothController
 
 @synthesize connectedPeripherals;
-@synthesize ON;
-@synthesize OFF;
 @synthesize SWITCHABLE_BASE;
 @synthesize LIGHTSTATE;
 @synthesize SERVICE_UUIDS;
@@ -37,10 +33,11 @@
     self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:@{CBCentralManagerOptionRestoreIdentifierKey: @"switchableCentralManager"}];
     connectedPeripherals = [[NSMutableArray alloc] init];
     
-    const unsigned char zero[] = { 0x00 };
-    const unsigned char one[] = { 0x01 };
-    ON = [NSData dataWithBytes:zero length:1];
-    OFF = [NSData dataWithBytes:one length:1];
+    ON = [NSData dataWithBytes:(const unsigned char[]){ LightStateOn } length:1];
+    OFF = [NSData dataWithBytes:(const unsigned char[]){ LightStateOff } length:1];
+    TOGGLE = [NSData dataWithBytes:(const unsigned char[]) {LightStateToggle } length:1];
+    PULSE = [NSData dataWithBytes:(const unsigned char[]) { LightStatePulse } length:1];
+    STROBE = [NSData dataWithBytes:(const unsigned char[]) { LightStateStrobe } length:1];
     
     return self;
     return self;
@@ -183,17 +180,23 @@
 }
 
 // NEEDS TO BE TESTED
-- (void)switchLightForPeripheral:(CBPeripheral *)peripheral toState:(NSData *)state {
-    [peripheral writeValue:state forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
+- (void)turnLightOnForPeripheral:(CBPeripheral *)peripheral {
+    [peripheral writeValue:ON forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 // NEEDS TO BE TESTED
-- (void)identifyPeripheral:(CBPeripheral *)peripheral {
-    BOOL isOn = [peripheral.lightCharacteristic.value isEqualToData:ON];
-    [self switchLightForPeripheral:peripheral toState:(isOn ? OFF : ON)];
-    usleep(200000);
-    [self switchLightForPeripheral:peripheral toState:(isOn ? ON : OFF)];
-    [peripheral readValueForCharacteristic:peripheral.lightCharacteristic];
+- (void)turnLightOffForPeripheral:(CBPeripheral *)peripheral {
+    [peripheral writeValue:OFF forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
+}
+
+// NEEDS TO BE TESTED
+- (void)toggleLightForPeripheral:(CBPeripheral *)peripheral {
+    [peripheral writeValue:TOGGLE forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
+}
+
+// NEEDS TO BE TESTED
+- (void)startPulsingLightForPeripheral:(CBPeripheral *)peripheral {
+    [peripheral writeValue:PULSE forCharacteristic:peripheral.lightCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)stopScan {

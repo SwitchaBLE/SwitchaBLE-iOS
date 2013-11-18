@@ -120,7 +120,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView cellForRowAtIndexPath:indexPath] == self.identifyCell) {
-        [appDelegate.bluetoothController identifyPeripheral:self.device.peripheral];
+        [appDelegate.bluetoothController toggleLightForPeripheral:self.device.peripheral];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     } else if ([tableView cellForRowAtIndexPath:indexPath] == self.saveOrForgetCell) {
         if (self.deviceIsSaved) {

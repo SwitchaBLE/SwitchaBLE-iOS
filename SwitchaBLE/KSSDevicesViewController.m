@@ -52,7 +52,6 @@
         appDelegate.bluetoothController = [[KSSBluetoothController alloc] init];
     }
     
-    // NEEDS TO BE TESTED
     appDelegate.bluetoothController.deviceListDelegate = self;
     for (CBPeripheral *peripheral in appDelegate.bluetoothController.connectedPeripherals) {
         [self bluetoothController:appDelegate.bluetoothController didConnectToPeripheral:peripheral];
@@ -70,9 +69,9 @@
 
 - (void)deviceDetailsViewController:(KSSDeviceDetailsViewController *)controller didFinishSavingDevice:(Device *)device {
     Device *tempDevice = [nearbyArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uuid=%@", device.uuid]].firstObject;
+    NSIndexPath *destinationPath = [NSIndexPath indexPathForRow:0 inSection:1];
     if (tempDevice != nil) {
         NSIndexPath *sourcePath = [NSIndexPath indexPathForRow:[nearbyArray indexOfObject:tempDevice] inSection:0];
-        NSIndexPath *destinationPath = [NSIndexPath indexPathForRow:0 inSection:1];
         [nearbyArray removeObject:tempDevice];
         [savedArray insertObject:device atIndex:0];
         [self.tableView beginUpdates];
@@ -82,8 +81,16 @@
             [self.tableView insertRowsAtIndexPaths:@[sourcePath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         if (savedArray.count == 1) {
-            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView deleteRowsAtIndexPaths:@[destinationPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
+        [self.tableView endUpdates];
+    } else {
+        [savedArray insertObject:device atIndex:0];
+        [self.tableView beginUpdates];
+        if (savedArray.count == 1) {
+            [self.tableView deleteRowsAtIndexPaths:@[destinationPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        [self.tableView insertRowsAtIndexPaths:@[destinationPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
     }
 }
@@ -236,7 +243,7 @@
     
     cell.device = (Device *)[[self arrayForSection:indexPath.section] objectAtIndex:indexPath.row];
 
-    if (cell.device.peripheral != nil) {
+    if (cell.device.peripheral.state == CBPeripheralStateConnected) {
         cell.statusLabel.text = @"Connected";
         cell.statusLabel.enabled = cell.nameLabel.enabled = YES;
     } else {

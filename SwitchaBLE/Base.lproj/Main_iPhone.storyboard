@@ -24,45 +24,71 @@
                                             <rect key="frame" x="233" y="29" width="51" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </switch>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKa-hf-jzs">
-                                            <rect key="frame" x="20" y="20" width="57" height="34"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKa-hf-jzs">
+                                            <rect key="frame" x="20" y="13" width="49" height="52"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.0"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="28"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="44"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37w-SQ-ark">
-                                            <rect key="frame" x="81" y="31" width="24" height="21"/>
+                                            <rect key="frame" x="140" y="36" width="28" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="p8i-Ll-Yqg"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Device Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cUU-i7-swD">
-                                            <rect key="frame" x="20" y="52" width="205" height="21"/>
+                                            <rect key="frame" x="20" y="60" width="96" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="146-Qf-yeZ">
+                                            <rect key="frame" x="70" y="20" width="13" height="36"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="36" id="uXz-OL-8p8"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="AvenirNext-UltraLight" family="Avenir Next" pointSize="44"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xl7-8X-c9q">
+                                            <rect key="frame" x="83" y="20" width="49" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="38" id="rOj-we-oaE"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="44"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="37w-SQ-ark" firstAttribute="top" secondItem="Ilc-lH-n4C" secondAttribute="top" constant="31" id="2dM-Qa-5d0"/>
-                                        <constraint firstItem="fKa-hf-jzs" firstAttribute="leading" secondItem="Ilc-lH-n4C" secondAttribute="leading" constant="20" id="HQy-KC-exZ"/>
-                                        <constraint firstItem="37w-SQ-ark" firstAttribute="leading" secondItem="fKa-hf-jzs" secondAttribute="trailing" constant="4" id="Kx1-wY-QVZ"/>
+                                        <constraint firstItem="Xl7-8X-c9q" firstAttribute="leading" secondItem="146-Qf-yeZ" secondAttribute="trailing" id="Cb2-bx-ie2"/>
+                                        <constraint firstItem="146-Qf-yeZ" firstAttribute="leading" secondItem="fKa-hf-jzs" secondAttribute="trailing" constant="1" id="Tr7-If-shI"/>
+                                        <constraint firstItem="37w-SQ-ark" firstAttribute="top" secondItem="Ilc-lH-n4C" secondAttribute="top" constant="36" id="Y3B-ub-9Ct"/>
+                                        <constraint firstItem="146-Qf-yeZ" firstAttribute="top" secondItem="Ilc-lH-n4C" secondAttribute="top" constant="20" id="ZFs-WF-unN"/>
                                         <constraint firstItem="jLp-JN-mwK" firstAttribute="top" secondItem="Ilc-lH-n4C" secondAttribute="top" constant="29" id="a8O-gF-xJu"/>
-                                        <constraint firstItem="fKa-hf-jzs" firstAttribute="bottom" secondItem="37w-SQ-ark" secondAttribute="bottom" constant="2" id="fVG-Ho-gL2"/>
                                         <constraint firstAttribute="trailing" secondItem="jLp-JN-mwK" secondAttribute="trailing" constant="5" id="k94-a8-KmF"/>
-                                        <constraint firstItem="fKa-hf-jzs" firstAttribute="top" secondItem="Ilc-lH-n4C" secondAttribute="top" constant="20" id="kUR-aj-MHu"/>
+                                        <constraint firstItem="fKa-hf-jzs" firstAttribute="leading" secondItem="Ilc-lH-n4C" secondAttribute="leading" constant="20" id="kW5-dC-osT"/>
                                         <constraint firstAttribute="bottom" secondItem="jLp-JN-mwK" secondAttribute="bottom" constant="30" id="lDM-mw-aoX"/>
+                                        <constraint firstItem="37w-SQ-ark" firstAttribute="leading" secondItem="Xl7-8X-c9q" secondAttribute="trailing" constant="8" id="qpr-DA-AKi"/>
+                                        <constraint firstItem="Xl7-8X-c9q" firstAttribute="top" secondItem="Ilc-lH-n4C" secondAttribute="top" constant="20" id="rUm-K8-oI8"/>
+                                        <constraint firstItem="fKa-hf-jzs" firstAttribute="top" secondItem="Ilc-lH-n4C" secondAttribute="top" constant="13" id="yUi-fl-Wt6"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="deviceLabel" destination="cUU-i7-swD" id="ZJQ-DZ-PBX"/>
+                                    <outlet property="hoursLabel" destination="fKa-hf-jzs" id="1HE-mR-xvD"/>
                                     <outlet property="isSetSwitch" destination="jLp-JN-mwK" id="CrY-0v-Ckb"/>
                                     <outlet property="meridiemLabel" destination="37w-SQ-ark" id="bkF-U7-Dlm"/>
-                                    <outlet property="timeLabel" destination="fKa-hf-jzs" id="EmJ-Gl-i64"/>
+                                    <outlet property="minutesLabel" destination="Xl7-8X-c9q" id="rPd-f8-If3"/>
                                     <segue destination="cnt-Lk-XF6" kind="push" identifier="showEditAlarm" id="igO-vl-YIs"/>
                                 </connections>
                             </tableViewCell>
@@ -263,9 +289,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <rect key="frame" x="0.0" y="0.0" width="273" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="70x70placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="vhQ-si-91v">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DeviceIconDefault-small" translatesAutoresizingMaskIntoConstraints="NO" id="vhQ-si-91v">
                                             <rect key="frame" x="15" y="10" width="70" height="70"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="70" id="7yU-kg-JYk"/>
+                                                <constraint firstAttribute="width" constant="70" id="wHX-0m-AjB"/>
+                                            </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Device Nickname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fae-UU-ueB">
                                             <rect key="frame" x="99" y="20" width="185" height="29"/>
@@ -282,6 +312,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="vhQ-si-91v" firstAttribute="leading" secondItem="lGT-I7-IcG" secondAttribute="leading" constant="15" id="Sa7-dc-qGD"/>
+                                        <constraint firstItem="vhQ-si-91v" firstAttribute="top" secondItem="lGT-I7-IcG" secondAttribute="top" constant="10" id="cL0-2r-KYL"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="imageView" destination="vhQ-si-91v" id="JKb-yo-aHY"/>
@@ -340,8 +374,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="70x70placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="jRd-tg-ZP8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DeviceIconDefault" translatesAutoresizingMaskIntoConstraints="NO" id="jRd-tg-ZP8">
+                                                    <rect key="frame" x="10" y="5" width="300" height="107"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -794,6 +828,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="70x70placeholder" width="70" height="70"/>
         <image name="AlarmIcon" width="30" height="30"/>
         <image name="DeviceIcon" width="30" height="30"/>
+        <image name="DeviceIconDefault" width="101" height="208"/>
+        <image name="DeviceIconDefault-small" width="34" height="70"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

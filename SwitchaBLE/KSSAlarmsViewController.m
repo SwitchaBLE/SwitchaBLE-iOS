@@ -118,9 +118,13 @@
 
 - (void)formatCell:(KSSAlarmTableViewCell *)cell withAlarm:(Alarm *)alarm {
     
-    dateFormatter.dateFormat = @"h:mm";
-    cell.timeLabel.text = [dateFormatter stringFromDate:alarm.time];
-    [cell.timeLabel sizeToFit];
+    dateFormatter.dateFormat = @"h";
+    cell.hoursLabel.text = [dateFormatter stringFromDate:alarm.time];
+    [cell.hoursLabel sizeToFit];
+    
+    dateFormatter.dateFormat = @"mm";
+    cell.minutesLabel.text = [dateFormatter stringFromDate:alarm.time];
+    [cell.minutesLabel sizeToFit];
     
     dateFormatter.dateFormat = @"a";
     cell.meridiemLabel.text = [dateFormatter stringFromDate:alarm.time];

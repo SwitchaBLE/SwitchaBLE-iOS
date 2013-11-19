@@ -188,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				3A9498C117DD31C700F8872F /* SwitchaBLE */,
+				3A94993217DD385C00F8872F /* Main_iPhone.storyboard */,
 				3A9498DE17DD31C700F8872F /* SwitchaBLETests */,
 				3A9498B817DD31C700F8872F /* Frameworks */,
 				3A9498B717DD31C700F8872F /* Products */,
@@ -230,7 +231,6 @@
 				3A09E0DC1824B535007DE4C4 /* KSSTabBarController.m */,
 				3A5E361317F3332700988496 /* Alarms */,
 				3A5E361217F332FB00988496 /* Devices */,
-				3A94993217DD385C00F8872F /* Main_iPhone.storyboard */,
 				3AF0EAE31835C60B00567821 /* Utilities */,
 				3A9498C217DD31C700F8872F /* Supporting Files */,
 			);
@@ -448,6 +448,7 @@
 				3A94993317DD385C00F8872F /* Base */,
 			);
 			name = Main_iPhone.storyboard;
+			path = SwitchaBLE;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

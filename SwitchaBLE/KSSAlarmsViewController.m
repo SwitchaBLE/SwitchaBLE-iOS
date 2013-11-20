@@ -119,7 +119,9 @@
 - (void)formatCell:(KSSAlarmTableViewCell *)cell withAlarm:(Alarm *)alarm {
     
     dateFormatter.dateFormat = @"h";
-    cell.hoursLabel.text = [dateFormatter stringFromDate:alarm.time];
+    NSMutableAttributedString *hours = [[NSMutableAttributedString alloc] initWithString:[dateFormatter stringFromDate:alarm.time]];
+    [hours addAttribute:NSKernAttributeName value:@-3 range:NSMakeRange(0, hours.length)];
+    cell.hoursLabel.attributedText = hours;
     [cell.hoursLabel sizeToFit];
     
     dateFormatter.dateFormat = @"mm";

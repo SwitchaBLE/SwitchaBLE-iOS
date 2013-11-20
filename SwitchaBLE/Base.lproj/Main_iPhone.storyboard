@@ -53,7 +53,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Device Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cUU-i7-swD">
-                                            <rect key="frame" x="27" y="59" width="207" height="21"/>
+                                            <rect key="frame" x="20" y="59" width="207" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -94,6 +94,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="colonLabel" destination="146-Qf-yeZ" id="9cN-5o-bQL"/>
                                     <outlet property="deviceLabel" destination="cUU-i7-swD" id="ZJQ-DZ-PBX"/>
                                     <outlet property="hoursLabel" destination="fKa-hf-jzs" id="1HE-mR-xvD"/>
                                     <outlet property="isSetSwitch" destination="jLp-JN-mwK" id="CrY-0v-Ckb"/>

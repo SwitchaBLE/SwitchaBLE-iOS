@@ -111,6 +111,7 @@
     CGPoint switchPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     Alarm *alarm = [alarmsArray objectAtIndex:[self.tableView indexPathForRowAtPoint:switchPosition].row];
     alarm.isSet = [NSNumber numberWithBool:sender.isOn];
+    [self formatCell:(KSSAlarmTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[alarmsArray indexOfObject:alarm] inSection:0]] withAlarm:alarm];
     
     //[appDelegate scheduleAlarm:alarm];
     [appDelegate saveContext];
@@ -131,6 +132,20 @@
     dateFormatter.dateFormat = @"a";
     cell.meridiemLabel.text = [dateFormatter stringFromDate:alarm.time];
     cell.deviceLabel.text = alarm.device.name ?: @"No deivce selected";
+    
+    if ([alarm.isSet boolValue]) {
+        cell.meridiemLabel.enabled =
+        cell.colonLabel.enabled =
+        cell.minutesLabel.enabled =
+        cell.hoursLabel.enabled =
+        cell.deviceLabel.enabled = YES;
+    } else {
+        cell.meridiemLabel.enabled =
+        cell.colonLabel.enabled =
+        cell.minutesLabel.enabled =
+        cell.hoursLabel.enabled =
+        cell.deviceLabel.enabled = NO;
+    }
 }
 
 #pragma mark - Table view data source
